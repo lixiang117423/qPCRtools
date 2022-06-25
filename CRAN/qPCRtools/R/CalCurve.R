@@ -1,4 +1,6 @@
 #' @name CalCurve
+#' @author Xiang LI <lixiang117423@@gmail.com>
+#' @title Standard Curve Calculation.
 #' @description Standard Curve Calculation.
 #'
 #' @param cq.table The data frame of the position and Cq value.
@@ -32,7 +34,7 @@
 #'
 #' p[["table"]]
 #' p[["figure"]]
-#'
+#' @return A list.
 globalVariables(c(
   "cq.table",
   "concen.table",
