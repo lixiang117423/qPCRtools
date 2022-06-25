@@ -2,7 +2,7 @@
 
 # CalRTable
 Calculate RNA and other reagent volume required for reverse transcription.
-```
+```{r}
 df.1.path <- system.file("examples", "crtv.data.txt", package = "qPCRtools")
 df.2.path <- system.file("examples", "template", package = "qPCRtools")
 df.1 <- data.table::fread(df.1.path)
@@ -12,7 +12,7 @@ head(result)
 ```
 # CalCurve
 Standard Curve Calculation
-```
+```{r}
 df.1.path <- system.file("examples", "calsc.cq.txt", package = "qPCRtools")
 df.2.path <- system.file("examples", "calsc.info.txt", package = "qPCRtools")
 df.1 <- data.table::fread(df.1.path)
