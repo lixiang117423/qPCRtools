@@ -1,4 +1,4 @@
-#' Calculate RNA and other reagent volume required for reverse transcription..
+#' Calculate RNA and other reagent volume required for reverse transcription.
 #'
 #' @description A shiny Module.
 #' @param data A data.frame contained the sample names and the concentration value. The default unit of concentration is ng/uL.

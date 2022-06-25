@@ -1,4 +1,4 @@
-#' Standard Curve Calculation
+#' Standard Curve Calculation.
 #' @description A shiny Module.
 #'
 #' @param cq.table The data frame of the position and Cq value.

@@ -19,3 +19,9 @@ cp deve/R/CalCurve.R  CRAN/qPCRtools/R/
 git add *
 git commit -m "add function CalCurve"
 git push origin
+
+
+# edit README
+git add *
+git commit -m "Edit README"
+git push origin
