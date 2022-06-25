@@ -1,5 +1,7 @@
-#' Standard Curve Calculation
-#' @description A shiny Module.
+#' @name CalCurve
+#' @author Xiang LI <lixiang117423@@gmail.com>
+#' @title Standard Curve Calculation.
+#' @description Standard Curve Calculation.
 #'
 #' @param cq.table The data frame of the position and Cq value.
 #' @param concen.table The data frame of the position and concentration.
@@ -32,7 +34,7 @@
 #'
 #' p[["table"]]
 #' p[["figure"]]
-#'
+#' @return A list.
 globalVariables(c(
   "cq.table",
   "concen.table",

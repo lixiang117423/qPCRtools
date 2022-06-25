@@ -1,5 +1,5 @@
-#' Standard Curve Calculation.
-#' @description A shiny Module.
+#' @name CalCurve
+#' @description Standard Curve Calculation.
 #'
 #' @param cq.table The data frame of the position and Cq value.
 #' @param concen.table The data frame of the position and concentration.
