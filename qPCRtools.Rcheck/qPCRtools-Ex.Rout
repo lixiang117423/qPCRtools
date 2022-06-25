@@ -97,9 +97,35 @@ Warning in .recacheSubclasses(def@className, def, env) :
 > ### ** Examples
 > 
 > df.1.path <- system.file("examples", "crtv.data.txt", package = "qPCRtools")
-> df.2.path <- system.file("examples", "template", package = "qPCRtools")
+> df.2.path <- system.file("examples", "crtv.template.txt", package = "qPCRtools")
 > df.1 <- data.table::fread(df.1.path)
 > df.2 <- data.table::fread(df.2.path)
-Error in data.table::fread(df.2.path) : 
-  Input is empty or only contains BOM or terminal control characters
-Execution halted
+> result <- CalRTable(data = df.1, template = df.2, RNA.weight = 2)
+> head(result)
+  sample     mean volume.RNA mix gDNARemover all volume.h2o
+1      1 160.4000  12.468828   8           2  40   17.53117
+2      2 163.3333  12.244898   8           2  40   17.75510
+3      3 182.5667  10.954902   8           2  40   19.04510
+4      4 203.8000   9.813543   8           2  40   20.18646
+5      5 180.1333  11.102887   8           2  40   18.89711
+6      6 171.8333  11.639185   8           2  40   18.36081
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("CalRTable", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> ### * <FOOTER>
+> ###
+> cleanEx()
+> options(digits = 7L)
+> base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
+Time elapsed:  3.42 0.25 3.78 NA NA 
+> grDevices::dev.off()
+null device 
+          1 
+> ###
+> ### Local variables: ***
+> ### mode: outline-minor ***
+> ### outline-regexp: "\\(> \\)?### [*]+" ***
+> ### End: ***
+> quit('no')

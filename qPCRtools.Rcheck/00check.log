@@ -48,26 +48,9 @@ New submission
 * checking Rd \usage sections ... OK
 * checking Rd contents ... OK
 * checking for unstated dependencies in examples ... OK
-* checking examples ... ERROR
-Running examples in 'qPCRtools-Ex.R' failed
-The error most likely occurred in:
-
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
-> ### Name: CalRTable
-> ### Title: Calculate volume.
-> ### Aliases: CalRTable
-> 
-> ### ** Examples
-> 
-> df.1.path <- system.file("examples", "crtv.data.txt", package = "qPCRtools")
-> df.2.path <- system.file("examples", "template", package = "qPCRtools")
-> df.1 <- data.table::fread(df.1.path)
-> df.2 <- data.table::fread(df.2.path)
-Error in data.table::fread(df.2.path) : 
-  Input is empty or only contains BOM or terminal control characters
-Execution halted
+* checking examples ... OK
 * checking PDF version of manual ... OK
 * checking for non-standard things in the check directory ... OK
 * checking for detritus in the temp directory ... OK
 * DONE
-Status: 1 ERROR, 1 NOTE
+Status: 1 NOTE

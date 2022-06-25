@@ -20,6 +20,13 @@ git add *
 git commit -m "add function CalCurve"
 git push origin
 
+# add function CalCurve
+cp deve/R/CalExpCurve.R  CRAN/qPCRtools/R/
+
+git add *
+git commit -m "add function CalExpCurve"
+git push origin
+
 
 # edit README
 git add *
