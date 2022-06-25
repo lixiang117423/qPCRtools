@@ -3,11 +3,23 @@
 ** R
 ** inst
 ** byte-compile and prepare package for lazy loading
+Warning in .recacheSubclasses(def@className, def, env) :
+  undefined subclass "packedMatrix" of class "replValueSp"; definition not updated
+Warning in .recacheSubclasses(def@className, def, env) :
+  undefined subclass "packedMatrix" of class "mMatrix"; definition not updated
 ** help
 No man pages found in package  'qPCRtools' 
 *** installing help indices
 ** building package indices
 ** testing if installed package can be loaded from temporary location
+Warning in .recacheSubclasses(def@className, def, env) :
+  undefined subclass "packedMatrix" of class "replValueSp"; definition not updated
+Warning in .recacheSubclasses(def@className, def, env) :
+  undefined subclass "packedMatrix" of class "mMatrix"; definition not updated
 ** testing if installed package can be loaded from final location
+Warning in .recacheSubclasses(def@className, def, env) :
+  undefined subclass "packedMatrix" of class "replValueSp"; definition not updated
+Warning in .recacheSubclasses(def@className, def, env) :
+  undefined subclass "packedMatrix" of class "mMatrix"; definition not updated
 ** testing if installed package keeps a record of temporary installation path
 * DONE (qPCRtools)

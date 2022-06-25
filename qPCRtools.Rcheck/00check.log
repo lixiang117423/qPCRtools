@@ -9,15 +9,21 @@
 Maintainer: 'Xiang LI <lixiang117423@gmail.com>'
 
 New submission
+
+No package encoding and non-ASCII characters in the following R files:
+  R/CalCurve.R
+    82:     # <e6><9e><84><e5><bb><ba><e6><a8><a1><e5><9e><8b>
+    151:     # <e6><9e><84><e5><bb><ba><e6><a8><a1><e5><9e><8b>
 * checking package namespace information ... OK
 * checking package dependencies ... OK
 * checking if this is a source package ... OK
 * checking if there is a namespace ... OK
-* checking for .dll and .exe files ... OK
+* checking for executable files ... OK
 * checking for hidden files and directories ... OK
 * checking for portable file names ... OK
 * checking serialization versions ... OK
 * checking whether package 'qPCRtools' can be installed ... OK
+* checking installed package size ... OK
 * checking package directory ... OK
 * checking for future file timestamps ... OK
 * checking DESCRIPTION meta-information ... OK
@@ -38,11 +44,14 @@ New submission
 * checking S3 generic/method consistency ... OK
 * checking replacement functions ... OK
 * checking foreign function calls ... OK
-* checking R code for possible problems ... OK
+* checking R code for possible problems ... NOTE
+CalCurve: no visible binding for global variable 'mean.cq'
+Undefined global functions or variables:
+  mean.cq
 * checking for missing documentation entries ... OK
 * checking examples ... NONE
 * checking PDF version of manual ... OK
 * checking for non-standard things in the check directory ... OK
 * checking for detritus in the temp directory ... OK
 * DONE
-Status: 1 NOTE
+Status: 2 NOTEs

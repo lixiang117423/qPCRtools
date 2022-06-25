@@ -53,8 +53,7 @@ globalVariables(c(
   "E",
   "Date",
   "..rr.label..",
-  "..p.value.label..",
-  "mean.cq"
+  "..p.value.label.."
 ))
 
 CalCurve <- function(cq.table,
@@ -80,7 +79,7 @@ CalCurve <- function(cq.table,
     dplyr::ungroup() -> df
 
   if (isTRUE(by.mean)) {
-    # build model
+    # 构建模型
     fit.res <- NULL
 
     for (i in unique(df$Gene)) {
@@ -149,7 +148,7 @@ CalCurve <- function(cq.table,
 
     res <- list(table = res.table, figure = p)
   } else {
-    # build model
+    # 构建模型
     fit.res <- NULL
 
     for (i in unique(df$Gene)) {
