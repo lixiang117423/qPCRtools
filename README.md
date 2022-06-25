@@ -28,3 +28,18 @@ CalCurve(
 p[["table"]]
 p[["figure"]]
 ```
+# calculate expression using curve
+```{r}
+CalExpCurve(
+  cq.table,
+  curve.table,
+  design.table,
+  correction = TRUE,
+  ref.gene = "OsUBQ",
+  stat.method = "t.test",
+  ref.group = "CK",
+  fig.type = "box",
+  fig.ncol = NULL) -> res
+res[["table"]]
+res[["figure"]]
+```
