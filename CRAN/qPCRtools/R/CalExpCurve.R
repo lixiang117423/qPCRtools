@@ -1,5 +1,7 @@
 #' @name CalExpCurve
 #' @author Xiang LI <lixiang117423@@gmail.com>
+#'
+#' @title Calculate expression using standard curve.
 #' @description Calculate expression using standard curve.
 #'
 #' @param cq.table The data frame of the position and Cq value.
@@ -24,11 +26,12 @@
 #' df2.path = system.file("examples", "cal.expre.curve.sdc.txt", package = "qPCRtools")
 #' df3.path = system.file("examples", "cal.exp.curve.design.txt", package = "qPCRtools")
 #'
-#' df1 = data.table::fread(df1.path)
-#' df2 = data.table::fread(df2.path)
-#' df3 = data.table::fread(df3.path)
+#' cq.table = data.table::fread(df1.path)
+#' curve.table = data.table::fread(df2.path)
+#' design.table = data.table::fread(df3.path)
 #'
-#' CalExpCurve(cq.table,
+#' CalExpCurve(
+#'   cq.table,
 #'   curve.table,
 #'   design.table,
 #'   correction = TRUE,
@@ -38,8 +41,8 @@
 #'   fig.type = "box",
 #'   fig.ncol = NULL) -> res
 #'
-#' p[["table"]]
-#' p[["figure"]]
+#' res[["table"]]
+#' res[["figure"]]
 #'
 globalVariables(c(
   "cq.table",
@@ -58,9 +61,26 @@ globalVariables(c(
   "expre",
   "Intercept",
   "Slope",
-
+  "Treatment",
+  "element_text",
+  "group2",
+  "max.temp",
+  "mean.expre",
+  "mean.ref",
+  "n",
+  "sd",
+  "sd.expre",
+  "Treatment",
+  "mean.ref",
+  "group2",
+  "temp",
+  "n",
+  "sd.expre",
+  "n",
+  "mean.expre",
+  "element_text",
+  "max.temp"
 ))
-
 CalExpCurve <- function(cq.table,
                         curve.table,
                         design.table,
@@ -145,7 +165,7 @@ CalExpCurve <- function(cq.table,
       df.sub <- df %>%
         dplyr::filter(Gene == i) %>%
         dplyr::mutate(Treatment = factor(Treatment))
-      fit <- aov(expre ~ Treatment, data = df.sub)
+      fit <- stats::aov(expre ~ Treatment, data = df.sub)
       tuk <- multcomp::glht(fit, linfct = multcomp::mcp(Treatment = "Tukey"))
       multcomp::cld(tuk, level = 0.95, ddecreasing = TRUE)[["mcletters"]][["Letters"]] %>%
         as.data.frame() %>%
@@ -168,8 +188,8 @@ CalExpCurve <- function(cq.table,
     dplyr::group_by(Gene, Treatment) %>%
     dplyr::mutate(
       mean.expre = mean(expre),
-      sd.expre = sd(expre),
-      n = n(),
+      sd.expre = stats::sd(expre),
+      n = dplyr::n(),
       se = sd.expre / sqrt(n)
     ) %>%
     dplyr::ungroup() -> df.plot
@@ -188,7 +208,7 @@ CalExpCurve <- function(cq.table,
       ggplot2::labs(y = "Relative expression") +
       ggplot2::theme(
         legend.position = "none",
-        strip.text.x = element_text(face = "italic")
+        strip.text.x = ggplot2::element_text(face = "italic")
       ) -> p
   } else if (fig.type == "bar") {
     df.plot %>%
@@ -212,7 +232,7 @@ CalExpCurve <- function(cq.table,
       ggplot2::labs(y = "Relative expression") +
       ggplot2::theme(
         legend.position = "none",
-        strip.text.x = element_text(face = "italic")
+        strip.text.x = ggplot2::element_text(face = "italic")
       ) -> p
   }
 

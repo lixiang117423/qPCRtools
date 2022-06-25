@@ -25,6 +25,9 @@ usethis::use_package("readxl")
 usethis::use_package("reshape2")
 usethis::use_package("xlsx")
 usethis::use_package("sjmisc")
+usethis::use_package("rstatix")
+usethis::use_package("ggthemes")
+usethis::use_package("tibble")
 
 # other
 usethis::use_lifecycle_badge( "Experimental" )

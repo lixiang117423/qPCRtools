@@ -1,3 +1,4 @@
 name	user	system	elapsed
-CalCurve	0.74	0.14	0.92	
-CalRTable	0.04	0.01	0.05	
+CalCurve	0.67	0.02	0.69	
+CalExpCurve	0.95	0.00	0.98	
+CalRTable	0.01	0.02	0.03	

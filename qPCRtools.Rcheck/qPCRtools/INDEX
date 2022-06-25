@@ -1,2 +1,3 @@
 CalCurve                Standard Curve Calculation.
+CalExpCurve             Calculate expression using standard curve.
 CalRTable               Calculate volume.

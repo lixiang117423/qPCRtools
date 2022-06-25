@@ -1,9 +1,9 @@
 # generate NAMESPACE and build and check
+cp DESCRIPTION CRAN/qPCRtools/DESCRIPTION
 rm CRAN/qPCRtools/NAMESPACE
 Rscript roxygen2.R
 R CMD build CRAN/qPCRtools
 R CMD check *.tar.gz --as-cran
-
 
 # add function CalRTable
 cp deve/R/CalRTable.R  CRAN/qPCRtools/R/
@@ -20,7 +20,7 @@ git add *
 git commit -m "add function CalCurve"
 git push origin
 
-# add function CalCurve
+# add function CalExpCurve
 cp deve/R/CalExpCurve.R  CRAN/qPCRtools/R/
 
 git add *
