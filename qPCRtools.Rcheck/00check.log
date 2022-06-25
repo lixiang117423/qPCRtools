@@ -1,0 +1,48 @@
+* using log directory 'D:/JianGuoYun/Program/qPCRtools/qPCRtools.Rcheck'
+* using R version 4.1.3 (2022-03-10)
+* using platform: x86_64-w64-mingw32 (64-bit)
+* using session charset: CP936
+* using option '--as-cran'
+* checking for file 'qPCRtools/DESCRIPTION' ... OK
+* this is package 'qPCRtools' version '0.1.1'
+* checking CRAN incoming feasibility ... NOTE
+Maintainer: 'Xiang LI <lixiang117423@gmail.com>'
+
+New submission
+* checking package namespace information ... OK
+* checking package dependencies ... OK
+* checking if this is a source package ... OK
+* checking if there is a namespace ... OK
+* checking for .dll and .exe files ... OK
+* checking for hidden files and directories ... OK
+* checking for portable file names ... OK
+* checking serialization versions ... OK
+* checking whether package 'qPCRtools' can be installed ... OK
+* checking package directory ... OK
+* checking for future file timestamps ... OK
+* checking DESCRIPTION meta-information ... OK
+* checking top-level files ... OK
+* checking for left-over files ... OK
+* checking index information ... OK
+* checking package subdirectories ... OK
+* checking R files for non-ASCII characters ... OK
+* checking R files for syntax errors ... OK
+* checking whether the package can be loaded ... OK
+* checking whether the package can be loaded with stated dependencies ... OK
+* checking whether the package can be unloaded cleanly ... OK
+* checking whether the namespace can be loaded with stated dependencies ... OK
+* checking whether the namespace can be unloaded cleanly ... OK
+* checking loading without being on the library search path ... OK
+* checking use of S3 registration ... OK
+* checking dependencies in R code ... OK
+* checking S3 generic/method consistency ... OK
+* checking replacement functions ... OK
+* checking foreign function calls ... OK
+* checking R code for possible problems ... OK
+* checking for missing documentation entries ... OK
+* checking examples ... NONE
+* checking PDF version of manual ... OK
+* checking for non-standard things in the check directory ... OK
+* checking for detritus in the temp directory ... OK
+* DONE
+Status: 1 NOTE

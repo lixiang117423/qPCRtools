@@ -1,0 +1,21 @@
+Package: qPCRtools
+Authors@R: person('Xiang', 'LI', email = 'lixiang117423@gmail.com', role = c('cre', 'aut'))
+Version: 0.1.1
+Title: Tools for qPCR
+Description: PKG_DESC.
+URL: https://github.com/lixiang117423/qPCRtools
+BugReports: https://github.com/lixiang117423/qPCRtools/issues
+License: MIT + file LICENSE
+Imports: 
+    broom,
+    data.table,
+    dplyr,
+    ggplot2,
+    ggpmisc,
+    magrittr,
+    multcomp,
+    readxl,
+    reshape2,
+    sjmisc,
+    stringr,
+    xlsx
