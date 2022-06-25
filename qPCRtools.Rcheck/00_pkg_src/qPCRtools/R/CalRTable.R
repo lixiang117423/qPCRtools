@@ -1,6 +1,8 @@
-#' Calculate RNA and other reagent volume required for reverse transcription..
+#' @name CalRTable
+#' @author Xiang LI <lixiang117423@@gmail.com>
+#' @title Calculate volume.
+#' @description Calculate RNA and other reagent volume required for reverse transcription.
 #'
-#' @description A shiny Module.
 #' @param data A data.frame contained the sample names and the concentration value. The default unit of concentration is ng/uL.
 #' @param template A data.frame contained the information of reverse transcription.
 #' @param RNA.weight RNA weight required for reverse transcription. Default is 1 ug.
@@ -17,7 +19,7 @@
 #' df.2 <- data.table::fread(df.2.path)
 #' result <- CalRTable(data = df.1, template = df.2, RNA.weight = 2)
 #' head(result)
-#'
+#' @return A data frame.
 globalVariables(c("data", "template", "RNA.weight",
                   "df.1", "sum.temp", "sample",
                   "concentration", "volume.RNA",

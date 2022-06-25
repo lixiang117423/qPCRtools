@@ -9,11 +9,6 @@
 Maintainer: 'Xiang LI <lixiang117423@gmail.com>'
 
 New submission
-
-No package encoding and non-ASCII characters in the following R files:
-  R/CalCurve.R
-    82:     # <e6><9e><84><e5><bb><ba><e6><a8><a1><e5><9e><8b>
-    151:     # <e6><9e><84><e5><bb><ba><e6><a8><a1><e5><9e><8b>
 * checking package namespace information ... OK
 * checking package dependencies ... OK
 * checking if this is a source package ... OK
@@ -38,20 +33,41 @@ No package encoding and non-ASCII characters in the following R files:
 * checking whether the package can be unloaded cleanly ... OK
 * checking whether the namespace can be loaded with stated dependencies ... OK
 * checking whether the namespace can be unloaded cleanly ... OK
-* checking loading without being on the library search path ... OK
 * checking use of S3 registration ... OK
 * checking dependencies in R code ... OK
 * checking S3 generic/method consistency ... OK
 * checking replacement functions ... OK
 * checking foreign function calls ... OK
-* checking R code for possible problems ... NOTE
-CalCurve: no visible binding for global variable 'mean.cq'
-Undefined global functions or variables:
-  mean.cq
+* checking R code for possible problems ... OK
+* checking Rd files ... OK
+* checking Rd metadata ... OK
+* checking Rd line widths ... OK
+* checking Rd cross-references ... OK
 * checking for missing documentation entries ... OK
-* checking examples ... NONE
+* checking for code/documentation mismatches ... OK
+* checking Rd \usage sections ... OK
+* checking Rd contents ... OK
+* checking for unstated dependencies in examples ... OK
+* checking examples ... ERROR
+Running examples in 'qPCRtools-Ex.R' failed
+The error most likely occurred in:
+
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: CalRTable
+> ### Title: Calculate volume.
+> ### Aliases: CalRTable
+> 
+> ### ** Examples
+> 
+> df.1.path <- system.file("examples", "crtv.data.txt", package = "qPCRtools")
+> df.2.path <- system.file("examples", "template", package = "qPCRtools")
+> df.1 <- data.table::fread(df.1.path)
+> df.2 <- data.table::fread(df.2.path)
+Error in data.table::fread(df.2.path) : 
+  Input is empty or only contains BOM or terminal control characters
+Execution halted
 * checking PDF version of manual ... OK
 * checking for non-standard things in the check directory ... OK
 * checking for detritus in the temp directory ... OK
 * DONE
-Status: 2 NOTEs
+Status: 1 ERROR, 1 NOTE

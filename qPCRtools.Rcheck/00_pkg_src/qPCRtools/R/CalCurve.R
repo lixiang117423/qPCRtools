@@ -1,5 +1,7 @@
-#' Standard Curve Calculation
-#' @description A shiny Module.
+#' @name CalCurve
+#' @author Xiang LI <lixiang117423@@gmail.com>
+#' @title Standard Curve Calculation.
+#' @description Standard Curve Calculation.
 #'
 #' @param cq.table The data frame of the position and Cq value.
 #' @param concen.table The data frame of the position and concentration.
@@ -32,7 +34,7 @@
 #'
 #' p[["table"]]
 #' p[["figure"]]
-#'
+#' @return A list.
 globalVariables(c(
   "cq.table",
   "concen.table",
@@ -53,7 +55,8 @@ globalVariables(c(
   "E",
   "Date",
   "..rr.label..",
-  "..p.value.label.."
+  "..p.value.label..",
+  "mean.cq"
 ))
 
 CalCurve <- function(cq.table,
@@ -79,7 +82,7 @@ CalCurve <- function(cq.table,
     dplyr::ungroup() -> df
 
   if (isTRUE(by.mean)) {
-    # 构建模型
+    # build model
     fit.res <- NULL
 
     for (i in unique(df$Gene)) {
@@ -148,7 +151,7 @@ CalCurve <- function(cq.table,
 
     res <- list(table = res.table, figure = p)
   } else {
-    # 构建模型
+    # build model
     fit.res <- NULL
 
     for (i in unique(df$Gene)) {

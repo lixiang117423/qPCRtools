@@ -108,9 +108,11 @@ LaTeX Font Warning: Font shape `OML/zi4/m/n' undefined
 (Font)              using `OML/cmm/m/it' instead
 (Font)              for symbol `textless' on input line 27.
 
-No file Rd2.ind.
+(c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/utf8.def)
 [1{c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdf
-tex.map}] (./Rd2.aux)
+tex.map}]
+No file Rd2.ind.
+[2] (./Rd2.aux)
 
 Package rerunfilecheck Warning: File `Rd2.out' has changed.
 (rerunfilecheck)                Rerun to get outlines right
@@ -128,12 +130,16 @@ ang/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pf
 b><c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfont
 s/cm/cmr10.pfb><c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/p
 ublic/amsfonts/cm/cmr12.pfb><c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/
-fonts/type1/public/amsfonts/cm/cmss12.pfb>
-Output written on Rd2.pdf (1 page, 82657 bytes).
+fonts/type1/public/amsfonts/cm/cmsl10.pfb><c:/Users/xiang/AppData/Roaming/TinyT
+eX/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb><c:/Users/xiang/AppData
+/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb>
+Output written on Rd2.pdf (2 pages, 108966 bytes).
 Transcript written on Rd2.log.
 This is makeindex, version 2.15 [TeX Live 2019/W32TeX] (kpathsea + Thai support).
-Scanning input file Rd2.idx...done (0 entries accepted, 0 rejected).
-Nothing written in Rd2.ind.
+Scanning input file Rd2.idx....done (2 entries accepted, 0 rejected).
+Sorting entries....done (2 comparisons).
+Generating output file Rd2.ind....done (6 lines written, 0 warnings).
+Output written in Rd2.ind.
 Transcript written in Rd2.ilg.
 This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/W32TeX) (preloaded format=pdflatex)
  restricted \write18 enabled.
@@ -242,8 +248,15 @@ LaTeX Font Warning: Font shape `OML/zi4/m/n' undefined
 (Font)              using `OML/cmm/m/it' instead
 (Font)              for symbol `textless' on input line 27.
 
-(./Rd2.toc) (./Rd2.ind) [1{c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-var/fon
-ts/map/pdftex/updmap/pdftex.map}] (./Rd2.aux)
+(./Rd2.toc)
+(c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/utf8.def)
+[1{c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdf
+tex.map}] (./Rd2.ind [2] [3]) (./Rd2.aux)
+
+Package rerunfilecheck Warning: File `Rd2.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
@@ -256,9 +269,145 @@ ang/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pf
 b><c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfont
 s/cm/cmr10.pfb><c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/p
 ublic/amsfonts/cm/cmr12.pfb><c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/
-fonts/type1/public/amsfonts/cm/cmss12.pfb>
-Output written on Rd2.pdf (1 page, 82657 bytes).
+fonts/type1/public/amsfonts/cm/cmsl10.pfb><c:/Users/xiang/AppData/Roaming/TinyT
+eX/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb><c:/Users/xiang/AppData
+/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb>
+Output written on Rd2.pdf (3 pages, 110151 bytes).
+Transcript written on Rd2.log.
+This is makeindex, version 2.15 [TeX Live 2019/W32TeX] (kpathsea + Thai support).
+Scanning input file Rd2.idx....done (2 entries accepted, 0 rejected).
+Sorting entries....done (2 comparisons).
+Generating output file Rd2.ind....done (6 lines written, 0 warnings).
+Output written in Rd2.ind.
+Transcript written in Rd2.ilg.
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/W32TeX) (preloaded format=pdflatex)
+ restricted \write18 enabled.
+entering extended mode
+(./Rd2.tex
+LaTeX2e <2020-02-02> patch level 5
+L3 programming layer <2020-02-25>
+(c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/book.cls
+Document Class: book 2019/12/20 v1.4l Standard LaTeX document class
+(c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/bk10.clo))
+(d:/R/R-4.1.3/share/texmf/tex/latex/Rd.sty
+(c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/ifthen.sty)
+(c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tools/longtable.st
+y) (c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tools/bm.sty)
+(c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/alltt.sty)
+(c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tools/verbatim.sty
+) (c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/url/url.sty)
+(c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/textcomp.sty)
+
+(c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/inconsolata/zi4.st
+y `inconsolata-zi4' v1.12, 2019/05/17 Text macros for Inconsolata (msharpe)
+(c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/xkeyval/xkeyval.st
+y
+(c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/xkeyval/xkeyval.
+tex
+(c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/xkeyval/xkvutils
+.tex
+(c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/xkeyval/keyval.t
+ex)))))
+(c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/color.sty
+
+(c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics-cfg/color
+.cfg)
+(c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics-def/pdfte
+x.def))
+(c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/hyperref.
+sty
+(c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/ltxcmds/ltxcmds.
+sty)
+(c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/iftex/iftex.sty)
+
+(c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/pdftexcmds/pdftexc
+mds.sty
+(c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/infwarerr/infwar
+err.sty))
+(c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/kvsetkeys/kvsetk
+eys.sty)
+(c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/kvdefinekeys/kvd
+efinekeys.sty)
+(c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/pdfescape/pdfesc
+ape.sty)
+(c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hycolor/hycolor.st
+y)
+(c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/letltxmacro/letltx
+macro.sty)
+(c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/auxhook/auxhook.st
+y)
+(c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/kvoptions/kvoption
+s.sty)
+(c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/pd1enc.de
+f)
+(c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/intcalc/intcalc.
+sty)
+(c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/etexcmds/etexcmd
+s.sty)
+(c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/bitset/bitset.st
+y
+(c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/bigintcalc/bigin
+tcalc.sty))
+(c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/atbegshi/atbegsh
+i.sty))
+(c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/hpdftex.d
+ef
+(c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/atveryend/atveryen
+d.sty)
+(c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/rerunfilecheck/rer
+unfilecheck.sty
+(c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/uniquecounter/un
+iquecounter.sty)))
+
+Package hyperref Warning: Option `hyperindex' has already been used,
+(hyperref)                setting the option has no effect on input line 378.
+
+
+Package hyperref Warning: Option `pagebackref' has already been used,
+(hyperref)                setting the option has no effect on input line 378.
+
+) (c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/makeidx.sty
+)
+(c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/inputenc.sty
+(c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/latin1.def))
+Writing index file Rd2.idx
+
+(c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/l3backend/l3backen
+d-pdfmode.def) (./Rd2.aux)
+(c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/nameref.s
+ty
+(c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/refcount/refcount.
+sty)
+(c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/gettitlestring/g
+ettitlestring.sty)) (./Rd2.out) (./Rd2.out)
+(c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/inconsolata/ot1zi4
+.fd)
+
+LaTeX Font Warning: Font shape `OML/zi4/m/n' undefined
+(Font)              using `OML/cmm/m/it' instead
+(Font)              for symbol `textless' on input line 27.
+
+(./Rd2.toc)
+(c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/utf8.def)
+[1{c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdf
+tex.map}] (./Rd2.ind [2] [3]) (./Rd2.aux)
+
+LaTeX Font Warning: Some font shapes were not available, defaults substituted.
+
+ ){c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/inconsolat
+a/i4-ot1-0.enc}<c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/p
+ublic/inconsolata/Inconsolata-zi4r.pfb><c:/Users/xiang/AppData/Roaming/TinyTeX/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><c:/Users/xiang/AppData/Ro
+aming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c:/Users/xi
+ang/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pf
+b><c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfont
+s/cm/cmr10.pfb><c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/p
+ublic/amsfonts/cm/cmr12.pfb><c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/
+fonts/type1/public/amsfonts/cm/cmsl10.pfb><c:/Users/xiang/AppData/Roaming/TinyT
+eX/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb><c:/Users/xiang/AppData
+/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb>
+Output written on Rd2.pdf (3 pages, 110506 bytes).
 Transcript written on Rd2.log.
 Saving output to 'qPCRtools-manual.pdf' ...
 Done
-You may want to clean up by 'rm -Rf D:/Temp/User/RtmpKEulLV/Rd2pdf2e504fa93f1a'
+You may want to clean up by 'rm -Rf D:/Temp/User/RtmpQBoqbG/Rd2pdf463c22d7997'

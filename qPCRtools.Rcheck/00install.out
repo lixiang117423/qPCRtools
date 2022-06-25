@@ -8,7 +8,6 @@ Warning in .recacheSubclasses(def@className, def, env) :
 Warning in .recacheSubclasses(def@className, def, env) :
   undefined subclass "packedMatrix" of class "mMatrix"; definition not updated
 ** help
-No man pages found in package  'qPCRtools' 
 *** installing help indices
 ** building package indices
 ** testing if installed package can be loaded from temporary location

@@ -14,7 +14,7 @@
 #'
 #' @examples
 #' df.1.path <- system.file("examples", "crtv.data.txt", package = "qPCRtools")
-#' df.2.path <- system.file("examples", "template", package = "qPCRtools")
+#' df.2.path <- system.file("examples", "crtv.template.txt", package = "qPCRtools")
 #' df.1 <- data.table::fread(df.1.path)
 #' df.2 <- data.table::fread(df.2.path)
 #' result <- CalRTable(data = df.1, template = df.2, RNA.weight = 2)
