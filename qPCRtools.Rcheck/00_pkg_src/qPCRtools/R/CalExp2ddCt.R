@@ -103,7 +103,12 @@ CalExp2ddCt <- function(cq.table,
 
   # merge data
   cq.table %>%
-    dplyr::left_join(design.table, by = "position") -> df
+    dplyr::left_join(design.table, by = "Position") %>%
+    dplyr::rename(position = Position,
+                  cq = Cq,
+                  group = Group,
+                  gene = Gene,
+                  biorep = BioRep) -> df
 
   # for each gene
   target.genes <- setdiff(unique(df$gene), ref.gene)

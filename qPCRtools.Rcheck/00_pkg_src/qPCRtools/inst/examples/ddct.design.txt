@@ -1,4 +1,4 @@
-position	group	gene	biorep
+Position	Group	Gene	BioRep
 A1	CK	OSPOX8	1
 A2	CK	OsUBQ	1
 A3	CK	OsWAK91	1

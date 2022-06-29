@@ -4,6 +4,7 @@ rm CRAN/qPCRtools/NAMESPACE
 Rscript roxygen2.R
 R CMD build CRAN/qPCRtools
 R CMD check *.tar.gz --as-cran
+R CMD INSTALL *.tar.gz
 
 # add function CalExp2ddCt
 cp deve/R/CalRTable.R  CRAN/qPCRtools/R/
