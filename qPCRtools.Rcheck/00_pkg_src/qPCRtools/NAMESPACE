@@ -3,6 +3,7 @@
 export(CalCurve)
 export(CalExp2ddCt)
 export(CalExpCurve)
+export(CalExpRqPCR)
 export(CalRTable)
 importFrom(broom,glance)
 importFrom(dplyr,filter)

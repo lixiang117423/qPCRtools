@@ -31,10 +31,18 @@ git push origin
 cp deve/R/CalExp2ddCt.R  CRAN/qPCRtools/R/
 
 git add *
-git commit -m "add function CalExpCurve"
+git commit -m "add function CalExp2ddCt"
 git push origin
 
 # edit README
 git add *
 git commit -m "Edit README"
+git push origin
+
+
+# add function CalExpRqPCR
+cp deve/R/CalExpRqPCR.R  CRAN/qPCRtools/R/
+
+git add *
+git commit -m "add function CalExp2ddCt"
 git push origin

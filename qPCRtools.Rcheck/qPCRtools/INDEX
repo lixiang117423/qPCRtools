@@ -1,4 +1,5 @@
 CalCurve                Standard Curve Calculation.
 CalExp2ddCt             Calculate expression using standard curve.
 CalExpCurve             Calculate expression using standard curve.
+CalExpRqPCR             Calculate expression using standard curve.
 CalRTable               Calculate volume.

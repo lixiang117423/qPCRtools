@@ -127,6 +127,42 @@ res[["figure"]]
 base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
 base::cat("CalExpCurve", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
+nameEx("CalExpRqPCR")
+### * CalExpRqPCR
+
+flush(stderr()); flush(stdout())
+
+base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+### Name: CalExpRqPCR
+### Title: Calculate expression using standard curve.
+### Aliases: CalExpRqPCR
+
+### ** Examples
+
+df1.path <- system.file("examples", "cal.expre.rqpcr.cq.txt", package = "qPCRtools")
+df2.path <- system.file("examples", "cal.expre.rqpcr.design.txt", package = "qPCRtools")
+
+cq.table <- data.table::fread(df1.path, header = TRUE)
+design.table <- data.table::fread(df2.path, header = TRUE)
+
+CalExpRqPCR(cq.table,
+           design.table,
+           ref.gene = NULL,
+           ref.group = "CK",
+           stat.method = "t.test",
+           fig.type = "box",
+           fig.ncol = NULL
+           ) -> res
+
+res[["table"]]
+res[["figure"]]
+
+
+
+
+base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+base::cat("CalExpRqPCR", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+cleanEx()
 nameEx("CalRTable")
 ### * CalRTable
 

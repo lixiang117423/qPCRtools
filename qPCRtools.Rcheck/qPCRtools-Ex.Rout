@@ -187,6 +187,58 @@ Warning: Removed 40 rows containing missing values (geom_text).
 > base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
 > base::cat("CalExpCurve", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
+> nameEx("CalExpRqPCR")
+> ### * CalExpRqPCR
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: CalExpRqPCR
+> ### Title: Calculate expression using standard curve.
+> ### Aliases: CalExpRqPCR
+> 
+> ### ** Examples
+> 
+> df1.path <- system.file("examples", "cal.expre.rqpcr.cq.txt", package = "qPCRtools")
+> df2.path <- system.file("examples", "cal.expre.rqpcr.design.txt", package = "qPCRtools")
+> 
+> cq.table <- data.table::fread(df1.path, header = TRUE)
+> design.table <- data.table::fread(df2.path, header = TRUE)
+> 
+> CalExpRqPCR(cq.table,
++            design.table,
++            ref.gene = NULL,
++            ref.group = "CK",
++            stat.method = "t.test",
++            fig.type = "box",
++            fig.ncol = NULL
++            ) -> res
+> 
+> res[["table"]]
+# A tibble: 32 x 7
+# Groups:   gene [4]
+   group biorep gene    Expre4Stat Expression    SD    SE
+   <chr>  <int> <chr>        <dbl>      <dbl> <dbl> <dbl>
+ 1 CK         1 OSPOX8       1           1.39 0.541 0.270
+ 2 CK         1 OsWAK91      0.190       1    0.452 0.226
+ 3 CK         1 OsCeBip      1           1.12 0.502 0.251
+ 4 CK         1 OsPR10       1           1.95 0.624 0.312
+ 5 CK         2 OSPOX8       1.76        1.39 0.541 0.270
+ 6 CK         2 OsWAK91      0.303       1    0.452 0.226
+ 7 CK         2 OsCeBip      0.301       1.12 0.502 0.251
+ 8 CK         2 OsPR10       2.13        1.95 0.624 0.312
+ 9 CK         3 OSPOX8       1.17        1.39 0.541 0.270
+10 CK         3 OsWAK91      0.501       1    0.452 0.226
+# ... with 22 more rows
+> res[["figure"]]
+Warning: Removed 16 rows containing missing values (geom_text).
+> 
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("CalExpRqPCR", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
 > nameEx("CalRTable")
 > ### * CalRTable
 > 
@@ -222,7 +274,7 @@ Warning: Removed 40 rows containing missing values (geom_text).
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  5.3 0.33 5.78 NA NA 
+Time elapsed:  6.84 0.28 7.37 NA NA 
 > grDevices::dev.off()
 null device 
           1 
