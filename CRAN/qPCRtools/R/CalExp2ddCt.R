@@ -88,7 +88,11 @@ globalVariables(c(
   'mean.expression',
   'n.biorep',
   'sd.expression',
-  'se.expression'
+  'se.expression',
+  'BioRep',
+  'Eff',
+  'Group',
+  'TechRep'
 ))
 CalExp2ddCt <- function(cq.table,
                         design.table,
