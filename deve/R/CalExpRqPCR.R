@@ -115,7 +115,15 @@ CalExpRqPCR <- function(cq.table,
 
   # merge data
   cq.table %>%
-    dplyr::left_join(design.table, by = "position") -> df
+    dplyr::left_join(design.table, by = "Position") %>%
+    dplyr::rename(position = Position,
+                  cq = Cq,
+                  group = Group,
+                  gene = Gene,
+                  biorep = BioRep,
+                  techrep = TechRep,
+                  eff = Eff) -> df
+
   # start cal
   df.expre <- df %>%
     dplyr::group_by(biorep, group, gene) %>%

@@ -1,4 +1,4 @@
-position	group	gene	biorep	techrep	eff
+Position	Group	Gene	BioRep	TechRep	Eff
 A1	CK	OSPOX8	1	1	1.96
 A2	CK	OsUBQ	1	1	1.77
 A3	CK	OsWAK91	1	1	2.2

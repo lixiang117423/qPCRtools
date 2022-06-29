@@ -1,4 +1,4 @@
-position	cq
+Position	Cq
 A1	27.83
 A2	25.81
 A3	34.97
