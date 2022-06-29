@@ -103,7 +103,11 @@ globalVariables(c(
   'Expre4Stat',
   'Expression',
   'SD',
-  'SE'
+  'SE',
+  'BioRep',
+  'Eff',
+  'Group',
+  'TechRep'
 ))
 CalExpRqPCR <- function(cq.table,
                         design.table,
