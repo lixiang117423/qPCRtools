@@ -21,5 +21,6 @@ Imports:
     sjmisc,
     stringr,
     tibble,
+    tidyr,
     xlsx
 RoxygenNote: 7.2.0

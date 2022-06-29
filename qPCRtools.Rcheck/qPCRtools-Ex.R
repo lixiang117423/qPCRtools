@@ -52,6 +52,41 @@ p[["figure"]]
 base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
 base::cat("CalCurve", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
+nameEx("CalExp2ddCt")
+### * CalExp2ddCt
+
+flush(stderr()); flush(stdout())
+
+base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+### Name: CalExp2ddCt
+### Title: Calculate expression using standard curve.
+### Aliases: CalExp2ddCt
+
+### ** Examples
+
+df1.path = system.file("examples", "ddct.cq.txt", package = "qPCRtools")
+df2.path = system.file("examples", "ddct.design.txt", package = "qPCRtools")
+
+cq.table = data.table::fread(df1.path)
+design.table = data.table::fread(df2.path)
+
+CalExp2ddCt(cq.table,
+            design.table,
+            ref.gene = "OsUBQ",
+            ref.group = "CK",
+            stat.method = "t.test",
+            fig.type = "box",
+            fig.ncol = NULL) -> res
+
+res[["table"]]
+res[["figure"]]
+
+
+
+
+base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+base::cat("CalExp2ddCt", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+cleanEx()
 nameEx("CalExpCurve")
 ### * CalExpCurve
 

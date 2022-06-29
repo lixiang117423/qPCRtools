@@ -5,7 +5,7 @@ Rscript roxygen2.R
 R CMD build CRAN/qPCRtools
 R CMD check *.tar.gz --as-cran
 
-# add function CalRTable
+# add function CalExp2ddCt
 cp deve/R/CalRTable.R  CRAN/qPCRtools/R/
 
 git add *
@@ -27,6 +27,12 @@ git add *
 git commit -m "add function CalExpCurve"
 git push origin
 
+# add function CalExp2ddCt
+cp deve/R/CalExp2ddCt.R  CRAN/qPCRtools/R/
+
+git add *
+git commit -m "add function CalExpCurve"
+git push origin
 
 # edit README
 git add *

@@ -110,9 +110,9 @@ LaTeX Font Warning: Font shape `OML/zi4/m/n' undefined
 
 (c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/utf8.def)
 [1{c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdf
-tex.map}] [2]
+tex.map}] [2] [3]
 No file Rd2.ind.
-[3] (./Rd2.aux)
+[4] (./Rd2.aux)
 
 Package rerunfilecheck Warning: File `Rd2.out' has changed.
 (rerunfilecheck)                Rerun to get outlines right
@@ -133,12 +133,12 @@ ublic/amsfonts/cm/cmr12.pfb><c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/
 fonts/type1/public/amsfonts/cm/cmsl10.pfb><c:/Users/xiang/AppData/Roaming/TinyT
 eX/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb><c:/Users/xiang/AppData
 /Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on Rd2.pdf (3 pages, 114000 bytes).
+Output written on Rd2.pdf (4 pages, 115627 bytes).
 Transcript written on Rd2.log.
 This is makeindex, version 2.15 [TeX Live 2019/W32TeX] (kpathsea + Thai support).
-Scanning input file Rd2.idx....done (3 entries accepted, 0 rejected).
-Sorting entries....done (4 comparisons).
-Generating output file Rd2.ind....done (7 lines written, 0 warnings).
+Scanning input file Rd2.idx....done (4 entries accepted, 0 rejected).
+Sorting entries....done (9 comparisons).
+Generating output file Rd2.ind....done (8 lines written, 0 warnings).
 Output written in Rd2.ind.
 Transcript written in Rd2.ilg.
 This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/W32TeX) (preloaded format=pdflatex)
@@ -251,7 +251,7 @@ LaTeX Font Warning: Font shape `OML/zi4/m/n' undefined
 (./Rd2.toc)
 (c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/utf8.def)
 [1{c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdf
-tex.map}] [2] (./Rd2.ind [3] [4]) (./Rd2.aux)
+tex.map}] [2] [3] (./Rd2.ind [4] [5]) (./Rd2.aux)
 
 Package rerunfilecheck Warning: File `Rd2.out' has changed.
 (rerunfilecheck)                Rerun to get outlines right
@@ -272,12 +272,12 @@ ublic/amsfonts/cm/cmr12.pfb><c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/
 fonts/type1/public/amsfonts/cm/cmsl10.pfb><c:/Users/xiang/AppData/Roaming/TinyT
 eX/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb><c:/Users/xiang/AppData
 /Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on Rd2.pdf (4 pages, 115362 bytes).
+Output written on Rd2.pdf (5 pages, 117581 bytes).
 Transcript written on Rd2.log.
 This is makeindex, version 2.15 [TeX Live 2019/W32TeX] (kpathsea + Thai support).
-Scanning input file Rd2.idx....done (3 entries accepted, 0 rejected).
-Sorting entries....done (4 comparisons).
-Generating output file Rd2.ind....done (7 lines written, 0 warnings).
+Scanning input file Rd2.idx....done (4 entries accepted, 0 rejected).
+Sorting entries....done (9 comparisons).
+Generating output file Rd2.ind....done (8 lines written, 0 warnings).
 Output written in Rd2.ind.
 Transcript written in Rd2.ilg.
 This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/W32TeX) (preloaded format=pdflatex)
@@ -390,7 +390,7 @@ LaTeX Font Warning: Font shape `OML/zi4/m/n' undefined
 (./Rd2.toc)
 (c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/utf8.def)
 [1{c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdf
-tex.map}] [2] (./Rd2.ind [3] [4]) (./Rd2.aux)
+tex.map}] [2] [3] (./Rd2.ind [4] [5]) (./Rd2.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
@@ -406,8 +406,8 @@ ublic/amsfonts/cm/cmr12.pfb><c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/
 fonts/type1/public/amsfonts/cm/cmsl10.pfb><c:/Users/xiang/AppData/Roaming/TinyT
 eX/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb><c:/Users/xiang/AppData
 /Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on Rd2.pdf (4 pages, 115605 bytes).
+Output written on Rd2.pdf (5 pages, 117833 bytes).
 Transcript written on Rd2.log.
 Saving output to 'qPCRtools-manual.pdf' ...
 Done
-You may want to clean up by 'rm -Rf D:/Temp/User/RtmpSAGsg5/Rd2pdf3268613e345a'
+You may want to clean up by 'rm -Rf D:/Temp/User/Rtmp2xTejs/Rd2pdf44ec45922ed9'

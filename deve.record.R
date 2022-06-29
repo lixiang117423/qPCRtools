@@ -28,6 +28,7 @@ usethis::use_package("sjmisc")
 usethis::use_package("rstatix")
 usethis::use_package("ggthemes")
 usethis::use_package("tibble")
+usethis::use_package("tidyr")
 
 # other
 usethis::use_lifecycle_badge( "Experimental" )
