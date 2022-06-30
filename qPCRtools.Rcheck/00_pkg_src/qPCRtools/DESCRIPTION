@@ -11,6 +11,6 @@ Imports: broom, data.table, dplyr, ggplot2, ggpmisc, ggthemes,
         tibble, tidyr, xlsx
 RoxygenNote: 7.2.0
 NeedsCompilation: no
-Packaged: 2022-06-29 16:59:51 UTC; xiang
+Packaged: 2022-06-30 16:11:53 UTC; xiang
 Author: Xiang LI [cre, aut]
 Maintainer: Xiang LI <lixiang117423@gmail.com>

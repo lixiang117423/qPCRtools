@@ -1,7 +1,9 @@
 #' @name CalRTable
 #' @author Xiang LI <lixiang117423@@gmail.com>
-#' @title Calculate volume.
-#' @description Calculate RNA and other reagent volume required for reverse transcription.
+#' @title Calculate RNA volume for reverse transcription.
+#' @description The first step of qPCR is usually the preparation of cDNA.
+#' We need to calculate the column of RNA for reverse transcription to cDNA.
+#' So, if we have the concentration of RNA, we can use the function `CalRTable` to do that.
 #'
 #' @param data A data.frame contained the sample names and the concentration value. The default unit of concentration is ng/uL.
 #' @param template A data.frame contained the information of reverse transcription.

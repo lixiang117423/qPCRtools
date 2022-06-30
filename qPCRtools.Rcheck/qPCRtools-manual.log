@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/W32TeX) (preloaded format=pdflatex 2020.3.3)  29 JUN 2022 19:01
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/W32TeX) (preloaded format=pdflatex 2020.3.3)  30 JUN 2022 18:13
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -360,23 +360,23 @@ File: utf8.def 2019/11/14 v1.2k UTF-8 support for inputenc
 {c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdfte
 x.map}]
 LaTeX Font Info:    Font shape `OT1/zi4/m/n' will be
-(Font)              scaled to size 9.0pt on input line 63.
+(Font)              scaled to size 9.0pt on input line 66.
  [2] [3] [4] (./Rd2.ind [5] [6
 
 
 ])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 279.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 279.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 284.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 284.
  (./Rd2.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 279.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 279.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 284.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 284.
 Package rerunfilecheck Info: File `Rd2.out' has not changed.
 (rerunfilecheck)             Checksum: 1FE841FE210347D05D181B7FF7C41BC0;298.
 
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 279.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 284.
  ) 
 Here is how much of TeX's memory you used:
  5474 strings out of 482913
@@ -398,7 +398,7 @@ ublic/amsfonts/cm/cmr12.pfb><c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/
 fonts/type1/public/amsfonts/cm/cmsl10.pfb><c:/Users/xiang/AppData/Roaming/TinyT
 eX/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb><c:/Users/xiang/AppData
 /Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on Rd2.pdf (6 pages, 119962 bytes).
+Output written on Rd2.pdf (6 pages, 123301 bytes).
 PDF statistics:
  147 PDF objects out of 1000 (max. 8388607)
  128 compressed objects within 2 object streams

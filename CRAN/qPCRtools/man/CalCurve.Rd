@@ -8,19 +8,22 @@
 
 \item{concen.table}{The data frame of the position and concentration.}
 
-\item{highest.concen}{The highest concentration.}
+\item{highest.concen}{The highest concentration for calculation.}
 
-\item{lowest.concen}{The lowest concentration.}
+\item{lowest.concen}{The lowest concentration for calculation.}
 
-\item{dilution}{Dilution factor of cDNA template.}
+\item{dilution}{Dilution factor of cDNA template. The default value is 4.}
 
-\item{by.mean}{Calculation by mean Cq value or not.}
+\item{by.mean}{Calculation by mean Cq value or not. The default value is TRUE.}
 }
 \value{
 A list.
 }
 \description{
-Standard Curve Calculation.
+The function can calculate the standard curve.
+At the same time, it can get the amplification efficiency of primer(s).
+Based on the amplification efficiency, we can know which method can be
+used to calculate the expression level.
 }
 \examples{
 df.1.path <- system.file("examples", "calsc.cq.txt", package = "qPCRtools")

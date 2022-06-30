@@ -2,7 +2,7 @@
 % Please edit documentation in R/CalRTable.R
 \name{CalRTable}
 \alias{CalRTable}
-\title{Calculate volume.}
+\title{Calculate RNA volume for reverse transcription.}
 \arguments{
 \item{data}{A data.frame contained the sample names and the concentration value. The default unit of concentration is ng/uL.}
 
@@ -14,7 +14,9 @@
 A data frame.
 }
 \description{
-Calculate RNA and other reagent volume required for reverse transcription.
+The first step of qPCR is usually the preparation of cDNA.
+We need to calculate the column of RNA for reverse transcription to cDNA.
+So, if we have the concentration of RNA, we can use the function `CalRTable` to do that.
 }
 \examples{
 df.1.path <- system.file("examples", "crtv.data.txt", package = "qPCRtools")

@@ -170,7 +170,7 @@ flush(stderr()); flush(stdout())
 
 base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### Name: CalRTable
-### Title: Calculate volume.
+### Title: Calculate RNA volume for reverse transcription.
 ### Aliases: CalRTable
 
 ### ** Examples
