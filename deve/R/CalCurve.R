@@ -1,14 +1,17 @@
 #' @name CalCurve
 #' @author Xiang LI <lixiang117423@@gmail.com>
 #' @title Standard Curve Calculation.
-#' @description Standard Curve Calculation.
+#' @description The function can calculate the standard curve.
+#' At the same time, it can get the amplification efficiency of primer(s).
+#' Based on the amplification efficiency, we can know which method can be
+#' used to calculate the expression level.
 #'
 #' @param cq.table The data frame of the position and Cq value.
 #' @param concen.table The data frame of the position and concentration.
-#' @param highest.concen The highest concentration.
-#' @param lowest.concen The lowest concentration.
-#' @param dilution Dilution factor of cDNA template.
-#' @param by.mean Calculation by mean Cq value or not.
+#' @param highest.concen The highest concentration for calculation.
+#' @param lowest.concen The lowest concentration for calculation.
+#' @param dilution Dilution factor of cDNA template. The default value is 4.
+#' @param by.mean Calculation by mean Cq value or not. The default value is TRUE.
 #'
 #' @importFrom dplyr left_join filter group_by mutate ungroup
 #' @importFrom stats lm
