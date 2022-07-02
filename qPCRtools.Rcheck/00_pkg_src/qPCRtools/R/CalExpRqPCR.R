@@ -15,6 +15,8 @@
 #'
 #' @export
 #'
+#' @return A list contain a table and a figure.
+#'
 #' @examples
 #' df1.path <- system.file("examples", "cal.expre.rqpcr.cq.txt", package = "qPCRtools")
 #' df2.path <- system.file("examples", "cal.expre.rqpcr.design.txt", package = "qPCRtools")

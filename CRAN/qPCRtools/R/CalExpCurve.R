@@ -21,6 +21,8 @@
 #'
 #' @export
 #'
+#' @return A list contain a table and a figure.
+#'
 #' @examples
 #' df1.path = system.file("examples", "cal.exp.curve.cq.txt", package = "qPCRtools")
 #' df2.path = system.file("examples", "cal.expre.curve.sdc.txt", package = "qPCRtools")

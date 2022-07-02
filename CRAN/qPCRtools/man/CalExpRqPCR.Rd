@@ -20,6 +20,9 @@
 
 \item{fig.ncol}{Number of columes of figure.}
 }
+\value{
+A list contain a table and a figure.
+}
 \description{
 Calculate expression using standard curve.
 }

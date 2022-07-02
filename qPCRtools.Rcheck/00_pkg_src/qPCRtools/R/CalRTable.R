@@ -21,7 +21,7 @@
 #' df.2 <- data.table::fread(df.2.path)
 #' result <- CalRTable(data = df.1, template = df.2, RNA.weight = 2)
 #' head(result)
-#' @return A data frame.
+#' @return A list contain a table and a figure.
 globalVariables(c("data", "template", "RNA.weight",
                   "df.1", "sum.temp", "sample",
                   "concentration", "volume.RNA",

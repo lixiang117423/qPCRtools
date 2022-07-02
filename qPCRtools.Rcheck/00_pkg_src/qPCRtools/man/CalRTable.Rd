@@ -11,7 +11,7 @@
 \item{RNA.weight}{RNA weight required for reverse transcription. Default is 1 ug.}
 }
 \value{
-A data frame.
+A list contain a table and a figure.
 }
 \description{
 The first step of qPCR is usually the preparation of cDNA.

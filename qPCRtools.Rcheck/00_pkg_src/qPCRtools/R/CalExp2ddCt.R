@@ -14,7 +14,7 @@
 #' @param fig.ncol Number of columes of figure.
 #'
 #' @export
-#'
+#' @return A list contain a table and a figure.
 #' @examples
 #' df1.path = system.file("examples", "ddct.cq.txt", package = "qPCRtools")
 #' df2.path = system.file("examples", "ddct.design.txt", package = "qPCRtools")

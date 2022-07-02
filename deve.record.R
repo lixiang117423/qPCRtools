@@ -2,7 +2,14 @@
 golem::fill_desc(
   pkg_name = "qPCRtools", # The Name of the package containing the App
   pkg_title = "Tools for qPCR", # The Title of the package containing the App
-  pkg_description = "PKG_DESC.", # The Description of the package containing the App
+  pkg_description = "qPCR is a widely used method to detect the expression level of genes in biological research.
+  A crucial step in processing qPCR data is to calculate
+  the amplification efficiency of genes to determine
+  which method should be used to calculate expression level of genes.
+  This Package can do it easily.
+  In addition to that,
+  this package can calculate the expression level of genes
+  based on three methods.", # The Description of the package containing the App
   author_first_name = "Xiang", # Your First Name
   author_last_name = "LI", # Your Last Name
   author_email = "lixiang117423@gmail.com", # Your Email

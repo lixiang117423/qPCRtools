@@ -47,3 +47,8 @@ cp deve/R/CalExpRqPCR.R  CRAN/qPCRtools/R/
 git add *
 git commit -m "add function CalExpRqPCR"
 git push origin
+
+# update description
+git add *
+git commit -m "add function CalExpRqPCR"
+git push origin
