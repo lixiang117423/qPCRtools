@@ -50,5 +50,5 @@ git push origin
 
 # update description
 git add *
-git commit -m "add function CalExpRqPCR"
+git commit -m "update according to the email"
 git push origin

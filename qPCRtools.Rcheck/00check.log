@@ -9,6 +9,8 @@
 Maintainer: 'Xiang LI <lixiang117423@gmail.com>'
 
 New submission
+
+The Description field should start with a capital letter.
 * checking package namespace information ... OK
 * checking package dependencies ... OK
 * checking if this is a source package ... OK
