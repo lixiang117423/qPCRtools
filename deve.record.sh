@@ -32,7 +32,7 @@ git push origin
 cp deve/R/CalExp2ddCt.R  CRAN/qPCRtools/R/
 
 git add *
-git commit -m "add function CalExp2ddCt"
+git commit -m "fix some error of function CalExp2ddCt"
 git push origin
 
 # edit README
