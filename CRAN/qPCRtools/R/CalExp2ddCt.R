@@ -148,7 +148,7 @@ CalExp2ddCt <- function(cq.table,
         dplyr::mutate(dct1 = dct1)
       # 判断目的基因是否在里面
       if (ncol(df.sub.group) == 3 & !genes %in% colnames(df.sub.group)) {
-        stop(paste0("Data of arget gene ", genes, " has some problem, please check it and try again!"))
+        stop(paste0("Data of target gene ", genes, " has some problem, please check it and try again!"))
       }
       if (colnames(df.sub.group)[3] == ref.gene) {
         df.sub.group %>%
@@ -280,7 +280,7 @@ CalExp2ddCt <- function(cq.table,
       ) -> p
   } else if (fig.type == "bar") {
     df.plot %>%
-      dplyr::group_by(gene) %>%
+      dplyr::group_by(Treatment, gene) %>%
       dplyr::mutate(max.temp = max(expre)) %>%
       dplyr::ungroup() %>%
       ggplot2::ggplot(ggplot2::aes(Treatment, mean.expre / n, fill = Treatment)) +
@@ -295,7 +295,7 @@ CalExp2ddCt <- function(cq.table,
       ggplot2::geom_hline(ggplot2::aes(yintercept = max.temp * 1.1), color = NA) +
       ggplot2::facet_wrap(. ~ gene, scales = "free_y", ncol = fig.ncol) +
       ggplot2::geom_text(ggplot2::aes(Treatment, max.temp * 1.08, label = signif),
-                         check_overlap = TRUE, size = 4, color = "black"
+                         check_overlap = TRUE, size = 4, color = "red"
       ) +
       ggthemes::theme_pander() +
       ggplot2::labs(y = "Relative expression") +
