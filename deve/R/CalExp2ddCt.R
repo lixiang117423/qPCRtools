@@ -146,7 +146,7 @@ CalExp2ddCt <- function(cq.table,
         dplyr::distinct_all() %>%
         tidyr::pivot_wider(id_cols = "biorep", names_from = "gene", values_from = "cq") %>%
         dplyr::mutate(dct1 = dct1)
-      # 判断目的基因是否在里面
+      # including ref gene or not
       if (ncol(df.sub.group) == 3 & !genes %in% colnames(df.sub.group)) {
         stop(paste0("Data of target gene ", genes, " has some problem, please check it and try again!"))
       }

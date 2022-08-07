@@ -68,10 +68,10 @@ Type 'q()' to quit R.
 3 Gene3 y = -2.24*Conc + 33.34 -2.24     33.34 0.9969       0  31.39  19.59
 4 Gene4 y = -2.21*Conc + 35.46 -2.21     35.46 0.9977       0  33.44  22.06
       E       Date
-1 0.954 2022-07-24
-2 0.941 2022-07-24
-3 0.857 2022-07-24
-4 0.873 2022-07-24
+1 0.954 2022-08-07
+2 0.941 2022-08-07
+3 0.857 2022-08-07
+4 0.873 2022-08-07
 > p[["figure"]]
 `geom_smooth()` using formula 'y ~ x'
 > 
@@ -108,19 +108,20 @@ Type 'q()' to quit R.
 > 
 > res[["table"]]
 # A tibble: 40 x 10
-   Treatment gene   biorep expre mean.expre sd.expre     n se.expre temp  signif
-   <chr>     <chr>   <int> <dbl>      <dbl>    <dbl> <int>    <dbl> <chr> <chr> 
- 1 Treatment OsPR10      1 0.540      0.690    0.274     4    0.345 OsPR~ NS    
- 2 Treatment OsPR10      2 0.810      0.690    0.274     4    0.345 OsPR~ NS    
- 3 Treatment OsPR10      3 0.398      0.690    0.274     4    0.345 OsPR~ NS    
- 4 Treatment OsPR10      4 1.01       0.690    0.274     4    0.345 OsPR~ NS    
- 5 CK        OsPR10      1 0.807      2.03     1.53      4    1.02  OsPR~ <NA>  
- 6 CK        OsPR10      2 3.17       2.03     1.53      4    1.02  OsPR~ <NA>  
- 7 CK        OsPR10      3 0.631      2.03     1.53      4    1.02  OsPR~ <NA>  
- 8 CK        OsPR10      4 3.52       2.03     1.53      4    1.02  OsPR~ <NA>  
- 9 Treatment OsCeB~      1 0.452      1.11     0.548     4    0.556 OsCe~ NS    
-10 Treatment OsCeB~      2 1.67       1.11     0.548     4    0.556 OsCe~ NS    
-# ... with 30 more rows
+   Treatment gene    biorep expre mean.expre sd.expre     n se.ex~1 temp  signif
+   <chr>     <chr>    <int> <dbl>      <dbl>    <dbl> <int>   <dbl> <chr> <chr> 
+ 1 Treatment OsPR10       1 0.540      0.690    0.274     4   0.345 OsPR~ NS    
+ 2 Treatment OsPR10       2 0.810      0.690    0.274     4   0.345 OsPR~ NS    
+ 3 Treatment OsPR10       3 0.398      0.690    0.274     4   0.345 OsPR~ NS    
+ 4 Treatment OsPR10       4 1.01       0.690    0.274     4   0.345 OsPR~ NS    
+ 5 CK        OsPR10       1 0.807      2.03     1.53      4   1.02  OsPR~ <NA>  
+ 6 CK        OsPR10       2 3.17       2.03     1.53      4   1.02  OsPR~ <NA>  
+ 7 CK        OsPR10       3 0.631      2.03     1.53      4   1.02  OsPR~ <NA>  
+ 8 CK        OsPR10       4 3.52       2.03     1.53      4   1.02  OsPR~ <NA>  
+ 9 Treatment OsCeBip      1 0.452      1.11     0.548     4   0.556 OsCe~ NS    
+10 Treatment OsCeBip      2 1.67       1.11     0.548     4   0.556 OsCe~ NS    
+# ... with 30 more rows, and abbreviated variable name 1: se.expre
+# i Use `print(n = ...)` to see more rows
 > res[["figure"]]
 Warning: Removed 20 rows containing missing values (geom_text).
 > 
@@ -178,6 +179,7 @@ Warning in CalExpCurve(cq.table, curve.table, design.table, correction = TRUE,  
  9 CK        OsCeBip 0.751 OsCeBipCK <NA>        0.842   0.171      8 0.0606
 10 CK        OsPR10  1.06  OsPR10CK  <NA>        1.25    0.201      8 0.0711
 # ... with 70 more rows
+# i Use `print(n = ...)` to see more rows
 > res[["figure"]]
 Warning: Removed 40 rows containing missing values (geom_text).
 > 
@@ -230,6 +232,7 @@ Warning: Removed 40 rows containing missing values (geom_text).
  9 CK         3 OSPOX8       1.17        1.39 0.541 0.270
 10 CK         3 OsWAK91      0.501       1    0.452 0.226
 # ... with 22 more rows
+# i Use `print(n = ...)` to see more rows
 > res[["figure"]]
 Warning: Removed 16 rows containing missing values (geom_text).
 > 
@@ -274,7 +277,7 @@ Warning: Removed 16 rows containing missing values (geom_text).
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  5.55 0.22 6.11 NA NA 
+Time elapsed:  6.68 0.36 7.71 NA NA 
 > grDevices::dev.off()
 null device 
           1 

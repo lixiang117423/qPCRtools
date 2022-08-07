@@ -52,3 +52,8 @@ git push origin
 git add *
 git commit -m "update according to the email"
 git push origin
+
+# update version
+git add *
+git commit -m "update to version 0.2.0"
+git push origin
