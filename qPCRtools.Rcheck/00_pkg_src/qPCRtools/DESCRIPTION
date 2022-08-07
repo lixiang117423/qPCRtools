@@ -2,7 +2,7 @@ Package: qPCRtools
 Authors@R: person('Xiang', 'LI', email = 'lixiang117423@gmail.com', role = c('cre', 'aut'))
 Version: 0.2.0
 Title: Tools for qPCR
-Description: The package qPCR is a widely used method to detect the expression level of genes in 
+Description: RT-qPCR is a widely used method to detect the expression level of genes in 
   biological research. A crucial step in processing qPCR data is to calculate 
   the amplification efficiency of genes to determine which method should be used 
   to calculate expression level of genes. This Package can do it easily. 
@@ -16,6 +16,6 @@ Imports: broom, data.table, dplyr, ggplot2, ggpmisc, ggthemes,
         tibble, tidyr, xlsx
 RoxygenNote: 7.2.1
 NeedsCompilation: no
-Packaged: 2022-08-07 07:19:28 UTC; xiang
+Packaged: 2022-08-07 07:56:50 UTC; xiang
 Author: Xiang LI [cre, aut]
 Maintainer: Xiang LI <lixiang117423@gmail.com>

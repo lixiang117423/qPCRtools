@@ -5,15 +5,8 @@
 * using option '--as-cran'
 * checking for file 'qPCRtools/DESCRIPTION' ... OK
 * this is package 'qPCRtools' version '0.2.0'
-* checking CRAN incoming feasibility ... NOTE
+* checking CRAN incoming feasibility ... Note_to_CRAN_maintainers
 Maintainer: 'Xiang LI <lixiang117423@gmail.com>'
-
-No package encoding and non-ASCII characters in the following R files:
-  R/CalExp2ddCt.R
-    149:       # <e5><88><a4><e6><96><ad><e7><9b><ae><e7><9a><84><e5><9f><ba><e5><9b><a0><e6><98><af><e5><90><a6><e5><9c><a8><e9><87><8c><e9><9d><a2>
-
-The Description field should not start with the package name,
-  'This package' or similar.
 * checking package namespace information ... OK
 * checking package dependencies ... OK
 * checking if this is a source package ... OK
@@ -58,4 +51,4 @@ The Description field should not start with the package name,
 * checking for non-standard things in the check directory ... OK
 * checking for detritus in the temp directory ... OK
 * DONE
-Status: 1 NOTE
+Status: OK
