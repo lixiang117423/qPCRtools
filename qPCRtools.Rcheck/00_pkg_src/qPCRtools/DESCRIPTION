@@ -18,6 +18,6 @@ RoxygenNote: 7.2.1
 Suggests: knitr, rmarkdown
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2022-08-15 09:19:08 UTC; xiang
+Packaged: 2022-08-15 09:46:35 UTC; xiang
 Author: Xiang LI [cre, aut]
 Maintainer: Xiang LI <lixiang117423@gmail.com>

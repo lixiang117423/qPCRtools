@@ -52,12 +52,11 @@ Maintainer: 'Xiang LI <lixiang117423@gmail.com>'
 * checking installed files from 'inst/doc' ... OK
 * checking files in 'vignettes' ... OK
 * checking examples ... OK
-* checking for unstated dependencies in vignettes ... NOTE
-'library' or 'require' call not declared from: 'tidyverse'
+* checking for unstated dependencies in vignettes ... OK
 * checking package vignettes in 'inst/doc' ... OK
 * checking re-building of vignette outputs ... OK
 * checking PDF version of manual ... OK
 * checking for non-standard things in the check directory ... OK
 * checking for detritus in the temp directory ... OK
 * DONE
-Status: 1 WARNING, 1 NOTE
+Status: 1 WARNING
