@@ -6,7 +6,7 @@
 \arguments{
 \item{data}{A data.frame contained the sample names and the concentration value. The default unit of concentration is ng/uL.}
 
-\item{template}{A data.frame contained the information of reverse transcription.}
+\item{template}{A data.frame contained the information of reverse transcription. In this data.frame there must be a column called `all`.}
 
 \item{RNA.weight}{RNA weight required for reverse transcription. Default is 1 ug.}
 }

@@ -1,6 +1,6 @@
 Package: qPCRtools
 Authors@R: person('Xiang', 'LI', email = 'lixiang117423@gmail.com', role = c('cre', 'aut'))
-Version: 0.2.0
+Version: 0.2.1
 Title: Tools for qPCR
 Description: RT-qPCR is a widely used method to detect the expression level of genes in 
   biological research. A crucial step in processing qPCR data is to calculate 
@@ -12,10 +12,12 @@ URL: https://github.com/lixiang117423/qPCRtools
 BugReports: https://github.com/lixiang117423/qPCRtools/issues
 License: MIT + file LICENSE
 Imports: broom, data.table, dplyr, ggplot2, ggpmisc, ggthemes,
-        magrittr, multcomp, readxl, reshape2, rstatix, sjmisc, stringr,
-        tibble, tidyr, xlsx
+        kableExtra, magrittr, multcomp, readxl, reshape2, rstatix,
+        sjmisc, stringr, tibble, tidyr, xlsx
 RoxygenNote: 7.2.1
+Suggests: knitr, rmarkdown
+VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2022-08-07 07:56:50 UTC; xiang
+Packaged: 2022-08-15 09:19:08 UTC; xiang
 Author: Xiang LI [cre, aut]
 Maintainer: Xiang LI <lixiang117423@gmail.com>

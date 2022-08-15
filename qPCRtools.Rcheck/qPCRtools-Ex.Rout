@@ -68,10 +68,10 @@ Type 'q()' to quit R.
 3 Gene3 y = -2.24*Conc + 33.34 -2.24     33.34 0.9969       0  31.39  19.59
 4 Gene4 y = -2.21*Conc + 35.46 -2.21     35.46 0.9977       0  33.44  22.06
       E       Date
-1 0.954 2022-08-07
-2 0.941 2022-08-07
-3 0.857 2022-08-07
-4 0.873 2022-08-07
+1 0.954 2022-08-15
+2 0.941 2022-08-15
+3 0.857 2022-08-15
+4 0.873 2022-08-15
 > p[["figure"]]
 `geom_smooth()` using formula 'y ~ x'
 > 
@@ -277,7 +277,7 @@ Warning: Removed 16 rows containing missing values (geom_text).
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  6.66 0.32 7.79 NA NA 
+Time elapsed:  8.5 0.45 9.54 NA NA 
 > grDevices::dev.off()
 null device 
           1 

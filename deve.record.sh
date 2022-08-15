@@ -57,3 +57,20 @@ git push origin
 git add *
 git commit -m "update to version 0.2.0"
 git push origin
+
+
+# update
+rm CRAN/qPCRtools/DESCRIPTION
+cp DESCRIPTION CRAN/qPCRtools/DESCRIPTION
+cp -r vignettes CRAN/qPCRtools
+cp deve/R/* CRAN/qPCRtools/R
+
+rm CRAN/qPCRtools/NAMESPACE
+Rscript roxygen2.R
+R CMD build CRAN/qPCRtools
+R CMD check *.tar.gz --as-cran
+R CMD INSTALL *.tar.gz
+
+git add .
+git commit -m "update"
+git push origin

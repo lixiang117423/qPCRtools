@@ -18,6 +18,7 @@ Imports:
     ggplot2,
     ggpmisc,
     ggthemes,
+    kableExtra,
     magrittr,
     multcomp,
     readxl,

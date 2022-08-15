@@ -106,7 +106,7 @@ ettitlestring.sty))
 
 LaTeX Font Warning: Font shape `OML/zi4/m/n' undefined
 (Font)              using `OML/cmm/m/it' instead
-(Font)              for symbol `textless' on input line 33.
+(Font)              for symbol `textless' on input line 35.
 
 (c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/utf8.def)
 [1{c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdf
@@ -133,7 +133,7 @@ ublic/amsfonts/cm/cmr12.pfb><c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/
 fonts/type1/public/amsfonts/cm/cmsl10.pfb><c:/Users/xiang/AppData/Roaming/TinyT
 eX/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb><c:/Users/xiang/AppData
 /Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on Rd2.pdf (5 pages, 121555 bytes).
+Output written on Rd2.pdf (5 pages, 122373 bytes).
 Transcript written on Rd2.log.
 This is makeindex, version 2.15 [TeX Live 2019/W32TeX] (kpathsea + Thai support).
 Scanning input file Rd2.idx....done (5 entries accepted, 0 rejected).
@@ -246,12 +246,12 @@ ettitlestring.sty)) (./Rd2.out) (./Rd2.out)
 
 LaTeX Font Warning: Font shape `OML/zi4/m/n' undefined
 (Font)              using `OML/cmm/m/it' instead
-(Font)              for symbol `textless' on input line 33.
+(Font)              for symbol `textless' on input line 35.
 
 (./Rd2.toc)
 (c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/utf8.def)
 [1{c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdf
-tex.map}] [2] [3] [4] (./Rd2.ind [5] [6]) (./Rd2.aux)
+tex.map}] [2] [3] [4] [5] (./Rd2.ind [6] [7]) (./Rd2.aux)
 
 Package rerunfilecheck Warning: File `Rd2.out' has changed.
 (rerunfilecheck)                Rerun to get outlines right
@@ -272,7 +272,7 @@ ublic/amsfonts/cm/cmr12.pfb><c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/
 fonts/type1/public/amsfonts/cm/cmsl10.pfb><c:/Users/xiang/AppData/Roaming/TinyT
 eX/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb><c:/Users/xiang/AppData
 /Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on Rd2.pdf (6 pages, 123684 bytes).
+Output written on Rd2.pdf (7 pages, 125138 bytes).
 Transcript written on Rd2.log.
 This is makeindex, version 2.15 [TeX Live 2019/W32TeX] (kpathsea + Thai support).
 Scanning input file Rd2.idx....done (5 entries accepted, 0 rejected).
@@ -385,7 +385,7 @@ ettitlestring.sty)) (./Rd2.out) (./Rd2.out)
 
 LaTeX Font Warning: Font shape `OML/zi4/m/n' undefined
 (Font)              using `OML/cmm/m/it' instead
-(Font)              for symbol `textless' on input line 33.
+(Font)              for symbol `textless' on input line 35.
 
 (./Rd2.toc)
 (c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/utf8.def)
@@ -406,8 +406,8 @@ ublic/amsfonts/cm/cmr12.pfb><c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/
 fonts/type1/public/amsfonts/cm/cmsl10.pfb><c:/Users/xiang/AppData/Roaming/TinyT
 eX/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb><c:/Users/xiang/AppData
 /Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on Rd2.pdf (7 pages, 124662 bytes).
+Output written on Rd2.pdf (7 pages, 125378 bytes).
 Transcript written on Rd2.log.
 Saving output to 'qPCRtools-manual.pdf' ...
 Done
-You may want to clean up by 'rm -Rf D:/Temp/User/RtmpQt5r3T/Rd2pdf93038462c4a'
+You may want to clean up by 'rm -Rf D:/Temp/User/Rtmp8A3dFX/Rd2pdf415c4c7076ec'

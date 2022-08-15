@@ -4,7 +4,7 @@
 * using session charset: CP936
 * using option '--as-cran'
 * checking for file 'qPCRtools/DESCRIPTION' ... OK
-* this is package 'qPCRtools' version '0.2.0'
+* this is package 'qPCRtools' version '0.2.1'
 * checking CRAN incoming feasibility ... Note_to_CRAN_maintainers
 Maintainer: 'Xiang LI <lixiang117423@gmail.com>'
 * checking package namespace information ... OK
@@ -19,6 +19,7 @@ Maintainer: 'Xiang LI <lixiang117423@gmail.com>'
 * checking installed package size ... OK
 * checking package directory ... OK
 * checking for future file timestamps ... OK
+* checking 'build' directory ... OK
 * checking DESCRIPTION meta-information ... OK
 * checking top-level files ... OK
 * checking for left-over files ... OK
@@ -46,9 +47,17 @@ Maintainer: 'Xiang LI <lixiang117423@gmail.com>'
 * checking Rd \usage sections ... OK
 * checking Rd contents ... OK
 * checking for unstated dependencies in examples ... OK
+ WARNING
+'qpdf' is needed for checks on size reduction of PDFs
+* checking installed files from 'inst/doc' ... OK
+* checking files in 'vignettes' ... OK
 * checking examples ... OK
+* checking for unstated dependencies in vignettes ... NOTE
+'library' or 'require' call not declared from: 'tidyverse'
+* checking package vignettes in 'inst/doc' ... OK
+* checking re-building of vignette outputs ... OK
 * checking PDF version of manual ... OK
 * checking for non-standard things in the check directory ... OK
 * checking for detritus in the temp directory ... OK
 * DONE
-Status: OK
+Status: 1 WARNING, 1 NOTE

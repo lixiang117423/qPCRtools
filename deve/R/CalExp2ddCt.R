@@ -10,7 +10,7 @@
 #' @param ref.gene The name of reference gene.
 #' @param ref.group The name of reference group.
 #' @param stat.method Statistical method.
-#' @param fig.type Calculation by mean cq value or not.
+#' @param fig.type Output image type, `box` represents `boxplot`, `bar` represents `barplot`.
 #' @param fig.ncol Number of columes of figure.
 #'
 #' @export

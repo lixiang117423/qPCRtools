@@ -36,12 +36,13 @@ usethis::use_package("rstatix")
 usethis::use_package("ggthemes")
 usethis::use_package("tibble")
 usethis::use_package("tidyr")
+usethis::use_package("kableExtra")
 
 # other
 usethis::use_lifecycle_badge( "Experimental" )
 usethis::use_version("patch")
 usethis::use_version("minor")
-#usethis::use_version("minor")
+usethis::use_version("patch")
 
 
 # create functions

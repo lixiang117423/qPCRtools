@@ -16,7 +16,7 @@
 
 \item{stat.method}{Statistical method.}
 
-\item{fig.type}{Calculation by mean cq value or not.}
+\item{fig.type}{Output image type, `box` represents `boxplot`, `bar` represents `barplot`.}
 
 \item{fig.ncol}{Number of columes of figure.}
 }

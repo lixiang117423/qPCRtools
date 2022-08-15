@@ -6,7 +6,7 @@
 #' So, if we have the concentration of RNA, we can use the function `CalRTable` to do that.
 #'
 #' @param data A data.frame contained the sample names and the concentration value. The default unit of concentration is ng/uL.
-#' @param template A data.frame contained the information of reverse transcription.
+#' @param template A data.frame contained the information of reverse transcription. In this data.frame there must be a column called `all`.
 #' @param RNA.weight RNA weight required for reverse transcription. Default is 1 ug.
 #'
 #' @importFrom dplyr select rename group_by mutate ungroup

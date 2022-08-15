@@ -16,7 +16,7 @@
 
 \item{ref.group}{The name of reference group.}
 
-\item{fig.type}{Calculation by mean Cq value or not.}
+\item{fig.type}{Output image type, `box` represents `boxplot`, `bar` represents `barplot`.}
 
 \item{fig.ncol}{Number of columes of figure.}
 }
