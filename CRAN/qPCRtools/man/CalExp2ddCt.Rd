@@ -16,6 +16,8 @@
 
 \item{stat.method}{Statistical method.}
 
+\item{remove.outliers}{Remove the outliers of each group and gene, or not.}
+
 \item{fig.type}{Output image type, `box` represents `boxplot`, `bar` represents `barplot`.}
 
 \item{fig.ncol}{Number of columes of figure.}
@@ -30,14 +32,15 @@ Calculate expression using standard curve.
 df1.path = system.file("examples", "ddct.cq.txt", package = "qPCRtools")
 df2.path = system.file("examples", "ddct.design.txt", package = "qPCRtools")
 
-cq.table = data.table::fread(df1.path)
-design.table = data.table::fread(df2.path)
+cq.table = read.table(df1.path, header = TRUE)
+design.table = read.table(df2.path, header = TRUE)
 
 CalExp2ddCt(cq.table,
             design.table,
             ref.gene = "OsUBQ",
             ref.group = "CK",
             stat.method = "t.test",
+            remove.outliers = TRUE,
             fig.type = "box",
             fig.ncol = NULL) -> res
 

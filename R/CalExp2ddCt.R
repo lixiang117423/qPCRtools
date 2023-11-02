@@ -20,8 +20,8 @@
 #' df1.path = system.file("examples", "ddct.cq.txt", package = "qPCRtools")
 #' df2.path = system.file("examples", "ddct.design.txt", package = "qPCRtools")
 #'
-#' cq.table = data.table::fread(df1.path)
-#' design.table = data.table::fread(df2.path)
+#' cq.table = read.table(df1.path, header = TRUE)
+#' design.table = read.table(df2.path, header = TRUE)
 #'
 #' CalExp2ddCt(cq.table,
 #'             design.table,
@@ -95,7 +95,13 @@ globalVariables(c(
   'BioRep',
   'Eff',
   'Group',
-  'TechRep'
+  'TechRep',
+  'rr.label',
+  'p.value.label',
+  'IQR',
+  'quantile',
+  'is.out'
+
 ))
 CalExp2ddCt <- function(cq.table,
                         design.table,

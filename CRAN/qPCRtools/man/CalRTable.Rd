@@ -21,8 +21,8 @@ So, if we have the concentration of RNA, we can use the function `CalRTable` to 
 \examples{
 df.1.path <- system.file("examples", "crtv.data.txt", package = "qPCRtools")
 df.2.path <- system.file("examples", "crtv.template.txt", package = "qPCRtools")
-df.1 <- data.table::fread(df.1.path)
-df.2 <- data.table::fread(df.2.path)
+df.1 <- read.table(df.1.path, sep = "\t", header = TRUE)
+df.2 <- read.table(df.2.path, sep = "\t", header = TRUE)
 result <- CalRTable(data = df.1, template = df.2, RNA.weight = 2)
 head(result)
 }

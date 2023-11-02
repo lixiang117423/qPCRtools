@@ -28,8 +28,8 @@ used to calculate the expression level.
 \examples{
 df.1.path <- system.file("examples", "calsc.cq.txt", package = "qPCRtools")
 df.2.path <- system.file("examples", "calsc.info.txt", package = "qPCRtools")
-df.1 <- data.table::fread(df.1.path)
-df.2 <- data.table::fread(df.2.path)
+df.1 <- read.table(df.1.path, header = TRUE)
+df.2 <- read.table(df.2.path, header = TRUE)
 CalCurve(
   cq.table = df.1,
   concen.table = df.2,

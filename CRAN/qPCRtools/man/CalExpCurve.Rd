@@ -31,9 +31,9 @@ df1.path = system.file("examples", "cal.exp.curve.cq.txt", package = "qPCRtools"
 df2.path = system.file("examples", "cal.expre.curve.sdc.txt", package = "qPCRtools")
 df3.path = system.file("examples", "cal.exp.curve.design.txt", package = "qPCRtools")
 
-cq.table = data.table::fread(df1.path)
-curve.table = data.table::fread(df2.path)
-design.table = data.table::fread(df3.path)
+cq.table = read.table(df1.path, header = TRUE)
+curve.table = read.table(df2.path, sep = "\t", header = TRUE)
+design.table = read.table(df3.path, header = TRUE)
 
 CalExpCurve(
   cq.table,

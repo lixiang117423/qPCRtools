@@ -17,14 +17,20 @@ usethis::use_package("dplyr")
 usethis::use_package("magrittr")
 usethis::use_package("ggplot2")
 usethis::use_package("ggpmisc")
-usethis::use_package("stringr")
-usethis::use_package("data.table")
+# usethis::use_package("stringr")
+# usethis::use_package("data.table")
 usethis::use_package("multcomp")
 usethis::use_package("broom")
-usethis::use_package("readxl")
-usethis::use_package("reshape2")
-usethis::use_package("xlsx")
-usethis::use_package("sjmisc")
+# usethis::use_package("readxl")
+# usethis::use_package("reshape2")
+# usethis::use_package("xlsx")
+# usethis::use_package("sjmisc")
+usethis::use_package("kableExtra")
+usethis::use_package("stats")
+usethis::use_package('ggthemes')
+usethis::use_package('rstatix')
+usethis::use_package('tibble')
+usethis::use_package('tidyr')
 
 # other
 usethis::use_lifecycle_badge( "Experimental" )
@@ -47,13 +53,15 @@ file.copy("./LICENSE", "./CRAN/qPCRtools/", recursive = TRUE)
 # check and build
 library(roxygen2)
 
-roxygen2::roxygenize('../qPCRtools')
+rm(list = ls())
 
-system('R CMD build ../qPCRtools --binary')
+roxygen2::roxygenize('./CRAN/qPCRtools')
 
-system('R CMD check ggmotif_0.1.3.tar.gz --as-cran')
+system('R CMD build ./CRAN/qPCRtools --binary')
 
-devtools::install_local('ggmotif_0.1.3.tar.gz')
+system('R CMD check qPCRtools_1.0.1.tar.gz --as-cran')
+
+# devtools::install_local('ggmotif_0.1.3.tar.gz')
 
 
 

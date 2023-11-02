@@ -13,8 +13,8 @@
 #' @examples
 #' df1.path <- system.file("examples", "dct.cq.txt", package = "qPCRtools")
 #' df2.path <- system.file("examples", "dct.design.txt", package = "qPCRtools")
-#' cq.table <- data.table::fread(df1.path)
-#' design.table <- data.table::fread(df2.path)
+#' cq.table <- read.table(df1.path, sep = ",", header = TRUE)
+#' design.table <- read.table(df2.path, sep = ",", header = TRUE)
 #' CalExp2dCt(cq.table,
 #'            design.table,
 #'            ref.gene = "Actin"
@@ -116,7 +116,7 @@ CalExp2dCt <- function(cq.table,
     dplyr::mutate(expre = 2^(mean.cq - cq)) %>%
     dplyr::group_by(group, gene) %>%
     dplyr::mutate(
-      n = n(),
+      n = dplyr::n(),
       mean.expre = mean(expre),
       sd.expre = sd(expre),
       se.expre = sd.expre / sqrt(n)

@@ -8,14 +8,15 @@ BugReports: https://github.com/lixiang117423/qPCRtools/issues
 License: MIT + file LICENSE
 Imports: 
     broom,
-    data.table,
     dplyr,
     ggplot2,
     ggpmisc,
+    ggthemes,
+    kableExtra,
     magrittr,
     multcomp,
-    readxl,
-    reshape2,
-    sjmisc,
-    stringr,
-    xlsx
+    rstatix,
+    stats,
+    tibble,
+    tidyr
+RoxygenNote: 7.2.3

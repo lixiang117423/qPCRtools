@@ -21,8 +21,8 @@
 #' df1.path <- system.file("examples", "cal.expre.rqpcr.cq.txt", package = "qPCRtools")
 #' df2.path <- system.file("examples", "cal.expre.rqpcr.design.txt", package = "qPCRtools")
 #'
-#' cq.table <- data.table::fread(df1.path, header = TRUE)
-#' design.table <- data.table::fread(df2.path, header = TRUE)
+#' cq.table <- read.table(df1.path, header = TRUE)
+#' design.table <- read.table(df2.path, header = TRUE)
 #'
 #' CalExpRqPCR(cq.table,
 #'            design.table,
