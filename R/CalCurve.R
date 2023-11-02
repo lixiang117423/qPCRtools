@@ -130,8 +130,10 @@ CalCurve <- function(cq.table,
       ggpmisc::stat_poly_eq(
         ggplot2::aes(
           label = paste( # ..eq.label..,
-            ..rr.label..,
-            ..p.value.label..,
+            # ..rr.label..,
+            ggplot2::after_stat(rr.label),
+            ggplot2::after_stat(p.value.label),
+            # ..p.value.label..,
             sep = "~~~~"
           )
         ),
