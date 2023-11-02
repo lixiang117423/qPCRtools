@@ -176,6 +176,6 @@ res[["figure"]]
 
 ## References
 
-Please cite `qPCRtools` paper:
+If this package is used in your publication, please cite `qPCRtools` paper:
 
 >[Li X, Wang Y, Li J, et al. qPCRtools: An R package for qPCR data processing and visualization[J]. Frontiers in Genetics, 2022, 13: 1002704.](https://www.frontiersin.org/articles/10.3389/fgene.2022.1002704/full)
