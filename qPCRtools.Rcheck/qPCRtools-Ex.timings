@@ -1,6 +1,2 @@
 name	user	system	elapsed
-CalCurve	0.83	0.04	0.89	
-CalExp2ddCt	1.78	0.04	1.87	
-CalExpCurve	0.75	0.01	0.78	
-CalExpRqPCR	0.99	0.00	1.03	
-CalRTable	0.01	0.03	0.05	
+CalCurve	0.68	0.06	0.80	

@@ -110,9 +110,9 @@ LaTeX Font Warning: Font shape `OML/zi4/m/n' undefined
 
 (c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/utf8.def)
 [1{c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdf
-tex.map}] [2] [3] [4]
+tex.map}] [2] [3] [4] [5]
 No file Rd2.ind.
-[5] (./Rd2.aux)
+[6] (./Rd2.aux)
 
 Package rerunfilecheck Warning: File `Rd2.out' has changed.
 (rerunfilecheck)                Rerun to get outlines right
@@ -133,12 +133,12 @@ ublic/amsfonts/cm/cmr12.pfb><c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/
 fonts/type1/public/amsfonts/cm/cmsl10.pfb><c:/Users/xiang/AppData/Roaming/TinyT
 eX/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb><c:/Users/xiang/AppData
 /Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on Rd2.pdf (5 pages, 122373 bytes).
+Output written on Rd2.pdf (6 pages, 123597 bytes).
 Transcript written on Rd2.log.
 This is makeindex, version 2.15 [TeX Live 2019/W32TeX] (kpathsea + Thai support).
-Scanning input file Rd2.idx....done (5 entries accepted, 0 rejected).
-Sorting entries....done (11 comparisons).
-Generating output file Rd2.ind....done (9 lines written, 0 warnings).
+Scanning input file Rd2.idx....done (6 entries accepted, 0 rejected).
+Sorting entries....done (15 comparisons).
+Generating output file Rd2.ind....done (10 lines written, 0 warnings).
 Output written in Rd2.ind.
 Transcript written in Rd2.ilg.
 This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/W32TeX) (preloaded format=pdflatex)
@@ -272,12 +272,12 @@ ublic/amsfonts/cm/cmr12.pfb><c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/
 fonts/type1/public/amsfonts/cm/cmsl10.pfb><c:/Users/xiang/AppData/Roaming/TinyT
 eX/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb><c:/Users/xiang/AppData
 /Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on Rd2.pdf (7 pages, 125138 bytes).
+Output written on Rd2.pdf (7 pages, 125154 bytes).
 Transcript written on Rd2.log.
 This is makeindex, version 2.15 [TeX Live 2019/W32TeX] (kpathsea + Thai support).
-Scanning input file Rd2.idx....done (5 entries accepted, 0 rejected).
-Sorting entries....done (11 comparisons).
-Generating output file Rd2.ind....done (9 lines written, 0 warnings).
+Scanning input file Rd2.idx....done (6 entries accepted, 0 rejected).
+Sorting entries....done (15 comparisons).
+Generating output file Rd2.ind....done (10 lines written, 0 warnings).
 Output written in Rd2.ind.
 Transcript written in Rd2.ilg.
 This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/W32TeX) (preloaded format=pdflatex)
@@ -406,8 +406,8 @@ ublic/amsfonts/cm/cmr12.pfb><c:/Users/xiang/AppData/Roaming/TinyTeX/texmf-dist/
 fonts/type1/public/amsfonts/cm/cmsl10.pfb><c:/Users/xiang/AppData/Roaming/TinyT
 eX/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb><c:/Users/xiang/AppData
 /Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on Rd2.pdf (7 pages, 125378 bytes).
+Output written on Rd2.pdf (7 pages, 125523 bytes).
 Transcript written on Rd2.log.
 Saving output to 'qPCRtools-manual.pdf' ...
 Done
-You may want to clean up by 'rm -Rf D:/Temp/User/RtmpslJV6y/Rd2pdf9b055e24c1b'
+You may want to clean up by 'rm -Rf D:/Temp/User/Rtmpc3iJ72/Rd2pdf3f0c3f583263'

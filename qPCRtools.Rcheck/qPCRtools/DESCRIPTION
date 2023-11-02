@@ -1,6 +1,6 @@
 Package: qPCRtools
 Authors@R: person('Xiang', 'LI', email = 'lixiang117423@gmail.com', role = c('cre', 'aut'))
-Version: 0.2.1
+Version: 0.2.3
 Title: Tools for qPCR
 Description: RT-qPCR is a widely used method to detect the expression level of genes in 
   biological research. A crucial step in processing qPCR data is to calculate 
@@ -18,7 +18,7 @@ RoxygenNote: 7.2.1
 Suggests: knitr, rmarkdown
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2022-08-15 09:46:35 UTC; xiang
+Packaged: 2022-08-24 12:06:48 UTC; xiang
 Author: Xiang LI [cre, aut]
 Maintainer: Xiang LI <lixiang117423@gmail.com>
-Built: R 4.1.3; ; 2022-08-15 09:47:34 UTC; windows
+Built: R 4.1.3; ; 2022-08-24 12:07:23 UTC; windows

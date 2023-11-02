@@ -1,4 +1,5 @@
 CalCurve                Standard Curve Calculation.
+CalExp2dCt              Calculate expression using standard curve.
 CalExp2ddCt             Calculate expression using standard curve.
 CalExpCurve             Calculate expression using standard curve.
 CalExpRqPCR             Calculate expression using standard curve.

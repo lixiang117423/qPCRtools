@@ -593,13 +593,12 @@ have the concentration of RNA, we can use the function
 patameters:</p>
 <ul>
 <li><code>data</code>: The table of RNA concentration. The unit of
-concentration is ng/<span class="math inline">\(\mu\)</span>l. The demo
-data can be found at <a href="https://github.com/lixiang117423/qPCRtools/blob/main/CRAN/qPCRtools/inst/examples/crtv.data.txt">GitHub</a>.</li>
+concentration is ng/μl. The demo data can be found at <a href="https://github.com/lixiang117423/qPCRtools/blob/main/CRAN/qPCRtools/inst/examples/crtv.data.txt">GitHub</a>.</li>
 <li><code>template</code>: The table of reagent for reverse
 transcription. The demo data can be found at <a href="https://github.com/lixiang117423/qPCRtools/blob/main/CRAN/qPCRtools/inst/examples/crtv.template.txt">GitHub</a>.
-The column <code>all</code> that must be in this dataframe is the total
-volume for 1 $ $g RNA.</li>
-<li><code>RNA.weight</code>: The mass of RNA. The unit is $ $g. The
+The column <code>all</code> that must be in this <code>data.frame</code>
+is the total volume for 1 μg RNA.</li>
+<li><code>RNA.weight</code>: The mass of RNA. The unit is μg. The
 default value is 2.</li>
 </ul>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span>
@@ -889,7 +888,7 @@ y = -2.07*Conc + 40.08
 0.954
 </td>
 <td style="text-align:left;">
-2022-08-15
+2022-08-24
 </td>
 </tr>
 <tr>
@@ -921,7 +920,7 @@ y = -2.09*Conc + 34.97
 0.941
 </td>
 <td style="text-align:left;">
-2022-08-15
+2022-08-24
 </td>
 </tr>
 <tr>
@@ -953,7 +952,7 @@ y = -2.24*Conc + 33.34
 0.857
 </td>
 <td style="text-align:left;">
-2022-08-15
+2022-08-24
 </td>
 </tr>
 <tr>
@@ -985,7 +984,7 @@ y = -2.21*Conc + 35.46
 0.873
 </td>
 <td style="text-align:left;">
-2022-08-15
+2022-08-24
 </td>
 </tr>
 </tbody>
@@ -1011,12 +1010,15 @@ found at <a href="https://github.com/lixiang117423/qPCRtools/blob/main/CRAN/qPCR
 - <code>correction</code>: Expression level is corrected or not with
 internal reference genes. The default value is <code>TRUE</code>. -
 <code>ref.gene</code>: The name of reference gene. -
-<code>stat.method</code>: The method of statistics. One of
-<code>t.test</code>, <code>wilcox.test</code> or <code>anova</code>. The
-default value is <code>t.test</code>. - <code>ref.group</code>: The name
-of reference group. If <code>stat.method</code> is <code>t.test</code>
-or <code>wilcox.test</code>, the function need a <code>ref.group</code>.
-- <code>fig.type</code>: The type of figure, <code>box</code> or
+<code>stat.method</code>: The method used to calculate differential
+expression of genes. If we want to calculate the difference between
+target group and reference group, one of <code>t.test</code> or
+<code>wilcox.test</code> can be used. <code>anova</code> is for all
+groups. The default value is <code>t.test</code>. -
+<code>ref.group</code>: The name of reference group. If
+<code>stat.method</code> is <code>t.test</code> or
+<code>wilcox.test</code>, the function need a <code>ref.group</code>. -
+<code>fig.type</code>: The type of figure, <code>box</code> or
 <code>bar</code>. <code>box</code> represents <code>boxplot</code>.
 <code>bar</code> represents <code>barplot</code>. The default value is
 <code>box</code>. - <code>fig.ncol</code>: The column of figure. The
@@ -1270,14 +1272,16 @@ Other parameters are same as the function <code>CalExpCurve</code>. -
 <code>ref.group</code>: The name of reference group. If
 <code>stat.method</code> is <code>t.test</code> or
 <code>wilcox.test</code>, the function need a <code>ref.group</code>. -
-<code>stat.method</code>: The method of statistics. One of
-<code>t.test</code>, <code>wilcox.test</code> or <code>anova</code>. The
-default value is <code>t.test</code>. - <code>fig.type</code>: The type
-of figure, <code>box</code> or <code>bar</code>. <code>box</code>
-represents <code>boxplot</code>. <code>bar</code> represents
-<code>barplot</code>. The default value is <code>box</code>. -
-<code>fig.ncol</code>: The column of figure. The default value is
-<code>NULL</code>.</p>
+<code>stat.method</code>: The method used to calculate differential
+expression of genes. If we want to calculate the difference between
+target group and reference group, one of <code>t.test</code> or
+<code>wilcox.test</code> can be used. <code>anova</code> is for all
+groups. The default value is <code>t.test</code>. -
+<code>fig.type</code>: The type of figure, <code>box</code> or
+<code>bar</code>. <code>box</code> represents <code>boxplot</code>.
+<code>bar</code> represents <code>barplot</code>. The default value is
+<code>box</code>. - <code>fig.ncol</code>: The column of figure. The
+default value is <code>NULL</code>.</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>df1.path <span class="ot">=</span> <span class="fu">system.file</span>(<span class="st">&quot;examples&quot;</span>, <span class="st">&quot;ddct.cq.txt&quot;</span>, <span class="at">package =</span> <span class="st">&quot;qPCRtools&quot;</span>)</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>df2.path <span class="ot">=</span> <span class="fu">system.file</span>(<span class="st">&quot;examples&quot;</span>, <span class="st">&quot;ddct.design.txt&quot;</span>, <span class="at">package =</span> <span class="st">&quot;qPCRtools&quot;</span>)</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1528,7 +1532,7 @@ NA
 </table>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>res[[<span class="st">&quot;figure&quot;</span>]]</span></code></pre></div>
 <pre><code>## Warning: Removed 20 rows containing missing values (geom_text).</code></pre>
-<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASAAAAEgCAMAAAAjXV6yAAABzlBMVEUAAAAAACAAADoAAEkAAGYAOjoAOmYAOpAARUcAWGYAZmYAZpAAZrYAc3YAv8QNAAAXAGYgAAAgEA4hAAAhISEoAFgoAGY1Ghc3Nzc6AAA6ACE6ADo6AEk6AGY6MgA6OgA6Ojo6OmY6OpA6ZmY6ZpA6ZrY6kLY6kNtERERJAABZKydcQiVcXFxmAABmADpmAGZmOgBmOjpmOpBmZmZmkGZmkJBmkLZmkNtmnZBmtrZmtttmtv9yUi1ycnJ1ISF6NBWQAACQMgCQOgCQOjqQOmaQZgCQZjqQkDqQkGaQtraQttuQtv+QvJCQ27aQ2/+VR0GWJQCWXFyZbT2ZmZmaEw2oOkS2ZgC2Zjq2kDq2kGa2kJC2tma223u225C227a229u22/+2/7a2/9u2//+8PQC8mZm+o2u+voe+vqO+vr7Og5nbAADbkDrbkGbbkJDbtmbbtpDbtrbb25Db27bb2//b/7bb///fTADqACvuACL4dm3/AAD/AA3/ACL/ACX/AC3/ADr/AD3/AEz/AGb/JUL/OgD/Ojr/OpD/TIf/ZgD/Zmb/Zrb/kDr/kGb/kJD/kNv/tmb/tv//vFH/25D/27b/29v/2////7b//9v///9xB7csAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAX4klEQVR4nO2djZ8cSVnHy2GTrN5cDjBcMqwx5CSZdZnBBeXQjBEZIchxboTo5FAjOfZQcg4miq6aFTiMXlwukD5676b7v6Weeuvq6Xrvl+nd6d/nk0zPds/TVd+ufuq9CqWdjEKrDkDb1QGyqANkUQfIog6QRR0gizpAFnWALOoAWdQBssgT0PHnEOp9kRwmdwcInbkBh3MEon8XVyTTPr1uurGfHu8i9Mp9H/NC5D5Xc79NpuJ+i/EkxGoWYmoLh26fnonOHZCbIvRpOPAENO+9epAej/skkOdwoB8OhgxBmj4aTHJXRL09ch3+iAfXD5LZhod5oXhw7SBNZsQW12I85PfzCzSXFOIYYoD/8lUChn3FkcPhJb/wAhShCTWCP+ItEuQ5vtNiTKlPh7krSBKiUZvDBfHAwzwXZSGSo3wh3M8z0JnV5RCnEUEWD8hXiBWLoRcgHiJgywBFOPHzhzAdJvIV5N4zckPyNd7yMA/vJKTxGX2wJMjwsp2Fu85JeiLs8LXJ9PrdwosplKisZiGmLFKa3pNvD66AafpUKFIvQDydQ4LAr84N9mcaXkAWyVdAQn0DDendX0uPp+fczUMQj3GqkV1MMj17n96LUEvuAjMcxcUYW3+INO9bpLAqhVg8Afj8wdXvkIDT3wQAYrBZ9G+h3rUDbhte6L54HPQKnIQon/QD8IT0YjfzJH3iVB9JvofECogwv7qxR310TP2g5n2bK6xKIWbvbvIGA0zSOv0NvbcXIAabU//g7gBS9mJMwvupG5yLuCJC9Dt+5e9jf27zqdKPF+Ozr8FhxKMn3BCOAXOkkIIgEvSaWb9oEDRXWJVCjJ0OEcsmCWd2J4opBFD2tJK7JIsSMZ/nrogGZ+ipuTEKSvPYW0BkJEA8Kn3+1kDqAcuzfmpKQQqrUoiJj4ZMi99kImwF5GKSP2Oxhbd6nr0GkXQFvln/gKakGX/2zuaxfrgLqYPZxjBYrpCKtwYAzfhLEuvSZ6SwKoWY2lrwQgC5mgJi7s8LEM1yibU5LzZMhJtLRaZMrogH+O803ASNvUiX/TjieQkzSD0sz4DZDXFkqI/O3IZCC4VVKcTskCObZw+UxdCzHHT9IH202z9gbgUn2X6+iJJdcUyLGiQAEboBmZjNSWc/JqXDhxBo8rcPbp3dB1P3kzd6Ex5lKKMSH731+3smB1e0KoWYH7IkxL4CyYcMmV9JGsoRtHaRHt9iNY184uZXLMb0kdKzj644ZGKy+RgfnaVZMdQTXuXF/7N7whnBhdRHf/cWu9bRqhRiViDC9NmrRr8+HAiLJ7+yOrOmzFI68YAcKxzBOvGAXKrzZXTiAdWtUwkovqzJ8wN0KgHNdIWiAJ1GQNGZ1qSgB8EnS5vXn0u+cs8AyNfmKQQ0HzIf9AAL/hPHts8Hxb+fwlds8fmDBpy0uAWU6+stqlat2aSBXIzXpLDDs7VRtE2sMayy0qMS0Bz9Dn8Gs3oL8nn5+AvFp1DtKehfxFuc/JmhmtxSJ20GVFEuxm+x+OwVRBtGvLOE9IH+ETsqFFCVNi2AoJ1z8Xva59HSFFSlTVsulkIqUr9mtA09LCgOGo1GdQDaHo28bJYANLpzB+lvVlbY+p3KrdNn6mXWAgha+eNX1OWgkwFoyQ1uo5s3R6mrG03NgCCLnyOkqxqfDEDLZpGn2TJVjQsX6qyojAzOooSQp9kSUbSloHbmYqYIV1yb7wBZdCIBjUxBrro9aDQy/rqNgEZ3kMFHV99gVtpJQ2tK1d02EUI9XQ3SDEil1QKCTq1IG5swQe0o0hdN6gWUK0WNRtsosD2CKyJj+arv+dMV/i0+SKWgNPAYtHP79m30mCnEChPtGvVvLDDxn+sbQX0jXCMgRzeqi4ylLmywHg8MLTSmRF9Zo32VgLQjnyyBM1rX+qCGykEUys7OTnlAc5OLLgZucfgefERPsPVnh4eH73yo/KHeBzUJCKs0IFP6UQM6fD+lgJ49gQPytXjZiQDkoGxgplIqQL94mhJAyf8RNEdPly8xtdAobZq1WkAzcxeNCtD7R88ZoOeaXxlaaJQ2zaoPUPReiOmclIDiJwQQfrsOdYj8bAZdL5pck6nicTgAig5/9ougCJgDhwGlz54TQCnx0t5PoRpAWc/qrK8YAO6Ugo7+xzMoLoEDQIt3PgQnTRrUFocFH+RtM5Ozk856ViE7KHbDuQCKnv5H6XdMDSh99h4GtE2bZGNNRu9hM5MzoKxnFT6LeaYLoKP3/+GJW5D10gBK3v354Rj90586AaqpJF0EJJfbGR0ielxPz6oGEHZwT1L01o/eHuG8zDeZVlQOckxBj7UpyNKp6CYdoPQIAxp9Cfto/3yg4lwsGFB64ZJvy4tz4KznQm16XB+7OWlcHdMAGl0aoUtrAMiczUOFfqdCQD4OFY1GQS4uDBCfXS/KhKJndTE2FBRNgO5cQhc8w6IJnFLePaQONg1O2nPktQOgSrpdWwOIT5NylYsPqqLjPgyQuackEJBfu7lDLlY3IH0fu6WnJAhQfuEHu4yAzhNtvvgi2qSHXqaLgfM9p+4pESFFukdqvE/k13vnAOj85iY6vxJAoGJPSQGQ1/ggNrbY2NAkywXQ+fMrBFTsKSmZgjzVdkCKlu6GAC2nVyEpXSoAVVdZdTqn6ilxAmSorJKp1s6d5DWnIKfI6AEpe0pKAorIKi1zV1fdakDqnpJygPjUakOXtvpuekDE568EkLqnpBwgXlA09Niq76YHtLm5ed4pBSnmVTCbWcetfHI5fTrydwKkUk0pCJcTX9x0iUHWPbBsHlf0kKIisxJA1fsgV0DSxKtl860CVHku5gpIdA8US707Fy9yQA8UpQgJkEspoiwgP9kBVeCDJEDySd8U5FPVqHZ8kBmQJLMtPSDDK7aZ1fSqfMWcezWk/mblpN5VA4IXuDlAi/FwubIqNUQrJ/U2AsiQzTcLqCi5K0M5qbcZQOrIVA8oG7WWKkatqQBJnWHZpF5l44qQqrKaxcCUzYQAqtYHZaPWUsWoNQqIrPYnnI0EKJvUq7xbBSnILzJ1lIPMo9ZYr8a5g3ggHI8ESD2pt+2A/FKledSaqItBqyuriy31N3t2Pa8ekL76ogMEo9Y+8+NvPlCMWhOAoGuML3GZ728+aYAM1RcdoPTZ89G3fvq9bcWoNfaK9WEJarFgZ5bNq4eMthuQofryWFWS/kcYtfaff/3HPwFA5PvTQkkaF4TkBSpZf7N2Um+7AQX4IJxy/vdbh2M2Yic3KGvlVQ2T+aoBQUewBlDy7l/9958gSuY0ADI3WGoAkaEEGkDpZw5/+j10BGjyo9ZU5SD3GKwwBZnMhwAavYUBER+dz8hU5SD3GFQMqOBQ2eAIRXtQ1pyiKKj7AaKChQxUr5OqHGRVYymIDa+RTzI+WYOcwoDRB+3oRjSp5yirykHuMWgpIIPNHcSGNBVtqh2/shykVQ2VVUNkVgCIvbnSOWU5yDkGdaYg2kKli4zsg3yCbAbEuUvnWp3NK6yHms9SpcIHrTUg3eSAYs64uSkBWm60x+/YuQPnJQFPEiBnm2RMnM4HRb09tvVN2N1OBSB16Vx0PUO3c9uy+aZTkKqvU5SDAFDbCoqNAtL0deZSkOsODKcTkNqm7IMqHkB1mgDRca6i+0LqWTVP6i0NyM28a2TqsKksB0k9q+ZJvaUBuZl3jUwdNnMDqJikRnvLfLGygBzNu0amDpuquRpyv5j/jEMfQI7mXSNTh03mpHMvrRKQcjEe46fDpN4S5lVjeeqwqZqKYE1BQsZGDIcWjhLmjZ39Fdq0DF7oAFmGv6g9ntPdXACVMK89V7FNuRwkytG2bL461WHebDMMEJ2hJyaBSD2rykm91akO82abQYD4BL2ad8NrhYIAcZ/mWptfJ+VSkOtUhHWSPGfVuTa/TsoXFN2nra6Nyi+PcMpFfdC/rToYDQjmDPTZLr+91617u3OxV4wWrJKvnN73C3Jo6DuOt17eV03b1BW+uZOGMuL8FDsg2qKDwQAgVVXNDIitj9PkXmINSxTxMKA3x5P46u7GPityRzjmfTY64QsD8hr2eXk8vsydNBA6zZl8xIt48dYndvtkw3Ao/bF97HFVC1JQMoWv5w5wQmMnMSz6sxlCN6YnbDNDL2WAPvnSC9MhOKHcjAsGaML/sZPxFi8HwdsVnWIflL1ig4/ux1uv4/jzaajw2SsAoifZK7b4PMV7inMx6qTx/yQXm/cgK6NumUxHUaYgOHnZr6B4/DmM9YvyX/jqZ6/s82NyXjokQyIeDpZ+p1L+kpgWVeY06yDDBvhi9axhZo76B+mjK+jMNxyCDj8BH0MAJV/+CMWBOUDamuG0srUnA2InBSC34S/z3qsH6XFuoF48ID9KvorfcTo65BFETDqEiEboBv6dNZPMmebPnACi9ma/MZbaZe6ia9CSdSN96DRdm2RWKS0Hpb98qc/G1ZFneR2IoIkEiJ3kgByHv9B8LpZLoXxpJngO9Jh0ssmHfHDffMMaCdk0BTSnhQ+SgKLeX9AQQsE2maGhAEe4xg6U/OU1/IXxg/Ac7yL06YNsqRVok6QJn4RZPtzYT/4GvkV2QLJp8uPF+IVpnxnCmNkwSswRP3AIDS0SQ9iTbw/CCFjkNfyFpWSW2I4htLwRcsYHhyR3SWutOIT3nlyBD+zBkUwzut+Fu7AEtMduF/W+vktdEw0x/PUHV78TiMAsr+Ev+yIW5Mnh0LFHmryBJtxfb+yl8qEYW2zcIIIrZ3pIPNysLxIQT7Az0SxDGtPtw5dLyGv4C8M3g8d89jU4ZLVjdPU+99ck2eQOidHkbs+loC6ZBiAwuh3/SSQg+h/Gf/bvKRRIn8dTRI/9Y+8g5fAXnfi7MiSOAuJBnDF7i9jihdI6htlhMnXKaWTTGBDhPDv37yIBUdzxAPwlNYgv7v0BfQY1OmlXZf4Y64e74JdJSqdpnE/oBIe2dLjYdVs4RTaN3y2ygur83N+SD9biOSy+V+xukU9UnOUFSOSxLIhD7rXI42THEX0t5MPFeOO+i/2c6XR2hryo896VoeBB0hFdeTYibk9k9fhCn6g4ywsQuo5Lrru4+BoPrh1A+YzPXoDgs3A+xLHKHUKM3NJPzjS4YoKZtlJxF49584xhSgom949ZNplMfaLiLC9AUEI5cwOOYnx0do+Xo8lDZf4azucOJ7xPwFoTzpkGQFldI8sL4Ub0prAqVHILoWvUNS7GPlFxVtdob1EHyKKguRrrpKC5GuukoLka66SguRrrpKC5GiUlLTqvXCKtVQqaq1FO8qLzyiXSWiWvympBQYM45UXnzRmnwXz0/+aQVaYVlYPY2P5siTQ/VbL/nZtWBIiNZcuWSPMdFX/0RDfSvmLlRndkEl359XhRXp5QL5HmoOjpUfk9Jp3EVl5Y8kDZKmC1eNFc66thVLxeR2TZsSYkXjHoNkK8ypytAhbsRQ0n8+XRqqciVCzZByVTFvJsj0OLFw0CJI1esuyq2ypAcgqSN2AL9aL66VB80XntEmlCrQFEemlypSCxhZ/Ri462TfsblY+C3sJotF3auptsuVhqcBKjO4F7fJVWg3e2beGXNgnI+Q3evgl3bq4cVBQHZPSia5KCFAtuS3scGr3oSLcJWu1q7s7lqhplZxyWMN9oLhY8HWplgCrZCNhJOUB+Ta7IEkr9tNuswUy5jITdQtpcLRvxghvv+Pb9tV666MkNZuHzSxsEFFhfFL/2ldRgZpmhXPmtG79P8K9Zg1mJVRJQk+1BYkadr5MOBsQazCyLANRy66D7wCiufn74qlLLj9K0W7XiU0g0mJ0QQNClCp7Be1KvIpTZNh4PFNt4UIkGsxLLSDQMiAwr9/eXSkB8G48Him08iLLSRIllJFBDpWnRcRiUoSgB8W08vq/YxgMkT/crkc03VB+jUYRnOhv6b+GHissVZdt4fF+xjQdIbjALX0aiWUB0MLJzJsaoZNs3FbfxgJ1yFNt4VKeGAfmJ8bl9EX1cBSh99pzutVTcxqM6NeqDfMUAXdxBFwtbpAGgxTsfItilAmKwOFz2QXq1t6DoKRug9Nl7OAUh+g7Eqoy+vJrL5pXrUoj8zLRq48cvottqQMm7P8eA/uvtkoBU6YIvVOe5fVaw1A8i61k1rtq4wzchLOxSER1iQG/96O3R0jYefmotoKxn1bBqo7wPTAFQ+pc//iYafamwjYefWgQoP8o161nVr9qY28XDeRsPJsexEe0BVBjlWgQkt0cUAan6ZZA2mykzNmIlgIqjXF1SkLSCviIFXbqkTUHOYyNUEoA2vfbVCJZmlKsd0GO2744aUHoBA9KV41RjI5wbzBifTcQXWG+iHFQc5RrbnbR26Vgi7IS0gFRjI5ylAFSrNKNcBRT/9aSp3ABZRpgZnHTDgAqjXEXPqrIKawTEYyC2ilXc1anr35KLNemDfOUCKMtnFAaqALSSguI/V7lthAOggBFmqwDEByiIIXg2VQMobGzECgDxFQ0i557V0oCcpG4Rax5QQhfHmMzdM9y6AOXLPaObN29uS9+XdnLKANVcDmLrPnwKuZf6V56CNBsV1SHEeoFnPgMXGgGkGTxCAak3KqpDApBTh4ZUWc1LtcdhBij0HVCVQVYGyKda3cwrZgCk2cmpDq0GkLlFVwpcUeeX5RHuEK0EkKVFVwpcUasA5L2YtAMgUzZja9GVAldU84AC5JaCtDGwtegaA7cOgGwturyguK0afqQw39aOw0oBFaVpUTpNKai4aSlXB4jwKe4LzGVu0aVqMyCpdKLsuKoMkDGbV+//3gpAUrCVHVfVALIPoGorIDnhKzuuSvugEoFrAyDJdao7roqA6smHTwAgdcdV6WxeI5dh2BXyd5JtCz9lx1VdgJbNo6L1tqUgUI3biKrVekBLpZMOUEFZNq/uuFp7QNIeh8qOq5KAHMuh2TBs+WQrANlUEpBbOXTn9m1UGCK6FoAcy6HrC0hZDi2a7wClusVlCj6obQVFqyoDZCmHrqmTdi+HnjxAlVRW3cuhJw8QU7kU5F4OXVdAzuXQdQXkbL4DZDIvDeSXT641oFweQCaD0MM1Kwc5mpcAySfXOgXlzHeAbOaz2TLyyQ6Qwrx8shWApBYt06TeUEDe5uWTrQAktWj5z/axx8DbvHyyDYCkylLAfDFrDPzNyyfbAEhujwhfQ0u7GnA15h+scOUFZQyUCltPuhLzq1hwm6sDJKkDZFGQkxYKAlSN+VUCsubDQmFruVZifqWApBat8DW09CcrMb9SQM5al+WSO+nVAbKoA2RRB8iiDpBFgYBg4FOfb1n8a79Z9dZ/xDyz3nvdukhxnQoDBD2iMN8+vnzv8r68NiuXcVVY65KxwvzWy/upwnw5634KAkRnceKQA6A3VXWpUlHIzGNAqqpa6wGJlaowoN/63UkaX93d2GeFYthlqo+PYa/1LwzIi9LnJeb48tcQGpKTbua3Xn5zPKnYuqeCl+2nMbj8dx/r0z3TYRl/slAc2fIAHiNsCL8YnzvASYGdhI3Qcextzzgzv/WJ3X7V1j1VEtDWb/d2h8RN5MaNsShM+D92kl3nDuiTL70wHVZs3VMlX7HBH16+t0UCTPIcnLjhs1eIAj3JVj23AsrMfxRnAa9Xa91TJZw0/p/kYvONe9ly72RQnfIZp2nqGIXMPORi897LlVr3VFg2D6v2gxMggJLpr7MA47DB05/1SHKXosBO8igoygVq8wAo+fJHqrXup8CCYkQ3RCSAcLrHUUhp9gG7AV6HMKOJFAV2kkUBTrqZB0DpL1/qV2vdS11Vw6IOkEUdIIs6QBZ1gCzqAFnUAbKoA2TR6gEVN3ldVmQt+NmvCNbqAYGM1QO23Z9B9ivC1QGyqE2AFp/9c3jP5nw/0xnZZYtMjP7XwR/hN3HId2hllyzG8NeJee+JkmoVoDFEc06afYZ05UL4QvbPG+CDOcEH/9glizH8tbe3NiloPGT/QZsZaUCE5lYKaJjy/ybZJWP+h3UBNEnZHr5sw84I3igKaJKK/8Ql5Af4v/UCxDL9CZlsd2+gAsQvWU9AYotRzkSTgvgP1g2QiGxE+8EUgMQlawmI7lILDc8k8aAhcds5QOKSDJD3FkHOah8gUsiB1DOHvpwZ7EgA5SAZEL9EJLnZaS8HtVgdIIs6QBZ1gCz6FXmOeP2KS8kfAAAAAElFTkSuQmCC" /><!-- --></p>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASAAAAEgCAMAAAAjXV6yAAAB11BMVEUAAAAAACAAADoAAEkAAGYAKSsAOjoAOmYAOpAARUcAWGYAZmYAZpAAZrYAc3YAv8QNAAAXAGYgAAAgEA4hAAAhISEoAFgoAGY1Ghc3Nzc6AAA6ACE6ADo6AEk6AGY6MgA6OgA6Ojo6OmY6OpA6ZmY6ZpA6ZrY6kLY6kNtEMRtERERJAABZKydcQiVcXFxmAABmADpmAGZmOgBmOjpmOpBmZmZmkGZmkJBmkLZmkNtmnZBmtrZmtttmtv9ycnJ1DQB6NBWQAACQMgCQOgCQOjqQOmaQZgCQZjqQkDqQkGaQtraQttuQtv+QvJCQ27aQ2/+VR0GWJQCWXFyZbT2ZmZmrViKxFRWxTly2ZgC2Zjq2kDq2kGa2kJC2tma223u225C227a229u22/+2/7a2/9u2//+8PQC8mZm+o2u+voe+vqO+vr7OVj3Og5nbAADbkDrbkGbbkJDbtmbbtpDbtrbb25Db27bb2//b/7bb///fTADfo77qACv4dm3/AAD/AA3/ACL/ACX/AC3/ADr/AD3/AEz/AGb/JUL/OgD/Ojr/OpD/TIf/ZgD/Zmb/Zrb/kDr/kGb/kJD/kNv/tmb/tv//vFH/25D/27b/29v/2////7b//9v///8RLZjdAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAX10lEQVR4nO2djZ8bx1nHB/VqnyGKU0KaoB7GdVpbNRepXAtNwTJQ0RpIw5nUgJwCpk6PQk1RsaFwQK4tKW4xR0yzqS7R7h/LPPO2s9pn521ftHfa3+dj395p9ezMd2efeXZeSdLJKLLuBLRdHSCLOkAWdYAs6gBZ1AGyqANkUQfIog6QRR0gizwBnXyOkN4X2WF8d0DIuRtwOCcg/nd1Rjzt8/OmWwfJyR4hL9/3Ma/ErnMl8914qq63HE9CrKYp5rZo6g74J9H2IbsoIZ+GA09A896rh8nJuM8SuU0T/XAwFAiS5NFgkjkj6u2z8+iPxeDaYTzb8jCvtBhcPUziGbMltRwP5fX8Ei2lpXgBOaB/+QoDI36lmaPpZd/wAhSRCTdCfyx2WJLn9ErLMac+HWbOYEWIZ20OJywGHualOAtVHPUT4XqeiU6trqY4iRiyxYD9CrkSOfQCJFMEbAWgiBZ+eROmw1g/g117xi7Ifl3seJiHZxLK+IzfWJZkeNjOw1XnrDwxdvTceHrtbu7BVIoxq2mKOYuEl/f464PLYJrfFY7UC5As51Ag6KNzQ/yZpxeQRfoZUFDfJEN+9deSk+m2u3lI4gktNbqLiafn7/NrMWrxXWBGs7gcU+sPScHzFiFWtRSrOwA/v3vlGyzh/DsBgARskf1bpHf1UNqGB7qvbgc/gxYhzif5ADwhP9nNPCuftNRHmu9huQIiwq9u7XMfveB+sOB5myNWtRSLZzd+UwBmZZ1/h1/bC5CALal/cHcAJXs5Zun95A3JRZ0REf47feTvU39u86nal5fj86/BYSSzp9wQzYFwpFCCIBP8nFk/bxA0R6xqKaZOh0lUk4yzuBLHFAIovVvxXVZFqZzPM2dEg3P8o7kxC6h56i0gMxogmZW+fGqg9IDlWT8xlSDEqpZi5qOh0pIXmShbAbWY5s9EbuGpnqePQaSdQS/WP+QlaSbvvbN5qu/tQekQtikMUSsk6qkBQDP5kCyKymeEWNVSzG0tZRDAzuaAhPvzAsSrXGZtLsOGiXJziaqU2RmLAf07TzdDYw/p0i9Hsi4RBrmHlRWwuCDNDPfRqdtAtESsaikWhxLZPL2hIoeecdC1w+TRXv9QuBVaZPvZECU944SHGiwBEbkBlZjNSadfZtHhQ0g0+9sHt84fgKn78Zu9icwyxKjMR+/8xr7JweWtaimWh6IIiV+B5EOBzC+ShjiCv10kJ7fEm0a2cMszlmN+S/mnjy47VGK6+QU9Os+rYnhPeFWG/+f3lTOCE7mP/uYtca6jVS3FIiCi9MWjxn99OFAWT//L6sxaMkvp1ANyfOEI1qkH5PI6X0anHlDdOpOAFpcK6vwAnUlAs6KgKEBnEVB0rjUl6EHwh6XNF38Wf/meAZCvzTMIaD4UPugBFfynjm0/H+T/fgYfseXnDxtw0uoSENfXG6pWrdmkgVpMvklRh2dro2ibRGNYZdEjCmhOPiXvwazeQD4rH3+B/FSqvQT9k3qK4983vCa31EmbAVVUi8lLLD97mfCGEe8qIXlQfIsdFQqoSpsWQNDOufz1wvvR0hJUpU1bLZZAKcIfM96GHpYUJ42ujyq37m2zBCB6NXLnjuF6JTW6U7l12z3FvoL/WQKCVv7Fy0Vx0GkAlHWDo5vk5nXtd3vNaAIEVfyckOJX49MAaNUm8bRZ7lWDvPBCqe+bNRpVT39EPG2WAmQuQe2sxUwZrvxtvgNk0WkDBM9so4ASYvISrQPEvH7DgEp9O+GtKVV320SE9NDIzQoI03oBQadWhOcmWPB2FKGhSQOAVqMpcp1F7t7tEVIRG8tXfc9fQfBv80GYgsrA21Lk9u3bu3AQYkWId436NxaY+M+LG0FbBMjRjRZlxvLeZLC+GBhaaEgTjfZVAioc+WRJnNE67oOCbJYEtLvL+IQDmptcdD5xy6N34Uf0mFp/enR09M6H6BeLGyCaBiQPXC+3KlP5wQEdvZ9wQE8fwwH7NX/aqQDkoHRgJioM0E+fJAxQ/BOG5vjJ6inmFpqmnXRJQDNzFw0G6P3j9wSg9wq+ZWyhaRGg6N0Q0xmhgBaPGSD6dB0VIfKzGXS+anKNp8jtcAAUHf3vT4MyYE4cBZQ8fY8BSpiX9r4L1QBKe1ZnfWQAuFMJOv4vz6S4JA4ALd/5EJw0a05bHuV8kLfNVM5OOu1Zheog3w3nAih68m+lnzEcUPL0XQroOm+QXRRU9B42UzkDSntW4We+znQBdPz+3z52S3KxCgDF//1/R2PyD7/nBKimSDoPSI/bBR0mflxPz2oBIOrgHifkb37wnRGty3yLaUVxkGMJeruwBPl3QDkljgNKjimg0e9SH+1fD1RciwUDGt25Q14o2ythykwo/YoBGZy0fA0rBvTLZfu1TgGg4mp+V77IVwjIw6FC/1aQiwsDJGfXq5hQ9awuxwWBogVQMoIuj9pKkH8Pqd2myUl7jry2A2KNm6V7RlsDSE6TcpXVBwU1jxckDpUJkLmnJBCQX7u5tRarHZChj93SUxIEKLvwg11GQBepLjz77LMXyEUuL9P5xPl+hveUqJQS/JZarhP59d5ZAV28cOHCxTUBAuV7SnKAvMYHibHFxoYmXXZAoDUCyveUlCxBnmo7IKSluyFAq+VVSSuXCKDqXladPsN6SpwAGV5W2VRr507ymkuQU2aKAaE9JSUBRWyVlrmrq241ILynpBwgObXa0KWNX60YEPP5awGE95SUAyQDRUOPLX41Ywlidb0VEDKvIs2MiNb1D1fLpyN/J0CY6ipBMlq05SDtHsAyI9739A/XAqgeH+QCSJt4hWWmNYBqqcVcAKnugVzUC0+XBPQAiSI0QC5RRFlAfnIDVMoHsdaUKnyQz6tG9eODzICccmAEhNztFJAT/1ySAwPFrLT+ZnRSbysAOdUB+ST7A1qOh6svq1pDNDqptwFA3Ae1AlBeelcGOqm3CUBFmakeUDpqLUFGrWGAtM6wdFIv2riihL2sulUzwYAq80HpqLUEGbXGAbHV/pSz0QClk3rRq1VQgvwyU0ccZB61Jno1tg8XA+V4NED4pN62A/IrleZRa+pdDFpdxbvYSn+zZ9fz+gGZX18wQGzU2g/fuI6MWlOAoGtMLnGZ7W8+bYAsry8YIBi19sqPvnVzlB+1Jh6xPixBrRbsTKt5fMhouwEVv77oNtOI+e9g1Np//Ptn/hMAsd+f5CJpGgjpC1SK/ubCSb3tBhTgg2DU2itHYzFiJzMoa+2vGibztQDKzQ2Qo9Z++AZ5589Hq6PWTikgc4OlAdAuyc0u0Uat/ckPvnNnlB21hsVB7jlYYwkymQ8BxEet/Wlu1BoWB7nnoGJAWYe6u4s1TSizIpDGAnU/QKkIspYBFgdZ1UgJou/zZLe4BMlXMW8f9PzzxYCQtQywOMgxB+0FZEqybzMuGgcVqoaX1cLMrAOQeGrzgFbiIOer1VmCtGHYWGY0H+SVZAOgC0QwzwMKykHNgHDroeZTQMXt3JsJqGhyAFIzXiAf/WiuZhSA6DO2fei8JOBpAuRhUwekJDoOe/ti65uwq50JQKx04YDYLkk0jG5VNb+GEvRskQ9im8BQQK0KFJsHpCrGwhLkugPDWQWE2dR9UMWDF84SID7OVXVfaD2r5km9pQG5mXfNTB020ThI61k1T+otDcjNvGtm6rCZGUAlpDXaWyb1lgXkaN41M3XYxOZq6P1i/jMOfQA5mnfNTB02hZPOPLQoIHQxHuNPh0m9JcxjY3nqsIlNRbCWICVjI4ZDC0cJ88bO/gptWgYvdIAsw19wj+d0NRdAJcwXflaxTT0OUnG0rZqvTnWYN9sMA8Rn6KlJIFrPKjqptzrVYd5sMwiQnKBX8254rVAQIOnTXN/mN0mZEuQ6FWGTpM9ZdX6b3yRlA0X3aasbo/KT28+4uA/6l3UnowHBnIG+2OW397p1b3cp8YjxwCr+8tl9vqCGhr7jxc6LB9i0zaLgWzppiBHnZ9gB8RYdCgYAYa9qZkBifZwm9xJrWCrEo4DeGk8WV/a2DkTIHdGc98XohC8M2GPYl/H44pJ00kDoLFfykQzxFjsf3+uzDcMh+hP72NNXLShB8RR+3T6kBU18SGHxr80IuTE9ZZsZeikF9InnnpkOwQllZlwIQBP5T3y42JFxEDxd0Rn2QekjNvjYwWLndZp/OQ0VfvZygPiH4hFbfp7jPcO1GHfS9H9Wi817UJVxt8ymo6AlCD685BconnyOYv2i/he5+tnLB/KYfa4dsiERDwcr38OUPWXBQ5U5rzrYsAG5WL1omJmT/mHy6DI591WHpMNXwMcwQPGXPsJxUA5Qtma0rOzs64DEhwqQ2/CXee/Vw+QkM1BvMWBfir9Cn3E+OuQRZEw7hIxG5Ab9nrWSzJiW95wB4vZmvzDW2mXukqvQknUjeeg0XZtVVgmPg5KfPdcX4+rYvbwGRMhEAyQ+lIAch7/wem6hR6FyaSa4D/yYdbLph3Jw33zLmgndNAc058EHK0BR7495CiGwjWdkqMAxrgsHSv7yGv4i+EF6TvYI+fRhutQKtEnygs/SrB9uHcR/Ab9FdkC6afbl5fiZaV8YopjFMErKkd5wSA0PiSHt8dcHgQjM8hr+IkqyKGwnkFrZCDmTg0Piu6y1Vh3Cc8/OoAf25GimBd1vwlVEAdoXl4t6f7THXRNPMfz1u1e+EYjALK/hLwcqF+zO0dSJWxq/SSbSX2/tJ/qhGlts3CBCKmN6yDzcrK8KkCywM9UswxrT7cOXS8hr+IvAN4PbfP41OBRvx+TKfemvWbHJHDKj8d2eS6CumQYgMLqd/kkVIP4fxX/+rzkUKJ8nU8KP/XPvIHT4S5HkszJkjgLywZyxeIrE4oXaOobpYTx1qml00xQQ4zzb/ldVgDjuxQD8JTdIT+79Jr8HNTppV6X+mOp7e+CXWUnnZVxO6ASHtnK43HNbOEU3TZ8ttoLqfPsv2Q/R4jnMP1fiapFPVpzlBUjVsSKJQ+m12O0UxxF/LPTD5Xjrvov9jOlkdo49qPPe5aHiwcoRX3k2Ym5PVfX0RJ+sOMsLELlGI9c9Gr4uBlcPIT6Tsxcg+SKdD2muMoeQI7fykzENrphh5q1U0sVT3rJimLLA5P6JqCbjqU9WnOUFCCKUczfgaEGPzu/LOJrdVOGv4fPM4UT2CVjfhDOmAVD6rpHWhXAhflFYFSq+RchV7hqXY5+sOKtrtLeoA2RR0FyNTVLQXI1NUtBcjU1S0FyNTVLQXI2S0hadR5dIa5WC5mqUk77oPLpEWqvk9bKaU9AgTn3ReXPFaTAf/Y85ZZVpTXGQGNufLpHmp0r2v3PTmgCJsWzpEmm+o+KPHxeNtK9YmdEdqVRXfj1eVMYT+BJpDoqeHJffY9JJYuWFFQ+UrgJWixfNtL4aRsUX65gtO9aE1CMG3UZEvjKnq4AFe1HDh9l4tOqpCBVL90HxVKQ83ePQ4kWDAGmjlyy76rYKkF6C9A3YQr1o8XQoueh84RJpSq0BxHppMlGQ2sLP5EVHo+sm0+WzYLAwul5yay5X2WqxpNhJIMs1Nabmrm3bwi9pEpD7E8y2oW0uDspLAjJ50U0pQciC29oehyYvWnqLvhJq7NrlXjXKzjgsYb7RWix4OtTaAFWyEbCTMoD8mlyJJZXF027TBjN0GQm7haS5t2wiAzfZ8e377WIVZU9vMAufX9ogoMD3RfVtX2kNZpYZypVfuvHrBH9bNJiVWCWBNNkepGbU+TrpYECiwcyyCEAtlw66Dozi6meHr6JavZWG3aqxn0qqweyUAIIuVfAM3pN6kVSm23g8QLbx4FINZiWWkWgYEBtW7u8vUUByG48HyDYeTGk0UWIZCdJQKK06DoMqFBSQ3Mbj28g2HiB9ul9wNQ+btTdCiGcR7uls6L+FH8kvV5Ru4/FtZBsPkN5gFryMRMOA+GBk50osBbSLLaHPtvGAf/ltPCpT04D8lAJ66SVshfin7/G9lvLbeFSnRn2QryQf2GPvJQTQ8p0PCexSwX9f9UHFam+g6CkboOTpj7/2o2/J/SWxir68mqvm0XUpVH1mXLVxlz5iz+d9EP3Wn/09BcTJlACElQu5UJ3n9lnBwm9E2rNqXrVRbnOS26XilSMK6BjQZLfx8FNrAaU9q8ZVG9ONL3KARr/z/TcI89FlKrIWAcqOck17Vk2rNmrbFqzuUsHa1A1ewnFsRHsA5Ua55gHp7RF5QCvVzPWbNwFQUTVTZmzEWgDlR7m6lCBtBX28BBX1PDiPjcCkACGLY9ehglGuLoDelmF0HhDrlSFFfVfY2AjnBjPBR9/iof44KD/KdeHipDWhpos79/JjI5yFAKpVBaNcFRT/9aRT03ZAlhFmBifdMKDcKFfVs4q+whoBqTWHSfFOsS5d/4mlFmvSB/nKEVBxNVMFoLUEiv9Y5bYRDoACRpitA5AcoKCG4NlUDSD7CDMsTlgDILmiQeTcs1oakJvQMS7NA4r54hiTuXuFWxeglbiHxuM3RwkeB+m7hdccB4l1Hz5J3KP+9ZcgFsT77DcfLCJ6gWc+AxcaAVQweESZl1sVBZp3ToYE5NShkXlZ1YXtcZgCCn0GsBhkbYB8XqsbesTMgC4Wx6FVaj2AzC26WuLyurgqj3SHaC2ALC26WuLyWgcg78WkHQAxcwU5sLXoaonLq3lAAXIrQYU5sLXoGhO3CYBsLbqi0htdx4YfIebb23FYIaC8aJhIkOaks1SC7O1Bmw3IEMmZW3S52gxIi07QjqvKABmr+RHas9YKQFqy0Y6ragDZB1C1FZBe8NGOq9I+qETi2gBIc514x1UeUD318CkAhHdcla7mC+QyDLtC/k6ybeGHdlzVBWjVPMlbb1sJAtW4jSiu1gNaiU46QDml1TzecbXxgLQ9DtGOq5KAXOPQXZIb4NcSQDaVBOQYh+7eJrdXh6lvBCDXOHRjAaFxKGK+A1S0uEzOB7UtULSqMkCWOLS1tZhNlQECGcKs0weokpdV9zj09AESKleC3OPQTQXkHIduKiBn8x0gk3ne17vbAdK0Wgfs3r7NQsUNi4PczUtA+ocbXYJWzXeAbObFdBn9ww4QYl7/sBWAtBYt46TeQEDe5vUPWwFIa9Hyn+1jz4G3ef3DNgDSXpYC5otZc+BvXv+wDYD09ojwNbQKVwOuxvyDNa68gOYAVdh60pWYX8eC21IdIE0dIIuCnLRSEKBqzK8TkLUeVgpby7US82sFpLVoBa+hZfiwEvNrBeSsTVkuuVOxOkAWdYAs6gBZ1AGyKBAQDHzqyy2Lf+6Xqt76j5kX1nuvWxcprlNhgKBHFObbLy7du3Sgr80qZVwV1rpkrDK/8+JBgpgvZ91PQYD4LE6acgD0FvYuVSoLqXkKCHtVaz0gtVIVBfQrvzZJFlf2tg5EUAy7TPXpMey1/oUBe1D6MmJeXPoDQobsQzfzOy++NZ5UbN1Twcv28xxc+qtf7PM902EZf7ZQHNvyAG4jbAi/HG8f0qIgPoSN0Gnubfc4Nb/z8b1+1dY9VRLQzq/29obMTWTGjYksTOQ/8aE4zx3QJ557Zjqs2LqnSj5ig9+6dG+HJZjVObRww89eLgv8Q7HquRVQav5jtAp4vVrrnirhpOn/rBabb91Ll3tng+rQe5wkiWMWUvNQi817L1Zq3VNh1Tys2g9OgAGKpz8vEkzTBnd/1mPFXcuC+FBmAYkLcPMAKP7SR6q17qfAQDHiGyIyQLTc0ywkvPqA3QCvQZrJRMuC+FBkAT50Mw+Akp8916/Wupe6Vw2LOkAWdYAs6gBZ1AGyqANkUQfIog6QResHlN/kdVWRNfCznxGs9QMCGV8PxHZ/BtnPCFcHyKI2AVp+9g/hOZvL/UxnbJctNjH6nwe/TZ/EodyhVZyyHMNfJ+a9J0qqVYDGkM05a/YZ8pUL4Re2f96AHswZPvgnTlmO4a+9/Y0pQeOh+A/azFgDIjS3ckDDRP43SU8Zyz9sCqBJIvbwFRt2RvBEcUCTRP2nTmFfoP9tFiBR6U/YZLt7AwyQPGUzAaktRiWTghIkv7BpgFRmI94PhgBSp2wkIL5LLTQ8s8JDhsxtZwCpU1JA3lsEOat9gFiQA6VnDn05M9iRAOIgHZA8RRW52VmPg1qsDpBFHSCLOkAW/T9yi/pdfRHJRQAAAABJRU5ErkJggg==" /><!-- --></p>
 </div>
 <div id="calculate-expression-using-rqpcr" class="section level2">
 <h2>Calculate expression using RqPCR</h2>
@@ -1551,9 +1555,11 @@ If user want to give reference gene, <code>ref.gene</code> can be used
 <code>stat.method</code> is <code>t.test</code> or
 <code>wilcox.test</code>, the function need a
 <code>ref.group</code>.</li>
-<li><code>stat.method</code>: The method of statistics. One of
-<code>t.test</code>, <code>wilcox.test</code> or <code>anova</code>. The
-default value is <code>t.test</code>.</li>
+<li><code>stat.method</code>: The method used to calculate differential
+expression of genes. If we want to calculate the difference between
+target group and reference group, one of <code>t.test</code> or
+<code>wilcox.test</code> can be used. <code>anova</code> is for all
+groups. The default value is <code>t.test</code>.</li>
 <li><code>fig.type</code>: The type of figure, <code>box</code> or
 <code>bar</code>. <code>box</code> represents <code>boxplot</code>.
 <code>bar</code> represents <code>barplot</code>. The default value is

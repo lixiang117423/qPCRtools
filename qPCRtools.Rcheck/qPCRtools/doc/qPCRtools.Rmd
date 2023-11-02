@@ -19,9 +19,9 @@ install.packages("qPCRtools")
 
 The first step of qPCR is usually the preparation of cDNA. We need to calculate the column of RNA for reverse transcription to cDNA. So, if we have the concentration of RNA, we can use the function `CalRTable` to do that. The function have three patameters:
 
--   `data`: The table of RNA concentration. The unit of concentration is ng/$\mu$l. The demo data can be found at [GitHub](https://github.com/lixiang117423/qPCRtools/blob/main/CRAN/qPCRtools/inst/examples/crtv.data.txt).
--   `template`: The table of reagent for reverse transcription. The demo data can be found at [GitHub](https://github.com/lixiang117423/qPCRtools/blob/main/CRAN/qPCRtools/inst/examples/crtv.template.txt). The column `all` that must be in this dataframe is the total volume for 1 $ \mu$g RNA.
--   `RNA.weight`: The mass of RNA. The unit is $ \mu$g. The default value is 2.
+-   `data`: The table of RNA concentration. The unit of concentration is ng/μl. The demo data can be found at [GitHub](https://github.com/lixiang117423/qPCRtools/blob/main/CRAN/qPCRtools/inst/examples/crtv.data.txt).
+-   `template`: The table of reagent for reverse transcription. The demo data can be found at [GitHub](https://github.com/lixiang117423/qPCRtools/blob/main/CRAN/qPCRtools/inst/examples/crtv.template.txt). The column `all` that must be in this `data.frame` is the total volume for 1 μg RNA.
+-   `RNA.weight`: The mass of RNA. The unit is μg. The default value is 2.
 
 ```{r echo=TRUE}
 library(magrittr)
@@ -81,7 +81,7 @@ After we calculated the standard curve, we can use the standard curve to calcula
 - `design.table`: The design information including three columns: `Position`,	`Treatment` and	`Gene`. The demo table can be found at [GitHub](https://github.com/lixiang117423/qPCRtools/blob/main/CRAN/qPCRtools/inst/examples/cal.exp.curve.design.txt). 
 - `correction`: Expression level is corrected or not with internal reference genes. The default value is `TRUE`.
 - `ref.gene`: The name of reference gene.
-- `stat.method`: The method of statistics. One of `t.test`, `wilcox.test` or `anova`. The default value is `t.test`.
+- `stat.method`: The method used to calculate differential expression of genes. If we want to calculate the difference between target group and reference group, one of `t.test` or `wilcox.test` can be used. `anova` is for all groups. The default value is `t.test`. 
 - `ref.group`: The name of reference group. If `stat.method` is `t.test` or `wilcox.test`, the function need a `ref.group`.
 - `fig.type`: The type of figure, `box` or `bar`. `box` represents `boxplot`. `bar` represents `barplot`. The default value is `box`.
 - `fig.ncol`: The column of figure. The default value is `NULL`.
@@ -122,7 +122,7 @@ $2^{-{Δ}{Δ}{C_t }} $is a widely used method to calculate qPCR data[@livak2001a
 Other parameters are same as the function `CalExpCurve`.
 - `ref.gene`: The name of reference gene.
 - `ref.group`: The name of reference group. If `stat.method` is `t.test` or `wilcox.test`, the function need a `ref.group`.
-- `stat.method`: The method of statistics. One of `t.test`, `wilcox.test` or `anova`. The default value is `t.test`.
+- `stat.method`: The method used to calculate differential expression of genes. If we want to calculate the difference between target group and reference group, one of `t.test` or `wilcox.test` can be used. `anova` is for all groups. The default value is `t.test`. 
 - `fig.type`: The type of figure, `box` or `bar`. `box` represents `boxplot`. `bar` represents `barplot`. The default value is `box`.
 - `fig.ncol`: The column of figure. The default value is `NULL`.
 
@@ -156,7 +156,7 @@ The method from [SATQPCR](http://satqpcr.sophia.inra.fr/cgi/home.cgi) can identi
 - The `design,table` can be found at [GitHub](https://github.com/lixiang117423/qPCRtools/blob/main/CRAN/qPCRtools/inst/examples/cal.expre.rqpcr.design.txt). If user want to give reference gene, `ref.gene` can be used (The default is `NULL`).
 - `ref.gene`: The name of reference gene.
 - `ref.group`: The name of reference group. If `stat.method` is `t.test` or `wilcox.test`, the function need a `ref.group`.
-- `stat.method`: The method of statistics. One of `t.test`, `wilcox.test` or `anova`. The default value is `t.test`.
+- `stat.method`: The method used to calculate differential expression of genes. If we want to calculate the difference between target group and reference group, one of `t.test` or `wilcox.test` can be used. `anova` is for all groups. The default value is `t.test`. 
 - `fig.type`: The type of figure, `box` or `bar`. `box` represents `boxplot`. `bar` represents `barplot`. The default value is `box`.
 - `fig.ncol`: The column of figure. The default value is `NULL`.
 
