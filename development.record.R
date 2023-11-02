@@ -28,15 +28,23 @@ usethis::use_package("sjmisc")
 
 # other
 usethis::use_lifecycle_badge( "Experimental" )
-usethis::use_version("patch")
+# 版本号，DESCRIPTION文件发生变化
+usethis::use_version("major")
 usethis::use_version("minor")
-#usethis::use_version("minor")
+usethis::use_version("patch")
 
 
 # create functions
-golem::add_module("test")
+# golem::add_module("test")
 
-# check
+# copy files
+file.copy("./inst/", "./CRAN/qPCRtools/", recursive = TRUE)
+file.copy("./man/", "./CRAN/qPCRtools/", recursive = TRUE)
+file.copy("./DESCRIPTION", "./CRAN/qPCRtools/", recursive = TRUE)
+file.copy("./R/", "./CRAN/qPCRtools/", recursive = TRUE)
+file.copy("./LICENSE", "./CRAN/qPCRtools/", recursive = TRUE)
+
+# check and build
 library(roxygen2)
 
 roxygen2::roxygenize('../qPCRtools')
@@ -46,3 +54,6 @@ system('R CMD build ../qPCRtools --binary')
 system('R CMD check ggmotif_0.1.3.tar.gz --as-cran')
 
 devtools::install_local('ggmotif_0.1.3.tar.gz')
+
+
+
