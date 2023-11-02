@@ -2,9 +2,6 @@
 
 ```{r
 install.packages("qPCRtools")
-
-# or
-devtools::install_github("https://github.com/lixiang117423/qPCRtools/tree/main/CRAN/qPCRtools")
 ```
 
 ## Calculate volume for reverse transcription
