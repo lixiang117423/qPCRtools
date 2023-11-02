@@ -10,6 +10,7 @@
 #' @param ref.gene The name of reference gene.
 #' @param ref.group The name of reference group.
 #' @param stat.method Statistical method.
+#' @param remove.outliers Remove the outliers of each group and gene, or not.
 #' @param fig.type Output image type, `box` represents `boxplot`, `bar` represents `barplot`.
 #' @param fig.ncol Number of columes of figure.
 #'
@@ -27,6 +28,7 @@
 #'             ref.gene = "OsUBQ",
 #'             ref.group = "CK",
 #'             stat.method = "t.test",
+#'             remove.outliers = TRUE,
 #'             fig.type = "box",
 #'             fig.ncol = NULL) -> res
 #'
@@ -40,6 +42,7 @@ globalVariables(c(
   "correction",
   "ref.gene",
   "stat.method",
+  "remove.outliers",
   "ref.group",
   "fig.type",
   "fig.ncol",
@@ -99,6 +102,7 @@ CalExp2ddCt <- function(cq.table,
                         ref.gene = "OsUBQ",
                         ref.group = "CK",
                         stat.method = "t.test",
+                        remove.outliers = TRUE,
                         fig.type = "box",
                         fig.ncol = NULL) {
 
@@ -173,6 +177,27 @@ CalExp2ddCt <- function(cq.table,
           rbind(res.all) -> res.all
       }
     }
+  }
+
+  # find outliner function
+  findoutliner <- function(x) {
+    return(
+      ifelse(
+        x < quantile(x, .25) - 1.5 * IQR(x) | x > quantile(x, .75) + 1.5 * IQR(x),
+        "yes",
+        "no"
+      )
+    )
+  }
+
+  if (remove.outliers) {
+    res.all %>%
+      dplyr::group_by(group, gene) %>%
+      dplyr::mutate(is.out = findoutliner(expression)) %>%
+      dplyr::ungroup() %>%
+      dplyr::filter(is.out == "no") -> res.all
+  }else{
+    res.all -> res.all
   }
 
   # group and mean and sd
@@ -260,6 +285,7 @@ CalExp2ddCt <- function(cq.table,
       se.expre = se.expression,
       n = n.biorep
     )
+
 
   if (fig.type == "box") {
     df.plot %>%
