@@ -1,4 +1,4 @@
-globalVariables(c("sample", "concentration", "all", "volume.RNA", "mean"))
+globalVariables(c("sample", "concentration", "all", "volume_rna", "mean"))
 
 #' Calculate RNA Volume for Reverse Transcription
 #'
@@ -50,9 +50,9 @@ CalRTable <- function(data, template, rna_weight = 1) {
     dplyr::group_by(sample) %>%
     dplyr::summarise(mean = mean(concentration)) %>%
     dplyr::ungroup() %>%
-    dplyr::mutate(volume.RNA = rna_weight / mean * 1000) %>%
+    dplyr::mutate(volume_rna = rna_weight / mean * 1000) %>%
     cbind(df.1) %>%
-    dplyr::mutate(volume.h2o = all - sum.temp - volume.RNA)
+    dplyr::mutate(volume_h2o = all - sum.temp - volume_rna)
 
   return(df.2)
 }

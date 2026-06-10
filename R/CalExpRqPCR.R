@@ -118,7 +118,7 @@ CalExpRqPCR <- function(cq_table,
     dplyr::mutate(temp_2 = paste0(group, biorep, gene))
   df.factor <- df.factor[!duplicated(df.factor$temp_2), ] %>% as.data.frame()
 
-  factor <- data.frame()
+  norm_factor <- data.frame()
   for (i in unique(df.factor$biorep)) {
     df.temp <- df.factor %>% dplyr::filter(biorep == i)
     for (j in unique(df.temp$group)) {
@@ -126,16 +126,16 @@ CalExpRqPCR <- function(cq_table,
         dplyr::filter(group == j) %>%
         dplyr::select(group, QCq)
       fac <- data.frame(group = j, biorep = i, factor = geometric_mean(df.temp.2$QCq))
-      factor <- rbind(factor, fac)
+      norm_factor <- rbind(norm_factor, fac)
     }
   }
 
-  factor <- factor %>%
+  norm_factor <- norm_factor %>%
     dplyr::mutate(temp_2 = paste0(group, biorep)) %>%
     dplyr::select(temp_2, factor)
   df.factor <- df.factor %>%
     dplyr::mutate(temp_2 = paste0(group, biorep)) %>%
-    merge(factor, by = "temp_2") %>%
+    merge(norm_factor, by = "temp_2") %>%
     dplyr::mutate(SD.factor = (SD_QCq / (length(ref_gene) * QCq))^2) %>%
     dplyr::group_by(biorep, group) %>%
     dplyr::mutate(SD.factor = sqrt(sum(SD.factor)) * factor)

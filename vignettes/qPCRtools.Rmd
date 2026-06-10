@@ -17,7 +17,7 @@ install.packages("qPCRtools")
 
 ## Calculate volume for reverse transcription
 
-The first step of qPCR is usually the preparation of cDNA. We need to calculate the column of RNA for reverse transcription to cDNA. So, if we have the concentration of RNA, we can use the function `CalRTable` to do that. The function have three patameters:
+The first step of qPCR is usually the preparation of cDNA. We need to calculate the column of RNA for reverse transcription to cDNA. So, if we have the concentration of RNA, we can use the function `CalRTable` to do that. The function have three parameters:
 
 -   `data`: The table of RNA concentration. The unit of concentration is ng/μl. The demo data can be found at [GitHub](https://github.com/lixiang117423/qPCRtools/blob/main/CRAN/qPCRtools/inst/examples/crtv.data.txt).
 -   `template`: The table of reagent for reverse transcription. The demo data can be found at [GitHub](https://github.com/lixiang117423/qPCRtools/blob/main/CRAN/qPCRtools/inst/examples/crtv.template.txt). The column `all` that must be in this `data.frame` is the total volume for 1 μg RNA.
@@ -89,13 +89,13 @@ After we calculated the standard curve, we can use the standard curve to calcula
 
 
 ```{r}
-df1.path = system.file("examples", "cal.exp.curve.cq.txt", package = "qPCRtools")
-df2.path = system.file("examples", "cal.expre.curve.sdc.txt", package = "qPCRtools")
-df3.path = system.file("examples", "cal.exp.curve.design.txt", package = "qPCRtools")
+df1.path <- system.file("examples", "cal.exp.curve.cq.txt", package = "qPCRtools")
+df2.path <- system.file("examples", "cal.expre.curve.sdc.txt", package = "qPCRtools")
+df3.path <- system.file("examples", "cal.exp.curve.design.txt", package = "qPCRtools")
 
-cq_table = read.table(df1.path, header = TRUE)
-curve_table = read.table(df2.path, sep = "\t", header = TRUE)
-design_table = read.table(df3.path, header = TRUE)
+cq_table <- read.table(df1.path, header = TRUE)
+curve_table <- read.table(df2.path, sep = "\t", header = TRUE)
+design_table <- read.table(df3.path, header = TRUE)
 
 qPCRtools::CalExpCurve(
                       cq_table,
@@ -127,11 +127,11 @@ Other parameters are same as the function `CalExpCurve`.
 - `fig_ncol`: The column of figure. The default value is `NULL`.
 
 ```{r echo=TRUE}
-df1.path = system.file("examples", "ddct.cq.txt", package = "qPCRtools")
-df2.path = system.file("examples", "ddct.design.txt", package = "qPCRtools")
+df1.path <- system.file("examples", "ddct.cq.txt", package = "qPCRtools")
+df2.path <- system.file("examples", "ddct.design.txt", package = "qPCRtools")
 
-cq_table = read.table(df1.path, header = TRUE)
-design_table = read.table(df2.path, header = TRUE)
+cq_table <- read.table(df1.path, header = TRUE)
+design_table <- read.table(df2.path, header = TRUE)
 
 qPCRtools::CalExp2ddCt(cq_table,
                        design_table,
