@@ -1,89 +1,50 @@
-#' @name CalExp2dCt
-#' @author Xiang LI <lixiang117423@@gmail.com>
+globalVariables(c(
+  "Position", "Cq", "Group", "Gene", "BioRep",
+  "cq", "group", "gene", "biorep", "mean.cq",
+  "expre", "n", "mean.expre", "sd.expre", "se.expre"
+))
+
+#' Calculate Expression Using 2-dCt Method
 #'
-#' @title Calculate expression using standard curve.
-#' @description Calculate expression using standard curve.
+#' Calculate relative gene expression using the 2-dCt method
+#' with a reference gene for normalization.
 #'
-#' @param cq.table The data frame of the position and cq value.
-#' @param design.table The data frame of the position and corresponding information.
-#' @param ref.gene The name of reference gene.
+#' @param cq.table A data frame containing position and Cq values.
+#'   Must have columns: Position, Gene, Cq.
+#' @param design.table A data frame containing position and group information.
+#'   Must have columns: Position, Group, BioRep.
+#' @param ref.gene Character. The name of the reference gene (default: "Actin").
+#'
+#' @return A data frame with expression values, including columns:
+#'   position, cq, group, gene, biorep, mean.cq, expre, n, mean.expre,
+#'   sd.expre, se.expre.
+#'
+#' @importFrom magrittr %>%
+#' @importFrom stats sd
 #'
 #' @export
-#' @return A list contain a table and a figure.
+#'
 #' @examples
+#' \dontrun{
 #' df1.path <- system.file("examples", "dct.cq.txt", package = "qPCRtools")
 #' df2.path <- system.file("examples", "dct.design.txt", package = "qPCRtools")
 #' cq.table <- read.table(df1.path, sep = ",", header = TRUE)
 #' design.table <- read.table(df2.path, sep = ",", header = TRUE)
-#' CalExp2dCt(cq.table,
-#'            design.table,
-#'            ref.gene = "Actin"
-#' ) -> res
+#' res <- CalExp2dCt(cq.table, design.table, ref.gene = "Actin")
+#' head(res)
+#' }
 #'
-globalVariables(c(
-  "cq.table",
-  "curve.table",
-  "design.table",
-  "correction",
-  "ref.gene",
-  "stat.method",
-  "ref.group",
-  "fig.type",
-  "fig.ncol",
-  "out",
-  "cq",
-  "max.cq",
-  "min.cq",
-  "expre",
-  "Intercept",
-  "Slope",
-  "Treatment",
-  "element_text",
-  "group2",
-  "max.temp",
-  "mean.expre",
-  "mean.ref",
-  "n",
-  "sd",
-  "sd.expre",
-  "Treatment",
-  "mean.ref",
-  "group2",
-  "temp",
-  "n",
-  "sd.expre",
-  "n",
-  "mean.expre",
-  "element_text",
-  "max.temp",
-  "gene",
-  "group",
-  "biorep",
-  "Target",
-  "Reference",
-  "ddct1",
-  "mean.expression",
-  "n.biorep",
-  "sd.expression",
-  "se.expression",
-  "Reference",
-  "Target",
-  "biorep",
-  "ddct1",
-  "gene",
-  "group",
-  "mean.expression",
-  "n.biorep",
-  "sd.expression",
-  "se.expression",
-  "BioRep",
-  "Eff",
-  "Group",
-  "TechRep"
-))
+#' @author Xiang LI <lixiang117423@gmail.com>
 CalExp2dCt <- function(cq.table,
                        design.table,
                        ref.gene = "Actin") {
+  if (!is.data.frame(cq.table)) {
+    stop("'cq.table' must be a data frame")
+  }
+  if (!is.data.frame(design.table)) {
+    stop("'design.table' must be a data frame")
+  }
+
   # merge data
   cq.table %>%
     dplyr::left_join(design.table, by = "Position") %>%
@@ -118,10 +79,8 @@ CalExp2dCt <- function(cq.table,
     dplyr::mutate(
       n = dplyr::n(),
       mean.expre = mean(expre),
-      sd.expre = sd(expre),
+      sd.expre = stats::sd(expre),
       se.expre = sd.expre / sqrt(n)
     ) %>%
-    dplyr::ungroup() -> res
-
-  return(res)
+    dplyr::ungroup()
 }

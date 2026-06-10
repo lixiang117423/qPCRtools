@@ -1,88 +1,67 @@
-#' @name CalExpCurve
-#' @author Xiang LI <lixiang117423@@gmail.com>
+globalVariables(c(
+  "Position", "Cq", "Gene",
+  "max.Cq", "min.Cq", "Intercept", "Slope",
+  "Treatment", "expre", "mean.ref",
+  "mean.expre", "sd.expre", "se", "n",
+  "signif", "temp", "group2", "out", "max.temp", "p"
+))
+
+#' Calculate Expression Using Standard Curve
 #'
-#' @title Calculate expression using standard curve.
-#' @description Calculate expression using standard curve.
+#' Calculate relative gene expression using a standard curve method
+#' with optional reference gene correction and statistical testing.
 #'
-#' @param cq.table The data frame of the position and Cq value.
-#' @param design.table The data frame of the position and corresponding information.
-#' @param correction Correct expression value by reference gene.
-#' @param ref.gene The name of reference gene.
-#' @param stat.method Statistical method.
-#' @param ref.group The name of reference group.
-#' @param fig.type Output image type, `box` represents `boxplot`, `bar` represents `barplot`.
-#' @param fig.ncol Number of columes of figure.
+#' @param cq.table A data frame containing position and Cq values.
+#'   Must have columns: Position, Gene, Cq.
+#' @param curve.table A data frame with standard curve parameters per gene.
+#'   Must have columns: Gene, Slope, Intercept, max.Cq, min.Cq.
+#' @param design.table A data frame containing position and group information.
+#'   Must have columns: Position, Treatment, Gene.
+#' @param correction Logical. Correct expression by reference gene
+#'   (default: TRUE).
+#' @param ref.gene Character. The name of the reference gene (default: "OsUBQ").
+#' @param stat.method Character. Statistical method for group comparison.
+#'   One of "t.test", "wilcox.test", or "anova" (default: "t.test").
+#' @param ref.group Character. The name of the reference/control group
+#'   (default: "CK").
+#' @param fig.type Character. Plot type: "box" for boxplot, "bar" for barplot
+#'   (default: "box").
+#' @param fig.ncol Integer. Number of columns in facet plot (default: NULL).
 #'
-#' @importFrom dplyr left_join filter group_by mutate ungroup
-#' @importFrom stats lm
+#' @return A list containing:
+#'   \item{table}{Data frame with expression values and statistics}
+#'   \item{figure}{ggplot object}
+#'
+#' @importFrom magrittr %>%
+#' @importFrom stats sd aov
 #' @importFrom broom glance
 #' @importFrom ggplot2 ggplot aes geom_point geom_smooth labs theme_bw
 #' @importFrom ggpmisc stat_poly_eq
 #'
 #' @export
 #'
-#' @return A list contain a table and a figure.
-#'
 #' @examples
-#' df1.path = system.file("examples", "cal.exp.curve.cq.txt", package = "qPCRtools")
-#' df2.path = system.file("examples", "cal.expre.curve.sdc.txt", package = "qPCRtools")
-#' df3.path = system.file("examples", "cal.exp.curve.design.txt", package = "qPCRtools")
-#'
-#' cq.table = read.table(df1.path, header = TRUE)
-#' curve.table = read.table(df2.path, sep = "\t", header = TRUE)
-#' design.table = read.table(df3.path, header = TRUE)
-#'
-#' CalExpCurve(
-#'   cq.table,
-#'   curve.table,
-#'   design.table,
+#' \dontrun{
+#' df1.path <- system.file("examples", "cal.exp.curve.cq.txt", package = "qPCRtools")
+#' df2.path <- system.file("examples", "cal.expre.curve.sdc.txt", package = "qPCRtools")
+#' df3.path <- system.file("examples", "cal.exp.curve.design.txt", package = "qPCRtools")
+#' cq.table <- read.table(df1.path, header = TRUE)
+#' curve.table <- read.table(df2.path, sep = "\t", header = TRUE)
+#' design.table <- read.table(df3.path, header = TRUE)
+#' res <- CalExpCurve(
+#'   cq.table, curve.table, design.table,
 #'   correction = TRUE,
 #'   ref.gene = "OsUBQ",
 #'   stat.method = "t.test",
 #'   ref.group = "CK",
 #'   fig.type = "box",
-#'   fig.ncol = NULL) -> res
-#'
+#'   fig.ncol = NULL
+#' )
 #' res[["table"]]
 #' res[["figure"]]
+#' }
 #'
-globalVariables(c(
-  "cq.table",
-  "curve.table",
-  "design.table",
-  "correction",
-  "ref.gene",
-  "stat.method",
-  "ref.group",
-  "fig.type",
-  "fig.ncol",
-  "out",
-  "Cq",
-  "max.Cq",
-  "min.Cq",
-  "expre",
-  "Intercept",
-  "Slope",
-  "Treatment",
-  "element_text",
-  "group2",
-  "max.temp",
-  "mean.expre",
-  "mean.ref",
-  "n",
-  "sd",
-  "sd.expre",
-  "Treatment",
-  "mean.ref",
-  "group2",
-  "temp",
-  "n",
-  "sd.expre",
-  "n",
-  "mean.expre",
-  "element_text",
-  "max.temp"
-))
+#' @author Xiang LI <lixiang117423@gmail.com>
 CalExpCurve <- function(cq.table,
                         curve.table,
                         design.table,
@@ -92,6 +71,22 @@ CalExpCurve <- function(cq.table,
                         ref.group = "CK",
                         fig.type = "box",
                         fig.ncol = NULL) {
+  if (!is.data.frame(cq.table)) {
+    stop("'cq.table' must be a data frame")
+  }
+  if (!is.data.frame(curve.table)) {
+    stop("'curve.table' must be a data frame")
+  }
+  if (!is.data.frame(design.table)) {
+    stop("'design.table' must be a data frame")
+  }
+  if (!stat.method %in% c("t.test", "wilcox.test", "anova")) {
+    stop("'stat.method' must be one of 't.test', 'wilcox.test', or 'anova'")
+  }
+  if (!fig.type %in% c("box", "bar")) {
+    stop("'fig.type' must be 'box' or 'bar'")
+  }
+
   # merge data
   cq.table %>%
     dplyr::left_join(design.table, by = "Position") %>%
@@ -102,10 +97,10 @@ CalExpCurve <- function(cq.table,
     )) %>%
     dplyr::mutate(expre = (Cq - Intercept) / Slope) -> df
 
-  # print warning message
+  # warn about out-of-range Cq values
   df.out <- df %>%
     dplyr::filter(out == "yes")
-  if (dim(df.out)[1] != 0) {
+  if (nrow(df.out) != 0) {
     warning(paste0("Cq of ", as.character(df.out$Position), " out of curve range!"))
   }
 
@@ -124,7 +119,29 @@ CalExpCurve <- function(cq.table,
       dplyr::select(Treatment, Gene, expre) -> df
   }
 
-  # statistics
+  # statistical tests
+  df <- cal_curve_stat_test(df, stat.method, ref.group)
+
+  # summary for plot
+  df %>%
+    dplyr::group_by(Gene, Treatment) %>%
+    dplyr::mutate(
+      mean.expre = mean(expre),
+      sd.expre = stats::sd(expre),
+      n = dplyr::n(),
+      se = sd.expre / sqrt(n)
+    ) %>%
+    dplyr::ungroup() -> df.plot
+
+  p <- build_curve_plot(df.plot, fig.type, fig.ncol)
+
+  res <- list(table = df.plot, figure = p)
+  return(res)
+}
+
+#' Run statistical tests for curve-based expression
+#' @keywords internal
+cal_curve_stat_test <- function(df, stat.method, ref.group) {
   if (stat.method == "t.test") {
     df %>%
       dplyr::group_by(Gene) %>%
@@ -142,7 +159,7 @@ CalExpCurve <- function(cq.table,
 
     df %>%
       dplyr::mutate(temp = paste0(Gene, Treatment)) %>%
-      dplyr::left_join(df.stat, by = "temp") -> df
+      dplyr::left_join(df.stat, by = "temp")
   } else if (stat.method == "wilcox.test") {
     df %>%
       dplyr::group_by(Gene) %>%
@@ -160,7 +177,7 @@ CalExpCurve <- function(cq.table,
 
     df %>%
       dplyr::mutate(temp = paste0(Gene, Treatment)) %>%
-      dplyr::left_join(df.stat, by = "temp") -> df
+      dplyr::left_join(df.stat, by = "temp")
   } else if (stat.method == "anova") {
     df.stat <- NULL
     for (i in unique(df$Gene)) {
@@ -183,27 +200,24 @@ CalExpCurve <- function(cq.table,
         dplyr::mutate(temp = paste0(Gene, Treatment)) %>%
         dplyr::left_join(df.stat, by = "temp") -> df
     }
+    df
   }
+}
 
-  # plot
-  df %>%
-    dplyr::group_by(Gene, Treatment) %>%
-    dplyr::mutate(
-      mean.expre = mean(expre),
-      sd.expre = stats::sd(expre),
-      n = dplyr::n(),
-      se = sd.expre / sqrt(n)
-    ) %>%
-    dplyr::ungroup() -> df.plot
+#' Build curve expression plot
+#' @keywords internal
+build_curve_plot <- function(df.plot, fig.type, fig.ncol) {
   if (fig.type == "box") {
     df.plot %>%
       ggplot2::ggplot(ggplot2::aes(Treatment, expre, fill = Treatment)) +
       ggplot2::geom_boxplot(width = 0.6) +
       ggplot2::facet_wrap(. ~ Gene, scales = "free_y", ncol = fig.ncol) +
-      ggplot2::geom_text(ggplot2::aes(Treatment, mean.expre, label = "."),
+      ggplot2::geom_text(
+        ggplot2::aes(Treatment, mean.expre, label = "."),
         check_overlap = TRUE, size = 15, color = "red"
       ) +
-      ggplot2::geom_text(ggplot2::aes(Treatment, min(expre), label = signif),
+      ggplot2::geom_text(
+        ggplot2::aes(Treatment, min(expre), label = signif),
         check_overlap = TRUE, size = 3, color = "black"
       ) +
       ggthemes::theme_pander() +
@@ -211,23 +225,23 @@ CalExpCurve <- function(cq.table,
       ggplot2::theme(
         legend.position = "none",
         strip.text.x = ggplot2::element_text(face = "italic")
-      ) -> p
+      )
   } else if (fig.type == "bar") {
     df.plot %>%
       dplyr::group_by(Gene) %>%
       dplyr::mutate(max.temp = max(expre)) %>%
       ggplot2::ggplot(ggplot2::aes(Treatment, mean.expre / n, fill = Treatment)) +
       ggplot2::geom_bar(stat = "identity", width = 0.6) +
-      ggplot2::geom_errorbar(ggplot2::aes(Treatment,
+      ggplot2::geom_errorbar(ggplot2::aes(
+        Treatment,
         ymin = mean.expre - sd.expre,
         ymax = mean.expre + sd.expre
-      ),
-      width = 0.2
-      ) +
+      ), width = 0.2) +
       ggplot2::geom_jitter(ggplot2::aes(Treatment, expre), width = 0.1, alpha = 0.4) +
       ggplot2::geom_hline(ggplot2::aes(yintercept = max.temp * 1.1), color = NA) +
       ggplot2::facet_wrap(. ~ Gene, scales = "free_y", ncol = fig.ncol) +
-      ggplot2::geom_text(ggplot2::aes(Treatment, max.temp * 1.08, label = signif),
+      ggplot2::geom_text(
+        ggplot2::aes(Treatment, max.temp * 1.08, label = signif),
         check_overlap = TRUE, size = 4, color = "black"
       ) +
       ggthemes::theme_pander() +
@@ -235,9 +249,6 @@ CalExpCurve <- function(cq.table,
       ggplot2::theme(
         legend.position = "none",
         strip.text.x = ggplot2::element_text(face = "italic")
-      ) -> p
+      )
   }
-
-  res <- list(table = df.plot, figure = p)
-  return(res)
 }

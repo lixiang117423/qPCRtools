@@ -1,108 +1,63 @@
-#' @name CalExp2ddCt
-#' @author Xiang LI <lixiang117423@@gmail.com>
+globalVariables(c(
+  "Position", "Cq", "Group", "Gene", "BioRep",
+  "cq", "group", "gene", "biorep",
+  "expression", "mean.expression", "sd.expression", "se.expression",
+  "n.biorep", "group2", "signif", "temp",
+  "Treatment", "expre", "mean.expre", "sd.expre", "se.expre", "n",
+  "max.temp", "is.out", "Target", "Reference", "ddct1", "p"
+))
+
+#' Calculate Expression Using 2-ddCt Method
 #'
-#' @title Calculate expression using standard curve.
-#' @description Calculate expression using standard curve.
+#' Calculate relative gene expression using the 2-ddCt method
+#' with a reference gene and reference group for normalization.
+#' Supports statistical testing and outlier removal.
 #'
-#' @param cq.table The data frame of the position and cq value.
-#' @param design.table The data frame of the position and corresponding information.
-#' @param correction Correct expression value by reference gene.
-#' @param ref.gene The name of reference gene.
-#' @param ref.group The name of reference group.
-#' @param stat.method Statistical method.
-#' @param remove.outliers Remove the outliers of each group and gene, or not.
-#' @param fig.type Output image type, `box` represents `boxplot`, `bar` represents `barplot`.
-#' @param fig.ncol Number of columes of figure.
+#' @param cq.table A data frame containing position and Cq values.
+#'   Must have columns: Position, Gene, Cq.
+#' @param design.table A data frame containing position and group information.
+#'   Must have columns: Position, Group, BioRep.
+#' @param ref.gene Character. The name of the reference gene (default: "OsUBQ").
+#' @param ref.group Character. The name of the reference/control group
+#'   (default: "CK").
+#' @param stat.method Character. Statistical method for group comparison.
+#'   One of "t.test", "wilcox.test", or "anova" (default: "t.test").
+#' @param remove.outliers Logical. Remove outliers using IQR method
+#'   (default: TRUE).
+#' @param fig.type Character. Plot type: "box" for boxplot, "bar" for barplot
+#'   (default: "box").
+#' @param fig.ncol Integer. Number of columns in facet plot (default: NULL).
+#'
+#' @return A list containing:
+#'   \item{table}{Data frame with expression values and statistics}
+#'   \item{figure}{ggplot object}
+#'
+#' @importFrom magrittr %>%
+#' @importFrom stats sd
 #'
 #' @export
-#' @return A list contain a table and a figure.
+#'
 #' @examples
-#' df1.path = system.file("examples", "ddct.cq.txt", package = "qPCRtools")
-#' df2.path = system.file("examples", "ddct.design.txt", package = "qPCRtools")
-#'
-#' cq.table = read.table(df1.path, header = TRUE)
-#' design.table = read.table(df2.path, header = TRUE)
-#'
-#' CalExp2ddCt(cq.table,
-#'             design.table,
-#'             ref.gene = "OsUBQ",
-#'             ref.group = "CK",
-#'             stat.method = "t.test",
-#'             remove.outliers = TRUE,
-#'             fig.type = "box",
-#'             fig.ncol = NULL) -> res
-#'
+#' \dontrun{
+#' df1.path <- system.file("examples", "ddct.cq.txt", package = "qPCRtools")
+#' df2.path <- system.file("examples", "ddct.design.txt", package = "qPCRtools")
+#' cq.table <- read.table(df1.path, header = TRUE)
+#' design.table <- read.table(df2.path, header = TRUE)
+#' res <- CalExp2ddCt(
+#'   cq.table,
+#'   design.table,
+#'   ref.gene = "OsUBQ",
+#'   ref.group = "CK",
+#'   stat.method = "t.test",
+#'   remove.outliers = TRUE,
+#'   fig.type = "box",
+#'   fig.ncol = NULL
+#' )
 #' res[["table"]]
 #' res[["figure"]]
+#' }
 #'
-globalVariables(c(
-  "cq.table",
-  "curve.table",
-  "design.table",
-  "correction",
-  "ref.gene",
-  "stat.method",
-  "remove.outliers",
-  "ref.group",
-  "fig.type",
-  "fig.ncol",
-  "out",
-  "cq",
-  "max.cq",
-  "min.cq",
-  "expre",
-  "Intercept",
-  "Slope",
-  "Treatment",
-  "element_text",
-  "group2",
-  "max.temp",
-  "mean.expre",
-  "mean.ref",
-  "n",
-  "sd",
-  "sd.expre",
-  "Treatment",
-  "mean.ref",
-  "group2",
-  "temp",
-  "n",
-  "sd.expre",
-  "n",
-  "mean.expre",
-  "element_text",
-  "max.temp",
-  'gene',
-  'group',
-  'biorep',
-  'Target',
-  'Reference',
-  'ddct1',
-  'mean.expression',
-  'n.biorep',
-  'sd.expression',
-  'se.expression',
-  'Reference',
-  'Target',
-  'biorep',
-  'ddct1',
-  'gene',
-  'group',
-  'mean.expression',
-  'n.biorep',
-  'sd.expression',
-  'se.expression',
-  'BioRep',
-  'Eff',
-  'Group',
-  'TechRep',
-  'rr.label',
-  'p.value.label',
-  'IQR',
-  'quantile',
-  'is.out'
-
-))
+#' @author Xiang LI <lixiang117423@gmail.com>
 CalExp2ddCt <- function(cq.table,
                         design.table,
                         ref.gene = "OsUBQ",
@@ -111,28 +66,38 @@ CalExp2ddCt <- function(cq.table,
                         remove.outliers = TRUE,
                         fig.type = "box",
                         fig.ncol = NULL) {
+  if (!is.data.frame(cq.table)) {
+    stop("'cq.table' must be a data frame")
+  }
+  if (!is.data.frame(design.table)) {
+    stop("'design.table' must be a data frame")
+  }
+  if (!stat.method %in% c("t.test", "wilcox.test", "anova")) {
+    stop("'stat.method' must be one of 't.test', 'wilcox.test', or 'anova'")
+  }
+  if (!fig.type %in% c("box", "bar")) {
+    stop("'fig.type' must be 'box' or 'bar'")
+  }
 
-  # res
   res.all <- NULL
 
   # merge data
   cq.table %>%
     dplyr::left_join(design.table, by = "Position") %>%
-    dplyr::rename(position = Position,
-                  cq = Cq,
-                  group = Group,
-                  gene = Gene,
-                  biorep = BioRep) -> df
+    dplyr::rename(
+      position = Position,
+      cq = Cq,
+      group = Group,
+      gene = Gene,
+      biorep = BioRep
+    ) -> df
 
-  # for each gene
+  # for each target gene
   target.genes <- setdiff(unique(df$gene), ref.gene)
 
   for (genes in target.genes) {
     df.sub <- df %>%
       dplyr::filter(gene %in% c(genes, ref.gene))
-
-    df.sub.ck <- df.sub %>%
-      dplyr::filter(group == ref.group)
 
     # reference gene in CK
     df.sub.ck.ref.gene <- df.sub %>%
@@ -156,10 +121,12 @@ CalExp2ddCt <- function(cq.table,
         dplyr::distinct_all() %>%
         tidyr::pivot_wider(id_cols = "biorep", names_from = "gene", values_from = "cq") %>%
         dplyr::mutate(dct1 = dct1)
-      # including ref gene or not
+
       if (ncol(df.sub.group) == 3 & !genes %in% colnames(df.sub.group)) {
         stop(paste0("Data of target gene ", genes, " has some problem, please check it and try again!"))
       }
+
+      # handle column order depending on ref gene position
       if (colnames(df.sub.group)[3] == ref.gene) {
         df.sub.group %>%
           magrittr::set_names(c("biorep", "Target", "Reference", "ddct1")) %>%
@@ -185,28 +152,16 @@ CalExp2ddCt <- function(cq.table,
     }
   }
 
-  # find outliner function
-  findoutliner <- function(x) {
-    return(
-      ifelse(
-        x < quantile(x, .25) - 1.5 * IQR(x) | x > quantile(x, .75) + 1.5 * IQR(x),
-        "yes",
-        "no"
-      )
-    )
-  }
-
+  # outlier removal
   if (remove.outliers) {
     res.all %>%
       dplyr::group_by(group, gene) %>%
-      dplyr::mutate(is.out = findoutliner(expression)) %>%
+      dplyr::mutate(is.out = find_outlier(expression)) %>%
       dplyr::ungroup() %>%
       dplyr::filter(is.out == "no") -> res.all
-  }else{
-    res.all -> res.all
   }
 
-  # group and mean and sd
+  # summary statistics
   res.all %>%
     dplyr::group_by(group, gene) %>%
     dplyr::mutate(
@@ -218,7 +173,40 @@ CalExp2ddCt <- function(cq.table,
     dplyr::ungroup() %>%
     dplyr::mutate(temp = paste0(gene, group)) -> res.all
 
-  # statistics
+  # statistical tests
+  res.all <- cal_stat_test(res.all, stat.method, ref.group)
+
+  # plot
+  df.plot <- res.all %>%
+    dplyr::rename(
+      Treatment = group,
+      expre = expression,
+      mean.expre = mean.expression,
+      sd.expre = sd.expression,
+      se.expre = se.expression,
+      n = n.biorep
+    )
+
+  p <- build_exp_plot(df.plot, fig.type, fig.ncol)
+
+  res <- list(table = df.plot, figure = p)
+  return(res)
+}
+
+#' Detect outliers using IQR method
+#' @keywords internal
+find_outlier <- function(x) {
+  ifelse(
+    x < stats::quantile(x, 0.25) - 1.5 * stats::IQR(x) |
+      x > stats::quantile(x, 0.75) + 1.5 * stats::IQR(x),
+    "yes",
+    "no"
+  )
+}
+
+#' Run statistical tests on expression data
+#' @keywords internal
+cal_stat_test <- function(res.all, stat.method, ref.group) {
   if (stat.method == "t.test") {
     res.all %>%
       dplyr::group_by(gene) %>%
@@ -236,7 +224,7 @@ CalExp2ddCt <- function(cq.table,
       dplyr::mutate(temp = paste0(gene, group)) %>%
       dplyr::select(temp, signif) -> df.stat
 
-    res.all <- res.all %>%
+    res.all %>%
       dplyr::left_join(df.stat, by = "temp")
   } else if (stat.method == "wilcox.test") {
     res.all %>%
@@ -255,7 +243,7 @@ CalExp2ddCt <- function(cq.table,
       dplyr::mutate(temp = paste0(gene, group)) %>%
       dplyr::select(temp, signif) -> df.stat
 
-    res.all <- res.all %>%
+    res.all %>%
       dplyr::left_join(df.stat, by = "temp")
   } else {
     df.stat <- NULL
@@ -277,39 +265,32 @@ CalExp2ddCt <- function(cq.table,
     }
     res.all %>%
       dplyr::mutate(temp = paste0(group, gene)) %>%
-      dplyr::left_join(df.stat, by = "temp") -> res.all
+      dplyr::left_join(df.stat, by = "temp")
   }
+}
 
-  # plot
-  df.plot <- res.all %>%
-    dplyr::rename(
-      Treatment = group,
-      gene = gene,
-      expre = expression,
-      mean.expre = mean.expression,
-      sd.expre = sd.expression,
-      se.expre = se.expression,
-      n = n.biorep
-    )
-
-
+#' Build expression plot (box or bar)
+#' @keywords internal
+build_exp_plot <- function(df.plot, fig.type, fig.ncol) {
   if (fig.type == "box") {
     df.plot %>%
       ggplot2::ggplot(ggplot2::aes(Treatment, expre, fill = Treatment)) +
       ggplot2::geom_boxplot(width = 0.6) +
       ggplot2::facet_wrap(. ~ gene, scales = "free_y", ncol = fig.ncol) +
-      ggplot2::geom_text(ggplot2::aes(Treatment, mean.expre, label = "."),
-                         check_overlap = TRUE, size = 15, color = "red"
+      ggplot2::geom_text(
+        ggplot2::aes(Treatment, mean.expre, label = "."),
+        check_overlap = TRUE, size = 15, color = "red"
       ) +
-      ggplot2::geom_text(ggplot2::aes(Treatment, min(expre), label = signif),
-                         check_overlap = TRUE, size = 3, color = "black"
+      ggplot2::geom_text(
+        ggplot2::aes(Treatment, min(expre), label = signif),
+        check_overlap = TRUE, size = 3, color = "black"
       ) +
       ggthemes::theme_pander() +
       ggplot2::labs(y = "Relative expression") +
       ggplot2::theme(
         legend.position = "none",
         strip.text.x = ggplot2::element_text(face = "italic")
-      ) -> p
+      )
   } else if (fig.type == "bar") {
     df.plot %>%
       dplyr::group_by(Treatment, gene) %>%
@@ -317,25 +298,23 @@ CalExp2ddCt <- function(cq.table,
       dplyr::ungroup() %>%
       ggplot2::ggplot(ggplot2::aes(Treatment, mean.expre / n, fill = Treatment)) +
       ggplot2::geom_bar(stat = "identity", width = 0.6) +
-      ggplot2::geom_errorbar(ggplot2::aes(Treatment,
-                                          ymin = mean.expre - sd.expre,
-                                          ymax = mean.expre + sd.expre
-      ),
-      width = 0.2
-      ) +
+      ggplot2::geom_errorbar(ggplot2::aes(
+        Treatment,
+        ymin = mean.expre - sd.expre,
+        ymax = mean.expre + sd.expre
+      ), width = 0.2) +
       ggplot2::geom_jitter(ggplot2::aes(Treatment, expre), width = 0.1, alpha = 0.4) +
       ggplot2::geom_hline(ggplot2::aes(yintercept = max.temp * 1.1), color = NA) +
       ggplot2::facet_wrap(. ~ gene, scales = "free_y", ncol = fig.ncol) +
-      ggplot2::geom_text(ggplot2::aes(Treatment, max.temp * 1.08, label = signif),
-                         check_overlap = TRUE, size = 4, color = "red"
+      ggplot2::geom_text(
+        ggplot2::aes(Treatment, max.temp * 1.08, label = signif),
+        check_overlap = TRUE, size = 4, color = "red"
       ) +
       ggthemes::theme_pander() +
       ggplot2::labs(y = "Relative expression") +
       ggplot2::theme(
         legend.position = "none",
         strip.text.x = ggplot2::element_text(face = "italic")
-      ) -> p
+      )
   }
-  res <- list(table = df.plot, figure = p)
-  return(res)
 }
