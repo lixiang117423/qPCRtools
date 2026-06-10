@@ -4,7 +4,7 @@
 \alias{cal_curve_stat_test}
 \title{Run statistical tests for curve-based expression}
 \usage{
-cal_curve_stat_test(df, stat.method, ref.group)
+cal_curve_stat_test(df, stat_method, ref_group)
 }
 \description{
 Run statistical tests for curve-based expression

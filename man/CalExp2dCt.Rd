@@ -4,16 +4,16 @@
 \alias{CalExp2dCt}
 \title{Calculate Expression Using 2-dCt Method}
 \usage{
-CalExp2dCt(cq.table, design.table, ref.gene = "Actin")
+CalExp2dCt(cq_table, design_table, ref_gene = "Actin")
 }
 \arguments{
-\item{cq.table}{A data frame containing position and Cq values.
+\item{cq_table}{A data frame containing position and Cq values.
 Must have columns: Position, Gene, Cq.}
 
-\item{design.table}{A data frame containing position and group information.
+\item{design_table}{A data frame containing position and group information.
 Must have columns: Position, Group, BioRep.}
 
-\item{ref.gene}{Character. The name of the reference gene (default: "Actin").}
+\item{ref_gene}{Character. The name of the reference gene (default: "Actin").}
 }
 \value{
 A data frame with expression values, including columns:
@@ -28,9 +28,9 @@ with a reference gene for normalization.
 \dontrun{
 df1.path <- system.file("examples", "dct.cq.txt", package = "qPCRtools")
 df2.path <- system.file("examples", "dct.design.txt", package = "qPCRtools")
-cq.table <- read.table(df1.path, sep = ",", header = TRUE)
-design.table <- read.table(df2.path, sep = ",", header = TRUE)
-res <- CalExp2dCt(cq.table, design.table, ref.gene = "Actin")
+cq_table <- read.table(df1.path, sep = ",", header = TRUE)
+design_table <- read.table(df2.path, sep = ",", header = TRUE)
+res <- CalExp2dCt(cq_table, design_table, ref_gene = "Actin")
 head(res)
 }
 

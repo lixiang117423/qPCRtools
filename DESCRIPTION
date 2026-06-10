@@ -1,6 +1,6 @@
 Package: qPCRtools
 Authors@R: person('Xiang', 'LI', email = 'lixiang117423@gmail.com', role = c('cre', 'aut'))
-Version: 1.1.0
+Version: 2.0.0
 Title: Tools for qPCR
 Description: Provides tools for quantitative PCR (qPCR) data analysis,
     including standard curve calculation with amplification efficiency,

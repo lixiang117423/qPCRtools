@@ -4,7 +4,7 @@
 \alias{build_exp_plot}
 \title{Build expression plot (box or bar)}
 \usage{
-build_exp_plot(df.plot, fig.type, fig.ncol)
+build_exp_plot(df.plot, fig_type, fig_ncol)
 }
 \description{
 Build expression plot (box or bar)

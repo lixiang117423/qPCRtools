@@ -4,7 +4,7 @@
 \alias{cal_rqpcr_stat_test}
 \title{Run statistical tests for RqPCR expression}
 \usage{
-cal_rqpcr_stat_test(res.all, stat.method, ref.group)
+cal_rqpcr_stat_test(res.all, stat_method, ref_group)
 }
 \description{
 Run statistical tests for RqPCR expression

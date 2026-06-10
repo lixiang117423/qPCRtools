@@ -5,42 +5,42 @@
 \title{Calculate Expression Using Standard Curve}
 \usage{
 CalExpCurve(
-  cq.table,
-  curve.table,
-  design.table,
+  cq_table,
+  curve_table,
+  design_table,
   correction = TRUE,
-  ref.gene = "OsUBQ",
-  stat.method = "t.test",
-  ref.group = "CK",
-  fig.type = "box",
-  fig.ncol = NULL
+  ref_gene = "OsUBQ",
+  stat_method = "t.test",
+  ref_group = "CK",
+  fig_type = "box",
+  fig_ncol = NULL
 )
 }
 \arguments{
-\item{cq.table}{A data frame containing position and Cq values.
+\item{cq_table}{A data frame containing position and Cq values.
 Must have columns: Position, Gene, Cq.}
 
-\item{curve.table}{A data frame with standard curve parameters per gene.
+\item{curve_table}{A data frame with standard curve parameters per gene.
 Must have columns: Gene, Slope, Intercept, max.Cq, min.Cq.}
 
-\item{design.table}{A data frame containing position and group information.
+\item{design_table}{A data frame containing position and group information.
 Must have columns: Position, Treatment, Gene.}
 
 \item{correction}{Logical. Correct expression by reference gene
 (default: TRUE).}
 
-\item{ref.gene}{Character. The name of the reference gene (default: "OsUBQ").}
+\item{ref_gene}{Character. The name of the reference gene (default: "OsUBQ").}
 
-\item{stat.method}{Character. Statistical method for group comparison.
+\item{stat_method}{Character. Statistical method for group comparison.
 One of "t.test", "wilcox.test", or "anova" (default: "t.test").}
 
-\item{ref.group}{Character. The name of the reference/control group
+\item{ref_group}{Character. The name of the reference/control group
 (default: "CK").}
 
-\item{fig.type}{Character. Plot type: "box" for boxplot, "bar" for barplot
+\item{fig_type}{Character. Plot type: "box" for boxplot, "bar" for barplot
 (default: "box").}
 
-\item{fig.ncol}{Integer. Number of columns in facet plot (default: NULL).}
+\item{fig_ncol}{Integer. Number of columns in facet plot (default: NULL).}
 }
 \value{
 A list containing:
@@ -56,17 +56,17 @@ with optional reference gene correction and statistical testing.
 df1.path <- system.file("examples", "cal.exp.curve.cq.txt", package = "qPCRtools")
 df2.path <- system.file("examples", "cal.expre.curve.sdc.txt", package = "qPCRtools")
 df3.path <- system.file("examples", "cal.exp.curve.design.txt", package = "qPCRtools")
-cq.table <- read.table(df1.path, header = TRUE)
-curve.table <- read.table(df2.path, sep = "\t", header = TRUE)
-design.table <- read.table(df3.path, header = TRUE)
+cq_table <- read.table(df1.path, header = TRUE)
+curve_table <- read.table(df2.path, sep = "\t", header = TRUE)
+design_table <- read.table(df3.path, header = TRUE)
 res <- CalExpCurve(
-  cq.table, curve.table, design.table,
+  cq_table, curve_table, design_table,
   correction = TRUE,
-  ref.gene = "OsUBQ",
-  stat.method = "t.test",
-  ref.group = "CK",
-  fig.type = "box",
-  fig.ncol = NULL
+  ref_gene = "OsUBQ",
+  stat_method = "t.test",
+  ref_group = "CK",
+  fig_type = "box",
+  fig_ncol = NULL
 )
 res[["table"]]
 res[["figure"]]

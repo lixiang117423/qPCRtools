@@ -13,21 +13,21 @@ globalVariables(c(
 #'
 #' Calculate relative gene expression using the RqPCR method with
 #' amplification efficiency correction. Can auto-select reference genes
-#' using the GeNorm algorithm when ref.gene is NULL.
+#' using the GeNorm algorithm when ref_gene is NULL.
 #'
-#' @param cq.table A data frame containing position and Cq values.
+#' @param cq_table A data frame containing position and Cq values.
 #'   Must have columns: Position, Gene, Cq, BioRep, TechRep, Eff.
-#' @param design.table A data frame containing position and group information.
+#' @param design_table A data frame containing position and group information.
 #'   Must have columns: Position, Group, BioRep, TechRep, Eff.
-#' @param ref.gene Character. The name(s) of reference gene(s).
+#' @param ref_gene Character. The name(s) of reference gene(s).
 #'   If NULL, reference genes are auto-selected via GeNorm (default: NULL).
-#' @param ref.group Character. The name of the reference/control group
+#' @param ref_group Character. The name of the reference/control group
 #'   (default: "CK").
-#' @param stat.method Character. Statistical method for group comparison.
+#' @param stat_method Character. Statistical method for group comparison.
 #'   One of "t.test", "wilcox.test", or "anova" (default: "t.test").
-#' @param fig.type Character. Plot type: "box" for boxplot, "bar" for barplot
+#' @param fig_type Character. Plot type: "box" for boxplot, "bar" for barplot
 #'   (default: "box").
-#' @param fig.ncol Integer. Number of columns in facet plot (default: NULL).
+#' @param fig_ncol Integer. Number of columns in facet plot (default: NULL).
 #'
 #' @return A list containing:
 #'   \item{table}{Data frame with expression values and statistics}
@@ -42,44 +42,44 @@ globalVariables(c(
 #' \dontrun{
 #' df1.path <- system.file("examples", "cal.expre.rqpcr.cq.txt", package = "qPCRtools")
 #' df2.path <- system.file("examples", "cal.expre.rqpcr.design.txt", package = "qPCRtools")
-#' cq.table <- read.table(df1.path, header = TRUE)
-#' design.table <- read.table(df2.path, header = TRUE)
+#' cq_table <- read.table(df1.path, header = TRUE)
+#' design_table <- read.table(df2.path, header = TRUE)
 #' res <- CalExpRqPCR(
-#'   cq.table, design.table,
-#'   ref.gene = NULL,
-#'   ref.group = "CK",
-#'   stat.method = "t.test",
-#'   fig.type = "box",
-#'   fig.ncol = NULL
+#'   cq_table, design_table,
+#'   ref_gene = NULL,
+#'   ref_group = "CK",
+#'   stat_method = "t.test",
+#'   fig_type = "box",
+#'   fig_ncol = NULL
 #' )
 #' res[["table"]]
 #' res[["figure"]]
 #' }
 #'
 #' @author Xiang LI <lixiang117423@gmail.com>
-CalExpRqPCR <- function(cq.table,
-                        design.table,
-                        ref.gene = NULL,
-                        ref.group = "CK",
-                        stat.method = "t.test",
-                        fig.type = "box",
-                        fig.ncol = NULL) {
-  if (!is.data.frame(cq.table)) {
-    stop("'cq.table' must be a data frame")
+CalExpRqPCR <- function(cq_table,
+                        design_table,
+                        ref_gene = NULL,
+                        ref_group = "CK",
+                        stat_method = "t.test",
+                        fig_type = "box",
+                        fig_ncol = NULL) {
+  if (!is.data.frame(cq_table)) {
+    stop("'cq_table' must be a data frame")
   }
-  if (!is.data.frame(design.table)) {
-    stop("'design.table' must be a data frame")
+  if (!is.data.frame(design_table)) {
+    stop("'design_table' must be a data frame")
   }
-  if (!stat.method %in% c("t.test", "wilcox.test", "anova")) {
-    stop("'stat.method' must be one of 't.test', 'wilcox.test', or 'anova'")
+  if (!stat_method %in% c("t.test", "wilcox.test", "anova")) {
+    stop("'stat_method' must be one of 't.test', 'wilcox.test', or 'anova'")
   }
-  if (!fig.type %in% c("box", "bar")) {
-    stop("'fig.type' must be 'box' or 'bar'")
+  if (!fig_type %in% c("box", "bar")) {
+    stop("'fig_type' must be 'box' or 'bar'")
   }
 
   # merge data
-  cq.table %>%
-    dplyr::left_join(design.table, by = "Position") %>%
+  cq_table %>%
+    dplyr::left_join(design_table, by = "Position") %>%
     dplyr::rename(
       position = Position,
       cq = Cq,
@@ -108,13 +108,13 @@ CalExpRqPCR <- function(cq.table,
     dplyr::ungroup()
 
   # auto-select reference genes if not provided
-  if (is.null(ref.gene)) {
-    ref.gene <- find_ref_gene(df.expre)
+  if (is.null(ref_gene)) {
+    ref_gene <- find_ref_gene(df.expre)
   }
 
   # calculate normalization factor
   df.factor <- df.expre %>%
-    dplyr::filter(gene %in% ref.gene) %>%
+    dplyr::filter(gene %in% ref_gene) %>%
     dplyr::mutate(temp_2 = paste0(group, biorep, gene))
   df.factor <- df.factor[!duplicated(df.factor$temp_2), ] %>% as.data.frame()
 
@@ -136,13 +136,13 @@ CalExpRqPCR <- function(cq.table,
   df.factor <- df.factor %>%
     dplyr::mutate(temp_2 = paste0(group, biorep)) %>%
     merge(factor, by = "temp_2") %>%
-    dplyr::mutate(SD.factor = (SD_QCq / (length(ref.gene) * QCq))^2) %>%
+    dplyr::mutate(SD.factor = (SD_QCq / (length(ref_gene) * QCq))^2) %>%
     dplyr::group_by(biorep, group) %>%
     dplyr::mutate(SD.factor = sqrt(sum(SD.factor)) * factor)
 
   # corrected expression
   df.goi <- df.expre %>%
-    dplyr::filter(!gene %in% ref.gene) %>%
+    dplyr::filter(!gene %in% ref_gene) %>%
     dplyr::mutate(temp_2 = paste0(group, biorep)) %>%
     merge(df.factor[, c("temp_2", "factor", "SD.factor")], by = "temp_2") %>%
     dplyr::mutate(
@@ -184,7 +184,7 @@ CalExpRqPCR <- function(cq.table,
     dplyr::mutate(temp = paste0(gene, group))
 
   # statistical tests
-  res.all <- cal_rqpcr_stat_test(res.all, stat.method, ref.group)
+  res.all <- cal_rqpcr_stat_test(res.all, stat_method, ref_group)
 
   # plot
   df.plot <- res.all %>%
@@ -199,7 +199,7 @@ CalExpRqPCR <- function(cq.table,
     dplyr::mutate(n = dplyr::n()) %>%
     dplyr::ungroup()
 
-  p <- build_rqpcr_plot(df.plot, fig.type, fig.ncol)
+  p <- build_rqpcr_plot(df.plot, fig_type, fig_ncol)
 
   res.all <- res.all %>%
     dplyr::select(-temp, -eff) %>%
@@ -276,11 +276,11 @@ find_ref_gene <- function(df.expre) {
 
 #' Run statistical tests for RqPCR expression
 #' @keywords internal
-cal_rqpcr_stat_test <- function(res.all, stat.method, ref.group) {
-  if (stat.method == "t.test") {
+cal_rqpcr_stat_test <- function(res.all, stat_method, ref_group) {
+  if (stat_method == "t.test") {
     res.all %>%
       dplyr::group_by(gene) %>%
-      rstatix::t_test(Expre4Stat ~ group, ref.group = ref.group) %>%
+      rstatix::t_test(Expre4Stat ~ group, ref.group = ref_group) %>%
       dplyr::ungroup() %>%
       dplyr::select(gene, group2, p) %>%
       dplyr::mutate(signif = dplyr::case_when(
@@ -289,17 +289,17 @@ cal_rqpcr_stat_test <- function(res.all, stat.method, ref.group) {
         p > 0.01 & p < 0.05 ~ "*",
         TRUE ~ "NS"
       )) %>%
-      dplyr::add_row(group2 = ref.group, p = NA, signif = NA) %>%
+      dplyr::add_row(group2 = ref_group, p = NA, signif = NA) %>%
       dplyr::rename(group = group2) %>%
       dplyr::mutate(temp = paste0(gene, group)) %>%
       dplyr::select(temp, signif) -> df.stat
 
     res.all %>%
       dplyr::left_join(df.stat, by = "temp")
-  } else if (stat.method == "wilcox.test") {
+  } else if (stat_method == "wilcox.test") {
     res.all %>%
       dplyr::group_by(gene) %>%
-      rstatix::wilcox_test(Expre4Stat ~ group, ref.group = ref.group) %>%
+      rstatix::wilcox_test(Expre4Stat ~ group, ref.group = ref_group) %>%
       dplyr::ungroup() %>%
       dplyr::select(gene, group2, p) %>%
       dplyr::mutate(signif = dplyr::case_when(
@@ -308,7 +308,7 @@ cal_rqpcr_stat_test <- function(res.all, stat.method, ref.group) {
         p > 0.01 & p < 0.05 ~ "*",
         TRUE ~ "NS"
       )) %>%
-      dplyr::add_row(group2 = ref.group, p = NA, signif = NA) %>%
+      dplyr::add_row(group2 = ref_group, p = NA, signif = NA) %>%
       dplyr::rename(group = group2) %>%
       dplyr::mutate(temp = paste0(gene, group)) %>%
       dplyr::select(temp, signif) -> df.stat
@@ -341,12 +341,12 @@ cal_rqpcr_stat_test <- function(res.all, stat.method, ref.group) {
 
 #' Build RqPCR expression plot
 #' @keywords internal
-build_rqpcr_plot <- function(df.plot, fig.type, fig.ncol) {
-  if (fig.type == "box") {
+build_rqpcr_plot <- function(df.plot, fig_type, fig_ncol) {
+  if (fig_type == "box") {
     df.plot %>%
       ggplot2::ggplot(ggplot2::aes(Treatment, expre, fill = Treatment)) +
       ggplot2::geom_boxplot(width = 0.6) +
-      ggplot2::facet_wrap(. ~ gene, scales = "free_y", ncol = fig.ncol) +
+      ggplot2::facet_wrap(. ~ gene, scales = "free_y", ncol = fig_ncol) +
       ggplot2::geom_text(
         ggplot2::aes(Treatment, min(expre), label = signif),
         check_overlap = TRUE, size = 3, color = "black"
@@ -357,7 +357,7 @@ build_rqpcr_plot <- function(df.plot, fig.type, fig.ncol) {
         legend.position = "none",
         strip.text.x = ggplot2::element_text(face = "italic")
       )
-  } else if (fig.type == "bar") {
+  } else if (fig_type == "bar") {
     df.plot %>%
       dplyr::group_by(gene) %>%
       dplyr::mutate(max.temp = max(mean.expre)) %>%
@@ -370,7 +370,7 @@ build_rqpcr_plot <- function(df.plot, fig.type, fig.ncol) {
         ymax = mean.expre + sd.expre
       ), width = 0.2) +
       ggplot2::geom_hline(ggplot2::aes(yintercept = max.temp * 1.15), color = NA) +
-      ggplot2::facet_wrap(. ~ gene, scales = "free_y", ncol = fig.ncol) +
+      ggplot2::facet_wrap(. ~ gene, scales = "free_y", ncol = fig_ncol) +
       ggplot2::geom_text(
         ggplot2::aes(Treatment, (mean.expre + sd.expre) * 1.08, label = signif),
         check_overlap = TRUE, size = 4, color = "black"

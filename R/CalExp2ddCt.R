@@ -13,20 +13,20 @@ globalVariables(c(
 #' with a reference gene and reference group for normalization.
 #' Supports statistical testing and outlier removal.
 #'
-#' @param cq.table A data frame containing position and Cq values.
+#' @param cq_table A data frame containing position and Cq values.
 #'   Must have columns: Position, Gene, Cq.
-#' @param design.table A data frame containing position and group information.
+#' @param design_table A data frame containing position and group information.
 #'   Must have columns: Position, Group, BioRep.
-#' @param ref.gene Character. The name of the reference gene (default: "OsUBQ").
-#' @param ref.group Character. The name of the reference/control group
+#' @param ref_gene Character. The name of the reference gene (default: "OsUBQ").
+#' @param ref_group Character. The name of the reference/control group
 #'   (default: "CK").
-#' @param stat.method Character. Statistical method for group comparison.
+#' @param stat_method Character. Statistical method for group comparison.
 #'   One of "t.test", "wilcox.test", or "anova" (default: "t.test").
-#' @param remove.outliers Logical. Remove outliers using IQR method
+#' @param remove_outliers Logical. Remove outliers using IQR method
 #'   (default: TRUE).
-#' @param fig.type Character. Plot type: "box" for boxplot, "bar" for barplot
+#' @param fig_type Character. Plot type: "box" for boxplot, "bar" for barplot
 #'   (default: "box").
-#' @param fig.ncol Integer. Number of columns in facet plot (default: NULL).
+#' @param fig_ncol Integer. Number of columns in facet plot (default: NULL).
 #'
 #' @return A list containing:
 #'   \item{table}{Data frame with expression values and statistics}
@@ -41,49 +41,49 @@ globalVariables(c(
 #' \dontrun{
 #' df1.path <- system.file("examples", "ddct.cq.txt", package = "qPCRtools")
 #' df2.path <- system.file("examples", "ddct.design.txt", package = "qPCRtools")
-#' cq.table <- read.table(df1.path, header = TRUE)
-#' design.table <- read.table(df2.path, header = TRUE)
+#' cq_table <- read.table(df1.path, header = TRUE)
+#' design_table <- read.table(df2.path, header = TRUE)
 #' res <- CalExp2ddCt(
-#'   cq.table,
-#'   design.table,
-#'   ref.gene = "OsUBQ",
-#'   ref.group = "CK",
-#'   stat.method = "t.test",
-#'   remove.outliers = TRUE,
-#'   fig.type = "box",
-#'   fig.ncol = NULL
+#'   cq_table,
+#'   design_table,
+#'   ref_gene = "OsUBQ",
+#'   ref_group = "CK",
+#'   stat_method = "t.test",
+#'   remove_outliers = TRUE,
+#'   fig_type = "box",
+#'   fig_ncol = NULL
 #' )
 #' res[["table"]]
 #' res[["figure"]]
 #' }
 #'
 #' @author Xiang LI <lixiang117423@gmail.com>
-CalExp2ddCt <- function(cq.table,
-                        design.table,
-                        ref.gene = "OsUBQ",
-                        ref.group = "CK",
-                        stat.method = "t.test",
-                        remove.outliers = TRUE,
-                        fig.type = "box",
-                        fig.ncol = NULL) {
-  if (!is.data.frame(cq.table)) {
-    stop("'cq.table' must be a data frame")
+CalExp2ddCt <- function(cq_table,
+                        design_table,
+                        ref_gene = "OsUBQ",
+                        ref_group = "CK",
+                        stat_method = "t.test",
+                        remove_outliers = TRUE,
+                        fig_type = "box",
+                        fig_ncol = NULL) {
+  if (!is.data.frame(cq_table)) {
+    stop("'cq_table' must be a data frame")
   }
-  if (!is.data.frame(design.table)) {
-    stop("'design.table' must be a data frame")
+  if (!is.data.frame(design_table)) {
+    stop("'design_table' must be a data frame")
   }
-  if (!stat.method %in% c("t.test", "wilcox.test", "anova")) {
-    stop("'stat.method' must be one of 't.test', 'wilcox.test', or 'anova'")
+  if (!stat_method %in% c("t.test", "wilcox.test", "anova")) {
+    stop("'stat_method' must be one of 't.test', 'wilcox.test', or 'anova'")
   }
-  if (!fig.type %in% c("box", "bar")) {
-    stop("'fig.type' must be 'box' or 'bar'")
+  if (!fig_type %in% c("box", "bar")) {
+    stop("'fig_type' must be 'box' or 'bar'")
   }
 
   res.all <- NULL
 
   # merge data
-  cq.table %>%
-    dplyr::left_join(design.table, by = "Position") %>%
+  cq_table %>%
+    dplyr::left_join(design_table, by = "Position") %>%
     dplyr::rename(
       position = Position,
       cq = Cq,
@@ -93,22 +93,22 @@ CalExp2ddCt <- function(cq.table,
     ) -> df
 
   # for each target gene
-  target.genes <- setdiff(unique(df$gene), ref.gene)
+  target.genes <- setdiff(unique(df$gene), ref_gene)
 
   for (genes in target.genes) {
     df.sub <- df %>%
-      dplyr::filter(gene %in% c(genes, ref.gene))
+      dplyr::filter(gene %in% c(genes, ref_gene))
 
     # reference gene in CK
-    df.sub.ck.ref.gene <- df.sub %>%
-      dplyr::filter(gene == ref.gene)
-    mean.ck.ref.gene <- mean(df.sub.ck.ref.gene$cq)
+    df.sub.ck.ref_gene <- df.sub %>%
+      dplyr::filter(gene == ref_gene)
+    mean.ck.ref_gene <- mean(df.sub.ck.ref_gene$cq)
 
     df.sub.ck.target.gene <- df.sub %>%
-      dplyr::filter(gene != ref.gene)
+      dplyr::filter(gene != ref_gene)
     mean.ck.target.gene <- mean(df.sub.ck.target.gene$cq)
 
-    dct1 <- mean.ck.target.gene - mean.ck.ref.gene
+    dct1 <- mean.ck.target.gene - mean.ck.ref_gene
 
     # for each treatment
     for (groups in unique(df.sub$group)) {
@@ -127,7 +127,7 @@ CalExp2ddCt <- function(cq.table,
       }
 
       # handle column order depending on ref gene position
-      if (colnames(df.sub.group)[3] == ref.gene) {
+      if (colnames(df.sub.group)[3] == ref_gene) {
         df.sub.group %>%
           magrittr::set_names(c("biorep", "Target", "Reference", "ddct1")) %>%
           dplyr::mutate(expression = 2^(-(Target - Reference - ddct1))) %>%
@@ -153,7 +153,7 @@ CalExp2ddCt <- function(cq.table,
   }
 
   # outlier removal
-  if (remove.outliers) {
+  if (remove_outliers) {
     res.all %>%
       dplyr::group_by(group, gene) %>%
       dplyr::mutate(is.out = find_outlier(expression)) %>%
@@ -174,7 +174,7 @@ CalExp2ddCt <- function(cq.table,
     dplyr::mutate(temp = paste0(gene, group)) -> res.all
 
   # statistical tests
-  res.all <- cal_stat_test(res.all, stat.method, ref.group)
+  res.all <- cal_stat_test(res.all, stat_method, ref_group)
 
   # plot
   df.plot <- res.all %>%
@@ -187,7 +187,7 @@ CalExp2ddCt <- function(cq.table,
       n = n.biorep
     )
 
-  p <- build_exp_plot(df.plot, fig.type, fig.ncol)
+  p <- build_exp_plot(df.plot, fig_type, fig_ncol)
 
   res <- list(table = df.plot, figure = p)
   return(res)
@@ -206,11 +206,11 @@ find_outlier <- function(x) {
 
 #' Run statistical tests on expression data
 #' @keywords internal
-cal_stat_test <- function(res.all, stat.method, ref.group) {
-  if (stat.method == "t.test") {
+cal_stat_test <- function(res.all, stat_method, ref_group) {
+  if (stat_method == "t.test") {
     res.all %>%
       dplyr::group_by(gene) %>%
-      rstatix::t_test(expression ~ group, ref.group = ref.group) %>%
+      rstatix::t_test(expression ~ group, ref.group = ref_group) %>%
       dplyr::ungroup() %>%
       dplyr::select(gene, group2, p) %>%
       dplyr::mutate(signif = dplyr::case_when(
@@ -219,17 +219,17 @@ cal_stat_test <- function(res.all, stat.method, ref.group) {
         p > 0.01 & p < 0.05 ~ "*",
         TRUE ~ "NS"
       )) %>%
-      dplyr::add_row(group2 = ref.group, p = NA, signif = NA) %>%
+      dplyr::add_row(group2 = ref_group, p = NA, signif = NA) %>%
       dplyr::rename(group = group2) %>%
       dplyr::mutate(temp = paste0(gene, group)) %>%
       dplyr::select(temp, signif) -> df.stat
 
     res.all %>%
       dplyr::left_join(df.stat, by = "temp")
-  } else if (stat.method == "wilcox.test") {
+  } else if (stat_method == "wilcox.test") {
     res.all %>%
       dplyr::group_by(gene) %>%
-      rstatix::wilcox_test(expression ~ group, ref.group = ref.group) %>%
+      rstatix::wilcox_test(expression ~ group, ref.group = ref_group) %>%
       dplyr::ungroup() %>%
       dplyr::select(gene, group2, p) %>%
       dplyr::mutate(signif = dplyr::case_when(
@@ -238,7 +238,7 @@ cal_stat_test <- function(res.all, stat.method, ref.group) {
         p > 0.01 & p < 0.05 ~ "*",
         TRUE ~ "NS"
       )) %>%
-      dplyr::add_row(group2 = ref.group, p = NA, signif = NA) %>%
+      dplyr::add_row(group2 = ref_group, p = NA, signif = NA) %>%
       dplyr::rename(group = group2) %>%
       dplyr::mutate(temp = paste0(gene, group)) %>%
       dplyr::select(temp, signif) -> df.stat
@@ -271,12 +271,12 @@ cal_stat_test <- function(res.all, stat.method, ref.group) {
 
 #' Build expression plot (box or bar)
 #' @keywords internal
-build_exp_plot <- function(df.plot, fig.type, fig.ncol) {
-  if (fig.type == "box") {
+build_exp_plot <- function(df.plot, fig_type, fig_ncol) {
+  if (fig_type == "box") {
     df.plot %>%
       ggplot2::ggplot(ggplot2::aes(Treatment, expre, fill = Treatment)) +
       ggplot2::geom_boxplot(width = 0.6) +
-      ggplot2::facet_wrap(. ~ gene, scales = "free_y", ncol = fig.ncol) +
+      ggplot2::facet_wrap(. ~ gene, scales = "free_y", ncol = fig_ncol) +
       ggplot2::geom_text(
         ggplot2::aes(Treatment, mean.expre, label = "."),
         check_overlap = TRUE, size = 15, color = "red"
@@ -291,7 +291,7 @@ build_exp_plot <- function(df.plot, fig.type, fig.ncol) {
         legend.position = "none",
         strip.text.x = ggplot2::element_text(face = "italic")
       )
-  } else if (fig.type == "bar") {
+  } else if (fig_type == "bar") {
     df.plot %>%
       dplyr::group_by(Treatment, gene) %>%
       dplyr::mutate(max.temp = max(expre)) %>%
@@ -305,7 +305,7 @@ build_exp_plot <- function(df.plot, fig.type, fig.ncol) {
       ), width = 0.2) +
       ggplot2::geom_jitter(ggplot2::aes(Treatment, expre), width = 0.1, alpha = 0.4) +
       ggplot2::geom_hline(ggplot2::aes(yintercept = max.temp * 1.1), color = NA) +
-      ggplot2::facet_wrap(. ~ gene, scales = "free_y", ncol = fig.ncol) +
+      ggplot2::facet_wrap(. ~ gene, scales = "free_y", ncol = fig_ncol) +
       ggplot2::geom_text(
         ggplot2::aes(Treatment, max.temp * 1.08, label = signif),
         check_overlap = TRUE, size = 4, color = "red"

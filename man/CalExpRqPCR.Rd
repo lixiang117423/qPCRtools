@@ -5,35 +5,35 @@
 \title{Calculate Expression Using RqPCR Method}
 \usage{
 CalExpRqPCR(
-  cq.table,
-  design.table,
-  ref.gene = NULL,
-  ref.group = "CK",
-  stat.method = "t.test",
-  fig.type = "box",
-  fig.ncol = NULL
+  cq_table,
+  design_table,
+  ref_gene = NULL,
+  ref_group = "CK",
+  stat_method = "t.test",
+  fig_type = "box",
+  fig_ncol = NULL
 )
 }
 \arguments{
-\item{cq.table}{A data frame containing position and Cq values.
+\item{cq_table}{A data frame containing position and Cq values.
 Must have columns: Position, Gene, Cq, BioRep, TechRep, Eff.}
 
-\item{design.table}{A data frame containing position and group information.
+\item{design_table}{A data frame containing position and group information.
 Must have columns: Position, Group, BioRep, TechRep, Eff.}
 
-\item{ref.gene}{Character. The name(s) of reference gene(s).
+\item{ref_gene}{Character. The name(s) of reference gene(s).
 If NULL, reference genes are auto-selected via GeNorm (default: NULL).}
 
-\item{ref.group}{Character. The name of the reference/control group
+\item{ref_group}{Character. The name of the reference/control group
 (default: "CK").}
 
-\item{stat.method}{Character. Statistical method for group comparison.
+\item{stat_method}{Character. Statistical method for group comparison.
 One of "t.test", "wilcox.test", or "anova" (default: "t.test").}
 
-\item{fig.type}{Character. Plot type: "box" for boxplot, "bar" for barplot
+\item{fig_type}{Character. Plot type: "box" for boxplot, "bar" for barplot
 (default: "box").}
 
-\item{fig.ncol}{Integer. Number of columns in facet plot (default: NULL).}
+\item{fig_ncol}{Integer. Number of columns in facet plot (default: NULL).}
 }
 \value{
 A list containing:
@@ -43,21 +43,21 @@ A list containing:
 \description{
 Calculate relative gene expression using the RqPCR method with
 amplification efficiency correction. Can auto-select reference genes
-using the GeNorm algorithm when ref.gene is NULL.
+using the GeNorm algorithm when ref_gene is NULL.
 }
 \examples{
 \dontrun{
 df1.path <- system.file("examples", "cal.expre.rqpcr.cq.txt", package = "qPCRtools")
 df2.path <- system.file("examples", "cal.expre.rqpcr.design.txt", package = "qPCRtools")
-cq.table <- read.table(df1.path, header = TRUE)
-design.table <- read.table(df2.path, header = TRUE)
+cq_table <- read.table(df1.path, header = TRUE)
+design_table <- read.table(df2.path, header = TRUE)
 res <- CalExpRqPCR(
-  cq.table, design.table,
-  ref.gene = NULL,
-  ref.group = "CK",
-  stat.method = "t.test",
-  fig.type = "box",
-  fig.ncol = NULL
+  cq_table, design_table,
+  ref_gene = NULL,
+  ref_group = "CK",
+  stat_method = "t.test",
+  fig_type = "box",
+  fig_ncol = NULL
 )
 res[["table"]]
 res[["figure"]]

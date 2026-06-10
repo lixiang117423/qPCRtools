@@ -4,7 +4,7 @@
 \alias{build_curve_plot}
 \title{Build curve expression plot}
 \usage{
-build_curve_plot(df.plot, fig.type, fig.ncol)
+build_curve_plot(df.plot, fig_type, fig_ncol)
 }
 \description{
 Build curve expression plot

@@ -5,28 +5,28 @@
 \title{Standard Curve Calculation}
 \usage{
 CalCurve(
-  cq.table,
-  concen.table,
-  highest.concen,
-  lowest.concen,
+  cq_table,
+  concen_table,
+  highest_concen,
+  lowest_concen,
   dilution = 4,
-  by.mean = TRUE
+  by_mean = TRUE
 )
 }
 \arguments{
-\item{cq.table}{A data frame containing position and Cq values.
+\item{cq_table}{A data frame containing position and Cq values.
 Must have columns: Position, Gene, Cq.}
 
-\item{concen.table}{A data frame containing position and concentration.
+\item{concen_table}{A data frame containing position and concentration.
 Must have columns: Position, Conc.}
 
-\item{highest.concen}{Numeric. The highest concentration for calculation.}
+\item{highest_concen}{Numeric. The highest concentration for calculation.}
 
-\item{lowest.concen}{Numeric. The lowest concentration for calculation.}
+\item{lowest_concen}{Numeric. The lowest concentration for calculation.}
 
 \item{dilution}{Numeric. Dilution factor of cDNA template (default: 4).}
 
-\item{by.mean}{Logical. Calculate by mean Cq value or not (default: TRUE).}
+\item{by_mean}{Logical. Calculate by mean Cq value or not (default: TRUE).}
 }
 \value{
 A list containing:
@@ -46,12 +46,12 @@ df.2.path <- system.file("examples", "calsc.info.txt", package = "qPCRtools")
 df.1 <- read.table(df.1.path, header = TRUE)
 df.2 <- read.table(df.2.path, header = TRUE)
 res <- CalCurve(
-  cq.table = df.1,
-  concen.table = df.2,
-  lowest.concen = 4,
-  highest.concen = 4096,
+  cq_table = df.1,
+  concen_table = df.2,
+  lowest_concen = 4,
+  highest_concen = 4096,
   dilution = 4,
-  by.mean = TRUE
+  by_mean = TRUE
 )
 res[["table"]]
 res[["figure"]]

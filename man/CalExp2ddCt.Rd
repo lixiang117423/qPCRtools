@@ -5,38 +5,38 @@
 \title{Calculate Expression Using 2-ddCt Method}
 \usage{
 CalExp2ddCt(
-  cq.table,
-  design.table,
-  ref.gene = "OsUBQ",
-  ref.group = "CK",
-  stat.method = "t.test",
-  remove.outliers = TRUE,
-  fig.type = "box",
-  fig.ncol = NULL
+  cq_table,
+  design_table,
+  ref_gene = "OsUBQ",
+  ref_group = "CK",
+  stat_method = "t.test",
+  remove_outliers = TRUE,
+  fig_type = "box",
+  fig_ncol = NULL
 )
 }
 \arguments{
-\item{cq.table}{A data frame containing position and Cq values.
+\item{cq_table}{A data frame containing position and Cq values.
 Must have columns: Position, Gene, Cq.}
 
-\item{design.table}{A data frame containing position and group information.
+\item{design_table}{A data frame containing position and group information.
 Must have columns: Position, Group, BioRep.}
 
-\item{ref.gene}{Character. The name of the reference gene (default: "OsUBQ").}
+\item{ref_gene}{Character. The name of the reference gene (default: "OsUBQ").}
 
-\item{ref.group}{Character. The name of the reference/control group
+\item{ref_group}{Character. The name of the reference/control group
 (default: "CK").}
 
-\item{stat.method}{Character. Statistical method for group comparison.
+\item{stat_method}{Character. Statistical method for group comparison.
 One of "t.test", "wilcox.test", or "anova" (default: "t.test").}
 
-\item{remove.outliers}{Logical. Remove outliers using IQR method
+\item{remove_outliers}{Logical. Remove outliers using IQR method
 (default: TRUE).}
 
-\item{fig.type}{Character. Plot type: "box" for boxplot, "bar" for barplot
+\item{fig_type}{Character. Plot type: "box" for boxplot, "bar" for barplot
 (default: "box").}
 
-\item{fig.ncol}{Integer. Number of columns in facet plot (default: NULL).}
+\item{fig_ncol}{Integer. Number of columns in facet plot (default: NULL).}
 }
 \value{
 A list containing:
@@ -52,17 +52,17 @@ Supports statistical testing and outlier removal.
 \dontrun{
 df1.path <- system.file("examples", "ddct.cq.txt", package = "qPCRtools")
 df2.path <- system.file("examples", "ddct.design.txt", package = "qPCRtools")
-cq.table <- read.table(df1.path, header = TRUE)
-design.table <- read.table(df2.path, header = TRUE)
+cq_table <- read.table(df1.path, header = TRUE)
+design_table <- read.table(df2.path, header = TRUE)
 res <- CalExp2ddCt(
-  cq.table,
-  design.table,
-  ref.gene = "OsUBQ",
-  ref.group = "CK",
-  stat.method = "t.test",
-  remove.outliers = TRUE,
-  fig.type = "box",
-  fig.ncol = NULL
+  cq_table,
+  design_table,
+  ref_gene = "OsUBQ",
+  ref_group = "CK",
+  stat_method = "t.test",
+  remove_outliers = TRUE,
+  fig_type = "box",
+  fig_ncol = NULL
 )
 res[["table"]]
 res[["figure"]]

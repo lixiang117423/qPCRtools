@@ -4,7 +4,7 @@
 \alias{CalRTable}
 \title{Calculate RNA Volume for Reverse Transcription}
 \usage{
-CalRTable(data, template, RNA.weight = 1)
+CalRTable(data, template, rna_weight = 1)
 }
 \arguments{
 \item{data}{A data frame containing sample names and concentration
@@ -13,7 +13,7 @@ values (default unit: ng/uL). Must have columns: sample, concentration.}
 \item{template}{A data frame containing reverse transcription information.
 Must have a column called `all`.}
 
-\item{RNA.weight}{Numeric. RNA weight required for reverse transcription
+\item{rna_weight}{Numeric. RNA weight required for reverse transcription
 in micrograms (default: 1).}
 }
 \value{
@@ -30,7 +30,7 @@ df.1.path <- system.file("examples", "crtv.data.txt", package = "qPCRtools")
 df.2.path <- system.file("examples", "crtv.template.txt", package = "qPCRtools")
 df.1 <- read.table(df.1.path, sep = "\t", header = TRUE)
 df.2 <- read.table(df.2.path, sep = "\t", header = TRUE)
-result <- CalRTable(data = df.1, template = df.2, RNA.weight = 2)
+result <- CalRTable(data = df.1, template = df.2, rna_weight = 2)
 head(result)
 }
 

@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [2.0.0] - 2026-06-10
+
+### BREAKING
+
+- Rename all dot.case parameters to snake_case per development guide:
+  `cq.table` → `cq_table`, `design.table` → `design_table`, `curve.table` → `curve_table`,
+  `concen.table` → `concen_table`, `ref.gene` → `ref_gene`, `ref.group` → `ref_group`,
+  `stat.method` → `stat_method`, `fig.type` → `fig_type`, `fig.ncol` → `fig_ncol`,
+  `highest.concen` → `highest_concen`, `lowest.concen` → `lowest_concen`,
+  `by.mean` → `by_mean`, `RNA.weight` → `rna_weight`, `remove.outliers` → `remove_outliers`
+
+### Changed
+
+- Rewrite README.md with correct parameter names and usage examples
+
 ## [1.1.0] - 2026-06-10
 
 ### Changed

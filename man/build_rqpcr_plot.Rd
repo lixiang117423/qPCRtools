@@ -4,7 +4,7 @@
 \alias{build_rqpcr_plot}
 \title{Build RqPCR expression plot}
 \usage{
-build_rqpcr_plot(df.plot, fig.type, fig.ncol)
+build_rqpcr_plot(df.plot, fig_type, fig_ncol)
 }
 \description{
 Build RqPCR expression plot

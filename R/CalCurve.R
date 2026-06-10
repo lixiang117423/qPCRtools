@@ -9,14 +9,14 @@ globalVariables(c(
 #' of primer(s). Based on the amplification efficiency, we can determine
 #' which method to use for expression level calculation.
 #'
-#' @param cq.table A data frame containing position and Cq values.
+#' @param cq_table A data frame containing position and Cq values.
 #'   Must have columns: Position, Gene, Cq.
-#' @param concen.table A data frame containing position and concentration.
+#' @param concen_table A data frame containing position and concentration.
 #'   Must have columns: Position, Conc.
-#' @param highest.concen Numeric. The highest concentration for calculation.
-#' @param lowest.concen Numeric. The lowest concentration for calculation.
+#' @param highest_concen Numeric. The highest concentration for calculation.
+#' @param lowest_concen Numeric. The lowest concentration for calculation.
 #' @param dilution Numeric. Dilution factor of cDNA template (default: 4).
-#' @param by.mean Logical. Calculate by mean Cq value or not (default: TRUE).
+#' @param by_mean Logical. Calculate by mean Cq value or not (default: TRUE).
 #'
 #' @return A list containing:
 #'   \item{table}{Data frame with standard curve parameters per gene
@@ -39,38 +39,38 @@ globalVariables(c(
 #' df.1 <- read.table(df.1.path, header = TRUE)
 #' df.2 <- read.table(df.2.path, header = TRUE)
 #' res <- CalCurve(
-#'   cq.table = df.1,
-#'   concen.table = df.2,
-#'   lowest.concen = 4,
-#'   highest.concen = 4096,
+#'   cq_table = df.1,
+#'   concen_table = df.2,
+#'   lowest_concen = 4,
+#'   highest_concen = 4096,
 #'   dilution = 4,
-#'   by.mean = TRUE
+#'   by_mean = TRUE
 #' )
 #' res[["table"]]
 #' res[["figure"]]
 #' }
 #'
 #' @author Xiang LI <lixiang117423@gmail.com>
-CalCurve <- function(cq.table,
-                     concen.table,
-                     highest.concen,
-                     lowest.concen,
+CalCurve <- function(cq_table,
+                     concen_table,
+                     highest_concen,
+                     lowest_concen,
                      dilution = 4,
-                     by.mean = TRUE) {
+                     by_mean = TRUE) {
   # input validation
-  if (!is.data.frame(cq.table)) {
-    stop("'cq.table' must be a data frame")
+  if (!is.data.frame(cq_table)) {
+    stop("'cq_table' must be a data frame")
   }
-  if (!is.data.frame(concen.table)) {
-    stop("'concen.table' must be a data frame")
+  if (!is.data.frame(concen_table)) {
+    stop("'concen_table' must be a data frame")
   }
-  if (!is.numeric(highest.concen) || !is.numeric(lowest.concen)) {
-    stop("'highest.concen' and 'lowest.concen' must be numeric")
+  if (!is.numeric(highest_concen) || !is.numeric(lowest_concen)) {
+    stop("'highest_concen' and 'lowest_concen' must be numeric")
   }
 
-  cq.table %>%
-    dplyr::left_join(concen.table, by = "Position") %>%
-    dplyr::filter(Conc >= lowest.concen & Conc <= highest.concen) %>%
+  cq_table %>%
+    dplyr::left_join(concen_table, by = "Position") %>%
+    dplyr::filter(Conc >= lowest_concen & Conc <= highest_concen) %>%
     dplyr::group_by(Gene, Conc) %>%
     dplyr::mutate(
       mean.cq = mean(Cq),
@@ -84,7 +84,7 @@ CalCurve <- function(cq.table,
     ) %>%
     dplyr::ungroup() -> df
 
-  if (isTRUE(by.mean)) {
+  if (isTRUE(by_mean)) {
     res <- cal_curve_by_mean(df, dilution)
   } else {
     res <- cal_curve_by_raw(df, dilution)

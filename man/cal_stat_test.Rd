@@ -4,7 +4,7 @@
 \alias{cal_stat_test}
 \title{Run statistical tests on expression data}
 \usage{
-cal_stat_test(res.all, stat.method, ref.group)
+cal_stat_test(res.all, stat_method, ref_group)
 }
 \description{
 Run statistical tests on expression data
