@@ -48,7 +48,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 - CRAN pre-tests requested one documentation fix: the six package manuals now
   contain `\usage` sections, and technical abbreviations in `Description` are
   quoted for the incoming spell check. The corrected tarball passes local
-  `R CMD check --as-cran --no-manual` with `Status: OK`.
+  `R CMD check --as-cran --no-manual` with `Status: OK` and was resubmitted to
+  CRAN on 2026-10-29.
 
 ### Fixed
 
