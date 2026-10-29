@@ -42,8 +42,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Released
 
-- Submitted to CRAN; the maintainer confirmation link was completed on
-  2026-10-29, and CRAN accepted the submission for processing.
+- Published on CRAN on 2026-10-29; the CRAN package page now serves version
+  1.0.2.
 - Identical source tarball attached to the GitHub `v2.0.1` release.
 - CRAN pre-tests requested one documentation fix: the six package manuals now
   contain `\usage` sections, and technical abbreviations in `Description` are
