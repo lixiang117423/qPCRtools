@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [2.0.1] - 2026-10-29
 
+### Released
+
+- GitHub Release:
+  <https://github.com/lixiang117423/qPCRtools/releases/tag/v2.0.1>
+- Assets: `qPCRtools_2.0.1.tar.gz`, `qPCRtools_1.0.2.tar.gz`, and the
+  2022-paper impact assessment workbook/archive.
+
 ### Fixed
 
 - `CalExp2ddCt()` now calculates the calibration ΔCt from the reference group
@@ -32,6 +39,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
   thresholds.
 
 ## [1.0.2] - 2026-10-29
+
+### Released
+
+- Submitted to CRAN and confirmed by the maintainer email; CRAN publication is
+  pending routine processing.
+- Identical source tarball attached to the GitHub `v2.0.1` release.
 
 ### Fixed
 
