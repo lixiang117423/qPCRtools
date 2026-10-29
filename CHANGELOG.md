@@ -42,8 +42,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Released
 
-- Submitted to CRAN and confirmed by the maintainer email; CRAN publication is
-  pending routine processing.
+- Submitted to CRAN; the maintainer confirmation link was completed on
+  2026-10-29. CRAN publication is pending routine processing.
 - Identical source tarball attached to the GitHub `v2.0.1` release.
 
 ### Fixed
