@@ -3,12 +3,21 @@
 \name{CalExpRqPCR}
 \alias{CalExpRqPCR}
 \title{Calculate expression using standard curve.}
+\usage{
+CalExpRqPCR(
+  cq.table,
+  design.table,
+  ref.gene = NULL,
+  ref.group = "CK",
+  stat.method = "t.test",
+  fig.type = "box",
+  fig.ncol = NULL
+)
+}
 \arguments{
 \item{cq.table}{The data frame of the position and cq value.}
 
 \item{design.table}{The data frame of the position and corresponding information.}
-
-\item{correction}{Correct expression value by reference gene.}
 
 \item{ref.gene}{The name of reference gene.}
 

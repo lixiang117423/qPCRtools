@@ -1,3 +1,10 @@
+globalVariables(c("data", "template", "RNA.weight",
+                  "df.1", "sum.temp", "sample",
+                  "concentration", "volume.RNA",
+                  "mean","volume.h2o","all",
+                  "sum.temp","volume.RNA",
+                  "df.2"))
+
 #' @name CalRTable
 #' @author Xiang LI <lixiang117423@@gmail.com>
 #' @title Calculate RNA volume for reverse transcription.
@@ -22,12 +29,6 @@
 #' result <- CalRTable(data = df.1, template = df.2, RNA.weight = 2)
 #' head(result)
 #' @return A list contain a table and a figure.
-globalVariables(c("data", "template", "RNA.weight",
-                  "df.1", "sum.temp", "sample",
-                  "concentration", "volume.RNA",
-                  "mean","volume.h2o","all",
-                  "sum.temp","volume.RNA",
-                  "df.2"))
 CalRTable <- function(data, template, RNA.weight = 1) {
   df.1 <- template * RNA.weight
 

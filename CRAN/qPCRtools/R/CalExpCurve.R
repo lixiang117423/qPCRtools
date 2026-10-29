@@ -1,3 +1,46 @@
+globalVariables(c(
+  "cq.table",
+  "curve.table",
+  "design.table",
+  "correction",
+  "ref.gene",
+  "stat.method",
+  "ref.group",
+  "fig.type",
+  "fig.ncol",
+  "out",
+  "Cq",
+  "max.Cq",
+  "min.Cq",
+  "expre",
+  "Intercept",
+  "Slope",
+  "Treatment",
+  "element_text",
+  "group2",
+  "max.temp",
+  "mean.expre",
+  "mean.ref",
+  "n",
+  "sd",
+  "sd.expre",
+  "Treatment",
+  "mean.ref",
+  "group2",
+  "temp",
+  "n",
+  "sd.expre",
+  "n",
+  "mean.expre",
+  "element_text",
+  "max.temp",
+  "RawPValue",
+  "PValue",
+  "PAdjustMethod",
+  "contrast",
+  "letters"
+))
+
 #' @name CalExpCurve
 #' @author Xiang LI <lixiang117423@@gmail.com>
 #'
@@ -5,6 +48,7 @@
 #' @description Calculate expression using standard curve.
 #'
 #' @param cq.table The data frame of the position and Cq value.
+#' @param curve.table The data frame of standard curve parameters by gene.
 #' @param design.table The data frame of the position and corresponding information.
 #' @param correction Correct expression value by reference gene.
 #' @param ref.gene The name of reference gene.
@@ -49,48 +93,6 @@
 #' res[["table"]]
 #' res[["figure"]]
 #'
-globalVariables(c(
-  "cq.table",
-  "curve.table",
-  "design.table",
-  "correction",
-  "ref.gene",
-  "stat.method",
-  "ref.group",
-  "fig.type",
-  "fig.ncol",
-  "out",
-  "Cq",
-  "max.Cq",
-  "min.Cq",
-  "expre",
-  "Intercept",
-  "Slope",
-  "Treatment",
-  "element_text",
-  "group2",
-  "max.temp",
-  "mean.expre",
-  "mean.ref",
-  "n",
-  "sd",
-  "sd.expre",
-  "Treatment",
-  "mean.ref",
-  "group2",
-  "temp",
-  "n",
-  "sd.expre",
-  "n",
-  "mean.expre",
-  "element_text",
-  "max.temp",
-  "RawPValue",
-  "PValue",
-  "PAdjustMethod",
-  "contrast",
-  "letters"
-))
 CalExpCurve <- function(cq.table,
                         curve.table,
                         design.table,

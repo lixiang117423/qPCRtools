@@ -3,6 +3,9 @@
 \name{CalExp2dCt}
 \alias{CalExp2dCt}
 \title{Calculate expression using standard curve.}
+\usage{
+CalExp2dCt(cq.table, design.table, ref.gene = "Actin")
+}
 \arguments{
 \item{cq.table}{The data frame of the position and cq value.}
 

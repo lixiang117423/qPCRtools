@@ -1,25 +1,3 @@
-#' @name CalExp2dCt
-#' @author Xiang LI <lixiang117423@@gmail.com>
-#'
-#' @title Calculate expression using standard curve.
-#' @description Calculate expression using standard curve.
-#'
-#' @param cq.table The data frame of the position and cq value.
-#' @param design.table The data frame of the position and corresponding information.
-#' @param ref.gene The name of reference gene.
-#'
-#' @export
-#' @return A list contain a table and a figure.
-#' @examples
-#' df1.path <- system.file("examples", "dct.cq.txt", package = "qPCRtools")
-#' df2.path <- system.file("examples", "dct.design.txt", package = "qPCRtools")
-#' cq.table <- read.table(df1.path, sep = ",", header = TRUE)
-#' design.table <- read.table(df2.path, sep = ",", header = TRUE)
-#' CalExp2dCt(cq.table,
-#'            design.table,
-#'            ref.gene = "Actin"
-#' ) -> res
-#'
 globalVariables(c(
   "cq.table",
   "curve.table",
@@ -81,6 +59,29 @@ globalVariables(c(
   "Group",
   "TechRep"
 ))
+
+#' @name CalExp2dCt
+#' @author Xiang LI <lixiang117423@@gmail.com>
+#'
+#' @title Calculate expression using standard curve.
+#' @description Calculate expression using standard curve.
+#'
+#' @param cq.table The data frame of the position and cq value.
+#' @param design.table The data frame of the position and corresponding information.
+#' @param ref.gene The name of reference gene.
+#'
+#' @export
+#' @return A list contain a table and a figure.
+#' @examples
+#' df1.path <- system.file("examples", "dct.cq.txt", package = "qPCRtools")
+#' df2.path <- system.file("examples", "dct.design.txt", package = "qPCRtools")
+#' cq.table <- read.table(df1.path, sep = ",", header = TRUE)
+#' design.table <- read.table(df2.path, sep = ",", header = TRUE)
+#' CalExp2dCt(cq.table,
+#'            design.table,
+#'            ref.gene = "Actin"
+#' ) -> res
+#'
 CalExp2dCt <- function(cq.table,
                        design.table,
                        ref.gene = "Actin") {

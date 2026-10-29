@@ -3,8 +3,24 @@
 \name{CalExpCurve}
 \alias{CalExpCurve}
 \title{Calculate expression using standard curve.}
+\usage{
+CalExpCurve(
+  cq.table,
+  curve.table,
+  design.table,
+  correction = TRUE,
+  ref.gene = "OsUBQ",
+  stat.method = "t.test",
+  ref.group = "CK",
+  fig.type = "box",
+  fig.ncol = NULL,
+  dilution = 4
+)
+}
 \arguments{
 \item{cq.table}{The data frame of the position and Cq value.}
+
+\item{curve.table}{The data frame of standard curve parameters by gene.}
 
 \item{design.table}{The data frame of the position and corresponding information.}
 
@@ -21,8 +37,8 @@
 \item{fig.ncol}{Number of columes of figure.}
 
 \item{dilution}{Dilution factor used when the standard curve was fitted; it is
-the base of the log transform in \code{CalCurve()} (default 4). Expression is
-reported as concentration, i.e. \code{dilution^((Cq - Intercept) / Slope)}.}
+the base of the log transform in `CalCurve()` (default 4). Expression is
+reported as concentration, i.e. `dilution^((Cq - Intercept) / Slope)`.}
 }
 \value{
 A list contain a table and a figure.
@@ -48,8 +64,7 @@ CalExpCurve(
   stat.method = "t.test",
   ref.group = "CK",
   fig.type = "box",
-  fig.ncol = NULL,
-  dilution = 4) -> res
+  fig.ncol = NULL) -> res
 
 res[["table"]]
 res[["figure"]]

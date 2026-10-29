@@ -1,40 +1,3 @@
-#' @name CalExp2ddCt
-#' @author Xiang LI <lixiang117423@@gmail.com>
-#'
-#' @title Calculate expression using standard curve.
-#' @description Calculate expression using standard curve.
-#'
-#' @param cq.table The data frame of the position and cq value.
-#' @param design.table The data frame of the position and corresponding information.
-#' @param correction Correct expression value by reference gene.
-#' @param ref.gene The name of reference gene.
-#' @param ref.group The name of reference group.
-#' @param stat.method Statistical method.
-#' @param remove.outliers Remove the outliers of each group and gene, or not.
-#' @param fig.type Output image type, `box` represents `boxplot`, `bar` represents `barplot`.
-#' @param fig.ncol Number of columes of figure.
-#'
-#' @export
-#' @return A list contain a table and a figure.
-#' @examples
-#' df1.path = system.file("examples", "ddct.cq.txt", package = "qPCRtools")
-#' df2.path = system.file("examples", "ddct.design.txt", package = "qPCRtools")
-#'
-#' cq.table = read.table(df1.path, header = TRUE)
-#' design.table = read.table(df2.path, header = TRUE)
-#'
-#' CalExp2ddCt(cq.table,
-#'             design.table,
-#'             ref.gene = "OsUBQ",
-#'             ref.group = "CK",
-#'             stat.method = "t.test",
-#'             remove.outliers = TRUE,
-#'             fig.type = "box",
-#'             fig.ncol = NULL) -> res
-#'
-#' res[["table"]]
-#' res[["figure"]]
-#'
 globalVariables(c(
   "cq.table",
   "curve.table",
@@ -108,6 +71,43 @@ globalVariables(c(
   'letters'
 
 ))
+
+#' @name CalExp2ddCt
+#' @author Xiang LI <lixiang117423@@gmail.com>
+#'
+#' @title Calculate expression using standard curve.
+#' @description Calculate expression using standard curve.
+#'
+#' @param cq.table The data frame of the position and cq value.
+#' @param design.table The data frame of the position and corresponding information.
+#' @param ref.gene The name of reference gene.
+#' @param ref.group The name of reference group.
+#' @param stat.method Statistical method.
+#' @param remove.outliers Remove the outliers of each group and gene, or not.
+#' @param fig.type Output image type, `box` represents `boxplot`, `bar` represents `barplot`.
+#' @param fig.ncol Number of columes of figure.
+#'
+#' @export
+#' @return A list contain a table and a figure.
+#' @examples
+#' df1.path = system.file("examples", "ddct.cq.txt", package = "qPCRtools")
+#' df2.path = system.file("examples", "ddct.design.txt", package = "qPCRtools")
+#'
+#' cq.table = read.table(df1.path, header = TRUE)
+#' design.table = read.table(df2.path, header = TRUE)
+#'
+#' CalExp2ddCt(cq.table,
+#'             design.table,
+#'             ref.gene = "OsUBQ",
+#'             ref.group = "CK",
+#'             stat.method = "t.test",
+#'             remove.outliers = TRUE,
+#'             fig.type = "box",
+#'             fig.ncol = NULL) -> res
+#'
+#' res[["table"]]
+#' res[["figure"]]
+#'
 CalExp2ddCt <- function(cq.table,
                         design.table,
                         ref.gene = "OsUBQ",

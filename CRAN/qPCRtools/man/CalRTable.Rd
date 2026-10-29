@@ -3,6 +3,9 @@
 \name{CalRTable}
 \alias{CalRTable}
 \title{Calculate RNA volume for reverse transcription.}
+\usage{
+CalRTable(data, template, RNA.weight = 1)
+}
 \arguments{
 \item{data}{A data.frame contained the sample names and the concentration value. The default unit of concentration is ng/uL.}
 

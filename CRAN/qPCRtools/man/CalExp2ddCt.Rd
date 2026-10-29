@@ -3,12 +3,22 @@
 \name{CalExp2ddCt}
 \alias{CalExp2ddCt}
 \title{Calculate expression using standard curve.}
+\usage{
+CalExp2ddCt(
+  cq.table,
+  design.table,
+  ref.gene = "OsUBQ",
+  ref.group = "CK",
+  stat.method = "t.test",
+  remove.outliers = TRUE,
+  fig.type = "box",
+  fig.ncol = NULL
+)
+}
 \arguments{
 \item{cq.table}{The data frame of the position and cq value.}
 
 \item{design.table}{The data frame of the position and corresponding information.}
-
-\item{correction}{Correct expression value by reference gene.}
 
 \item{ref.gene}{The name of reference gene.}
 

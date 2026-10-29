@@ -10,6 +10,15 @@ This submission updates qPCRtools from 1.0.1 to 1.0.2.
 
 - `R CMD check --as-cran --no-manual`: 0 errors, 0 warnings, 0 notes
 
+## Resubmission fixes
+
+- Added `\usage` sections to the six exported-function Rd files by moving
+  `globalVariables()` blocks ahead of the function roxygen comments and
+  regenerating the manuals.
+- Quoted `dCt`, `ddCt` and `RqPCR` in `Description` and added `inst/WORDLIST`
+  so the CRAN incoming spell check does not report technical abbreviations.
+- Re-ran `R CMD check --as-cran --no-manual`: `Status: OK`.
+
 ## Changes
 
 - Corrects the reference-group calibrator in `CalExp2ddCt()`.

@@ -3,6 +3,16 @@
 \name{CalCurve}
 \alias{CalCurve}
 \title{Standard Curve Calculation.}
+\usage{
+CalCurve(
+  cq.table,
+  concen.table,
+  highest.concen,
+  lowest.concen,
+  dilution = 4,
+  by.mean = TRUE
+)
+}
 \arguments{
 \item{cq.table}{The data frame of the position and Cq value.}
 

@@ -1,3 +1,26 @@
+globalVariables(c(
+  "cq.table",
+  "concen.table",
+  "highest.concen",
+  "lowest.concen",
+  "dilution",
+  "by.mean",
+  "Conc",
+  "Gene",
+  "Cq",
+  "Formula",
+  "Slope",
+  "Intercept",
+  "R2",
+  "P.value",
+  "max.Cq",
+  "min.Cq",
+  "E",
+  "Date",
+  "..p.value.label..",
+  "mean.cq"
+))
+
 #' @name CalCurve
 #' @author Xiang LI <lixiang117423@@gmail.com>
 #' @title Standard Curve Calculation.
@@ -39,28 +62,6 @@
 #' p[["table"]]
 #' p[["figure"]]
 #' @return A list.
-globalVariables(c(
-  "cq.table",
-  "concen.table",
-  "highest.concen",
-  "lowest.concen",
-  "dilution",
-  "by.mean",
-  "Conc",
-  "Gene",
-  "Cq",
-  "Formula",
-  "Slope",
-  "Intercept",
-  "R2",
-  "P.value",
-  "max.Cq",
-  "min.Cq",
-  "E",
-  "Date",
-  "..p.value.label..",
-  "mean.cq"
-))
 
 CalCurve <- function(cq.table,
                      concen.table,

@@ -43,8 +43,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 ### Released
 
 - Submitted to CRAN; the maintainer confirmation link was completed on
-  2026-10-29. CRAN publication is pending routine processing.
+  2026-10-29.
 - Identical source tarball attached to the GitHub `v2.0.1` release.
+- CRAN pre-tests requested one documentation fix: the six package manuals now
+  contain `\usage` sections, and technical abbreviations in `Description` are
+  quoted for the incoming spell check. The corrected tarball passes local
+  `R CMD check --as-cran --no-manual` with `Status: OK`.
 
 ### Fixed
 
@@ -55,6 +59,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 - Added raw and reported P-value columns to the three expression-analysis
   result tables; ANOVA/Tukey tables now retain the actual adjusted P values
   alongside compact-letter grouping.
+- Added `\usage` sections to all exported-function manuals and quoted
+  `dCt`, `ddCt` and `RqPCR` in `Description` to satisfy CRAN incoming checks.
 
 ## [Unreleased] — 2026-10-15（针对 CRAN 目录 `CRAN/qPCRtools/` 的 1.0.1 版）
 
