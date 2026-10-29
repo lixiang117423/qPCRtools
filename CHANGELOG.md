@@ -43,7 +43,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 ### Released
 
 - Submitted to CRAN; the maintainer confirmation link was completed on
-  2026-10-29.
+  2026-10-29, and CRAN accepted the submission for processing.
 - Identical source tarball attached to the GitHub `v2.0.1` release.
 - CRAN pre-tests requested one documentation fix: the six package manuals now
   contain `\usage` sections, and technical abbreviations in `Description` are
@@ -62,6 +62,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
   alongside compact-letter grouping.
 - Added `\usage` sections to all exported-function manuals and quoted
   `dCt`, `ddCt` and `RqPCR` in `Description` to satisfy CRAN incoming checks.
+- Added a regression test with unequal `BioRep` counts and an IQR outlier;
+  this closes the final open issue (#1).
 
 ## [Unreleased] — 2026-10-15（针对 CRAN 目录 `CRAN/qPCRtools/` 的 1.0.1 版）
 
