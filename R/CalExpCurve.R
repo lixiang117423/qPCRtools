@@ -3,7 +3,8 @@ globalVariables(c(
   "max.Cq", "min.Cq", "Intercept", "Slope",
   "Treatment", "expre", "mean.ref",
   "mean.expre", "sd.expre", "se", "n",
-  "signif", "temp", "group2", "out", "max.temp", "p"
+  "signif", "temp", "group2", "out", "max.temp", "p",
+  "RawPValue", "PValue", "PAdjustMethod", "contrast", "letters"
 ))
 
 #' Calculate Expression Using Standard Curve
@@ -24,6 +25,8 @@ globalVariables(c(
 #'   One of "t.test", "wilcox.test", or "anova" (default: "t.test").
 #' @param ref_group Character. The name of the reference/control group
 #'   (default: "CK").
+#' @param dilution Numeric. Dilution factor used by the standard curve
+#'   (default: 4).
 #' @param fig_type Character. Plot type: "box" for boxplot, "bar" for barplot
 #'   (default: "box").
 #' @param fig_ncol Integer. Number of columns in facet plot (default: NULL).
@@ -69,6 +72,7 @@ CalExpCurve <- function(cq_table,
                         ref_gene = "OsUBQ",
                         stat_method = "t.test",
                         ref_group = "CK",
+                        dilution = 4,
                         fig_type = "box",
                         fig_ncol = NULL) {
   if (!is.data.frame(cq_table)) {
@@ -95,7 +99,7 @@ CalExpCurve <- function(cq_table,
       Cq > max.Cq | Cq < min.Cq ~ "yes",
       TRUE ~ "no"
     )) %>%
-    dplyr::mutate(expre = (Cq - Intercept) / Slope) -> df
+    dplyr::mutate(expre = dilution^((Cq - Intercept) / Slope)) -> df
 
   # warn about out-of-range Cq values
   df.out <- df %>%
@@ -113,10 +117,21 @@ CalExpCurve <- function(cq_table,
       dplyr::left_join(df, by = "Treatment") %>%
       dplyr::filter(Gene != ref_gene) %>%
       dplyr::mutate(expre = expre / mean.ref) %>%
-      dplyr::select(Treatment, Gene, expre) -> df
+      dplyr::select(dplyr::any_of(c("Treatment", "Gene", "BioRep")), expre) -> df
   } else {
     df %>%
-      dplyr::select(Treatment, Gene, expre) -> df
+      dplyr::select(dplyr::any_of(c("Treatment", "Gene", "BioRep")), expre) -> df
+  }
+
+  if ("BioRep" %in% colnames(df)) {
+    df <- df %>%
+      dplyr::group_by(Gene, Treatment, BioRep) %>%
+      dplyr::summarise(expre = mean(expre), .groups = "drop")
+  } else {
+    warning(
+      "CalExpCurve: no 'BioRep' column; technical replicates are ",
+      "treated as independent observations (pseudoreplication)."
+    )
   }
 
   # statistical tests
@@ -151,11 +166,11 @@ cal_curve_stat_test <- function(df, stat_method, ref_group) {
       dplyr::select(temp, p) %>%
       dplyr::mutate(signif = dplyr::case_when(
         p < 0.001 ~ "***",
-        p > 0.001 & p < 0.01 ~ "**",
-        p > 0.01 & p < 0.05 ~ "*",
+        p < 0.01 ~ "**",
+        p < 0.05 ~ "*",
         TRUE ~ "NS"
-      )) %>%
-      dplyr::select(temp, signif) -> df.stat
+      ), RawPValue = p, PValue = p, PAdjustMethod = "none") %>%
+      dplyr::select(temp, signif, RawPValue, PValue, PAdjustMethod) -> df.stat
 
     df %>%
       dplyr::mutate(temp = paste0(Gene, Treatment)) %>%
@@ -169,11 +184,11 @@ cal_curve_stat_test <- function(df, stat_method, ref_group) {
       dplyr::select(temp, p) %>%
       dplyr::mutate(signif = dplyr::case_when(
         p < 0.001 ~ "***",
-        p > 0.001 & p < 0.01 ~ "**",
-        p > 0.01 & p < 0.05 ~ "*",
+        p < 0.01 ~ "**",
+        p < 0.05 ~ "*",
         TRUE ~ "NS"
-      )) %>%
-      dplyr::select(temp, signif) -> df.stat
+      ), RawPValue = p, PValue = p, PAdjustMethod = "none") %>%
+      dplyr::select(temp, signif, RawPValue, PValue, PAdjustMethod) -> df.stat
 
     df %>%
       dplyr::mutate(temp = paste0(Gene, Treatment)) %>%
@@ -186,21 +201,68 @@ cal_curve_stat_test <- function(df, stat_method, ref_group) {
         dplyr::mutate(Treatment = factor(Treatment))
       fit <- stats::aov(expre ~ Treatment, data = df.sub)
       tuk <- multcomp::glht(fit, linfct = multcomp::mcp(Treatment = "Tukey"))
-      multcomp::cld(tuk, level = 0.95, ddecreasing = TRUE)[["mcletters"]][["Letters"]] %>%
+      letters <- multcomp::cld(
+        tuk, level = 0.05, decreasing = TRUE
+      )[["mcletters"]][["Letters"]] %>%
         as.data.frame() %>%
         dplyr::mutate(Gene = i) %>%
         tibble::rownames_to_column(var = "Treatment") %>%
-        magrittr::set_colnames(c("Treatment", "signif", "Gene")) %>%
-        dplyr::select(Gene, Treatment, signif) %>%
-        dplyr::mutate(temp = paste0(Gene, Treatment)) %>%
-        dplyr::select(temp, signif) %>%
-        rbind(df.stat) -> df.stat
+        magrittr::set_colnames(c("Treatment", "signif", "Gene"))
 
-      df %>%
+      raw.test <- summary(
+        tuk, test = multcomp::adjusted("none")
+      )[["test"]]
+      raw.p <- if (is.list(raw.test) && !is.null(raw.test[["pvalues"]])) {
+        as.numeric(raw.test[["pvalues"]])
+      } else if (is.null(dim(raw.test))) {
+        as.numeric(raw.test)
+      } else {
+        raw.test[, "pvalue"]
+      }
+      adjusted.test <- summary(tuk)[["test"]]
+      adjusted.p <- if (
+        is.list(adjusted.test) && !is.null(adjusted.test[["pvalues"]])
+      ) {
+        as.numeric(adjusted.test[["pvalues"]])
+      } else if (is.null(dim(adjusted.test))) {
+        as.numeric(adjusted.test)
+      } else {
+        adjusted.test[, "pvalue"]
+      }
+      contrasts <- if (
+        is.list(adjusted.test) && !is.null(adjusted.test[["coefficients"]])
+      ) {
+        names(adjusted.test[["coefficients"]])
+      } else {
+        rownames(adjusted.test)
+      }
+      p.values <- data.frame(
+        contrast = contrasts,
+        RawPValue = raw.p,
+        PValue = adjusted.p,
+        stringsAsFactors = FALSE
+      ) %>%
+        dplyr::mutate(Treatment = dplyr::case_when(
+          endsWith(contrast, paste0(" - ", ref_group)) ~
+            sub(paste0(" - ", ref_group, "$"), "", contrast),
+          startsWith(contrast, paste0(ref_group, " - ")) ~
+            sub(paste0("^", ref_group, " - "), "", contrast),
+          TRUE ~ NA_character_
+        )) %>%
+        dplyr::filter(!is.na(Treatment)) %>%
+        dplyr::mutate(PAdjustMethod = "Tukey") %>%
+        dplyr::select(Treatment, RawPValue, PValue, PAdjustMethod)
+
+      letters %>%
+        dplyr::left_join(p.values, by = "Treatment") %>%
         dplyr::mutate(temp = paste0(Gene, Treatment)) %>%
-        dplyr::left_join(df.stat, by = "temp") -> df
+        dplyr::select(temp, signif, RawPValue, PValue, PAdjustMethod) %>%
+        rbind(df.stat) -> df.stat
     }
-    df
+    df %>%
+      dplyr::mutate(temp = paste0(Gene, Treatment)) %>%
+      dplyr::left_join(df.stat, by = "temp") %>%
+      dplyr::select(-temp)
   }
 }
 
@@ -213,10 +275,6 @@ build_curve_plot <- function(df.plot, fig_type, fig_ncol) {
       ggplot2::geom_boxplot(width = 0.6) +
       ggplot2::facet_wrap(. ~ Gene, scales = "free_y", ncol = fig_ncol) +
       ggplot2::geom_text(
-        ggplot2::aes(Treatment, mean.expre, label = "."),
-        check_overlap = TRUE, size = 15, color = "red"
-      ) +
-      ggplot2::geom_text(
         ggplot2::aes(Treatment, min(expre), label = signif),
         check_overlap = TRUE, size = 3, color = "black"
       ) +
@@ -228,9 +286,10 @@ build_curve_plot <- function(df.plot, fig_type, fig_ncol) {
       )
   } else if (fig_type == "bar") {
     df.plot %>%
+      dplyr::distinct(Treatment, Gene, .keep_all = TRUE) %>%
       dplyr::group_by(Gene) %>%
       dplyr::mutate(max.temp = max(expre)) %>%
-      ggplot2::ggplot(ggplot2::aes(Treatment, mean.expre / n, fill = Treatment)) +
+      ggplot2::ggplot(ggplot2::aes(Treatment, mean.expre, fill = Treatment)) +
       ggplot2::geom_bar(stat = "identity", width = 0.6) +
       ggplot2::geom_errorbar(ggplot2::aes(
         Treatment,

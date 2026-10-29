@@ -1,11 +1,15 @@
 Package: qPCRtools
 Authors@R: person('Xiang', 'LI', email = 'lixiang117423@gmail.com', role = c('cre', 'aut'))
-Version: 1.0.1
+Version: 1.0.2
 Title: Tools for qPCR
-Description: PKG_DESC.
+Description: Provides tools for quantitative PCR (qPCR) data analysis,
+    including standard curve calculation with amplification efficiency,
+    relative expression calculation by the 2-dCt, 2-ddCt, standard curve
+    and RqPCR methods, and RNA volume calculation for reverse transcription.
 URL: https://github.com/lixiang117423/qPCRtools
 BugReports: https://github.com/lixiang117423/qPCRtools/issues
 License: MIT + file LICENSE
+Encoding: UTF-8
 Imports: 
     broom,
     dplyr,

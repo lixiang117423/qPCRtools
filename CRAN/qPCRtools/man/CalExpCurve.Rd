@@ -19,6 +19,10 @@
 \item{fig.type}{Output image type, `box` represents `boxplot`, `bar` represents `barplot`.}
 
 \item{fig.ncol}{Number of columes of figure.}
+
+\item{dilution}{Dilution factor used when the standard curve was fitted; it is
+the base of the log transform in \code{CalCurve()} (default 4). Expression is
+reported as concentration, i.e. \code{dilution^((Cq - Intercept) / Slope)}.}
 }
 \value{
 A list contain a table and a figure.
@@ -44,7 +48,8 @@ CalExpCurve(
   stat.method = "t.test",
   ref.group = "CK",
   fig.type = "box",
-  fig.ncol = NULL) -> res
+  fig.ncol = NULL,
+  dilution = 4) -> res
 
 res[["table"]]
 res[["figure"]]

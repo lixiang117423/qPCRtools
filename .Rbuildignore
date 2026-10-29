@@ -8,3 +8,6 @@
 ^DEVELOP_GUIDE\.md$
 ^\.gitignore$
 ^\.claude$
+^CHANGELOG\.md$
+^cran-comments\.md$
+^analysis$

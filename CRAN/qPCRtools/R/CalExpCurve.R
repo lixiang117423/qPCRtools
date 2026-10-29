@@ -12,6 +12,9 @@
 #' @param ref.group The name of reference group.
 #' @param fig.type Output image type, `box` represents `boxplot`, `bar` represents `barplot`.
 #' @param fig.ncol Number of columes of figure.
+#' @param dilution Dilution factor used when the standard curve was fitted; it is
+#'   the base of the log transform in `CalCurve()` (default 4). Expression is
+#'   reported as concentration, i.e. `dilution^((Cq - Intercept) / Slope)`.
 #'
 #' @importFrom dplyr left_join filter group_by mutate ungroup
 #' @importFrom stats lm
@@ -81,7 +84,12 @@ globalVariables(c(
   "n",
   "mean.expre",
   "element_text",
-  "max.temp"
+  "max.temp",
+  "RawPValue",
+  "PValue",
+  "PAdjustMethod",
+  "contrast",
+  "letters"
 ))
 CalExpCurve <- function(cq.table,
                         curve.table,
@@ -91,7 +99,8 @@ CalExpCurve <- function(cq.table,
                         stat.method = "t.test",
                         ref.group = "CK",
                         fig.type = "box",
-                        fig.ncol = NULL) {
+                        fig.ncol = NULL,
+                        dilution = 4) {
   # merge data
   cq.table %>%
     dplyr::left_join(design.table, by = "Position") %>%
@@ -100,7 +109,10 @@ CalExpCurve <- function(cq.table,
       Cq > max.Cq | Cq < min.Cq ~ "yes",
       TRUE ~ "no"
     )) %>%
-    dplyr::mutate(expre = (Cq - Intercept) / Slope) -> df
+    # 反对数（2026-10-15 改正）：(Cq - Intercept) / Slope 是**对数浓度**
+    # （CalCurve 里 Conc 先取 log(Conc, base = dilution)），必须还原成浓度再用于
+    # 内参校正与统计；原实现直接拿对数值相除，两个对数相除没有意义。
+    dplyr::mutate(expre = dilution^((Cq - Intercept) / Slope)) -> df
 
   # print warning message
   df.out <- df %>%
@@ -118,15 +130,35 @@ CalExpCurve <- function(cq.table,
       dplyr::left_join(df, by = "Treatment") %>%
       dplyr::filter(Gene != ref.gene) %>%
       dplyr::mutate(expre = expre / mean.ref) %>%
-      dplyr::select(Treatment, Gene, expre) -> df
+      # 保留 BioRep：技术重复层级（见下方）需要它把技术孔归并到生物学重复
+      dplyr::select(dplyr::any_of(c("Treatment", "Gene", "BioRep")), expre) -> df
   } else {
+    # 同上：保留 BioRep，否则组间检验会退回按孔计算（伪重复）
     df %>%
-      dplyr::select(Treatment, Gene, expre) -> df
+      dplyr::select(dplyr::any_of(c("Treatment", "Gene", "BioRep")), expre) -> df
   }
 
-  # statistics
+  # 技术重复层级（2026-10-15，导师审稿意见第 5 条）：
+  #   技术重复只用来估计同一个生物学样本的测量值；组间检验必须以**生物学重复**为单位，
+  #   否则同一 BioRep 的多个技术孔会被当成独立样本（伪重复），p 值被算得过小。
+  #   设计表含 BioRep 时先在 (Gene, Treatment, BioRep) 内平均技术孔，再以生物学重复为单位
+  #   做统计与作图；不含 BioRep 时保持按孔计算并明确告警。
+  if ("BioRep" %in% colnames(df)) {
+    df.rep <- df %>%
+      dplyr::group_by(Gene, Treatment, BioRep) %>%
+      dplyr::summarise(expre = mean(expre), .groups = "drop")
+  } else {
+    warning(paste0(
+      "CalExpCurve: the design table has no 'BioRep' column, so technical ",
+      "replicates are treated as independent observations ",
+      "(pseudoreplication); add BioRep to test at the biological-replicate level."
+    ))
+    df.rep <- df %>% dplyr::select(Treatment, Gene, expre)
+  }
+
+  # statistics（以生物学重复为单位）
   if (stat.method == "t.test") {
-    df %>%
+    df.rep %>%
       dplyr::group_by(Gene) %>%
       rstatix::t_test(expre ~ Treatment, ref.group = ref.group) %>%
       dplyr::select(Gene, group2, p) %>%
@@ -134,17 +166,17 @@ CalExpCurve <- function(cq.table,
       dplyr::select(temp, p) %>%
       dplyr::mutate(signif = dplyr::case_when(
         p < 0.001 ~ "***",
-        p > 0.001 & p < 0.01 ~ "**",
-        p > 0.01 & p < 0.05 ~ "*",
+        p < 0.01 ~ "**",
+        p < 0.05 ~ "*",
         TRUE ~ "NS"
-      )) %>%
-      dplyr::select(temp, signif) -> df.stat
+      ), RawPValue = p, PValue = p, PAdjustMethod = "none") %>%
+      dplyr::select(temp, signif, RawPValue, PValue, PAdjustMethod) -> df.stat
 
-    df %>%
+    df.rep %>%
       dplyr::mutate(temp = paste0(Gene, Treatment)) %>%
-      dplyr::left_join(df.stat, by = "temp") -> df
+      dplyr::left_join(df.stat, by = "temp") -> df.rep
   } else if (stat.method == "wilcox.test") {
-    df %>%
+    df.rep %>%
       dplyr::group_by(Gene) %>%
       rstatix::wilcox_test(expre ~ Treatment, ref.group = ref.group) %>%
       dplyr::select(Gene, group2, p) %>%
@@ -152,41 +184,91 @@ CalExpCurve <- function(cq.table,
       dplyr::select(temp, p) %>%
       dplyr::mutate(signif = dplyr::case_when(
         p < 0.001 ~ "***",
-        p > 0.001 & p < 0.01 ~ "**",
-        p > 0.01 & p < 0.05 ~ "*",
+        p < 0.01 ~ "**",
+        p < 0.05 ~ "*",
         TRUE ~ "NS"
-      )) %>%
-      dplyr::select(temp, signif) -> df.stat
+      ), RawPValue = p, PValue = p, PAdjustMethod = "none") %>%
+      dplyr::select(temp, signif, RawPValue, PValue, PAdjustMethod) -> df.stat
 
-    df %>%
+    df.rep %>%
       dplyr::mutate(temp = paste0(Gene, Treatment)) %>%
-      dplyr::left_join(df.stat, by = "temp") -> df
+      dplyr::left_join(df.stat, by = "temp") -> df.rep
   } else if (stat.method == "anova") {
     df.stat <- NULL
-    for (i in unique(df$Gene)) {
-      df.sub <- df %>%
+    for (i in unique(df.rep$Gene)) {
+      df.sub <- df.rep %>%
         dplyr::filter(Gene == i) %>%
         dplyr::mutate(Treatment = factor(Treatment))
       fit <- stats::aov(expre ~ Treatment, data = df.sub)
       tuk <- multcomp::glht(fit, linfct = multcomp::mcp(Treatment = "Tukey"))
-      multcomp::cld(tuk, level = 0.95, ddecreasing = TRUE)[["mcletters"]][["Letters"]] %>%
+      # cld.glht 的 level 是显著性水平（默认 0.05）；原写成 0.95 = α=0.95，几乎全标成不同字母
+      # （2026-10-15 改正；decreasing 原拼写 ddecreasing 被忽略）
+      letters <- multcomp::cld(
+        tuk, level = 0.05, decreasing = TRUE
+      )[["mcletters"]][["Letters"]] %>%
         as.data.frame() %>%
         dplyr::mutate(Gene = i) %>%
         tibble::rownames_to_column(var = "Treatment") %>%
-        magrittr::set_colnames(c("Treatment", "signif", "Gene")) %>%
-        dplyr::select(Gene, Treatment, signif) %>%
-        dplyr::mutate(temp = paste0(Gene, Treatment)) %>%
-        dplyr::select(temp, signif) %>%
-        rbind(df.stat) -> df.stat
+        magrittr::set_colnames(c("Treatment", "signif", "Gene"))
 
-      df %>%
+      raw.test <- summary(
+        tuk, test = multcomp::adjusted("none")
+      )[["test"]]
+      raw.p <- if (is.list(raw.test) && !is.null(raw.test[["pvalues"]])) {
+        as.numeric(raw.test[["pvalues"]])
+      } else if (is.null(dim(raw.test))) {
+        as.numeric(raw.test)
+      } else {
+        raw.test[, "pvalue"]
+      }
+      adjusted.test <- summary(tuk)[["test"]]
+      adjusted.p <- if (
+        is.list(adjusted.test) && !is.null(adjusted.test[["pvalues"]])
+      ) {
+        as.numeric(adjusted.test[["pvalues"]])
+      } else if (is.null(dim(adjusted.test))) {
+        as.numeric(adjusted.test)
+      } else {
+        adjusted.test[, "pvalue"]
+      }
+      contrasts <- if (
+        is.list(adjusted.test) && !is.null(adjusted.test[["coefficients"]])
+      ) {
+        names(adjusted.test[["coefficients"]])
+      } else {
+        rownames(adjusted.test)
+      }
+      p.values <- data.frame(
+        contrast = contrasts,
+        RawPValue = raw.p,
+        PValue = adjusted.p,
+        stringsAsFactors = FALSE
+      ) %>%
+        dplyr::mutate(Treatment = dplyr::case_when(
+          endsWith(contrast, paste0(" - ", ref.group)) ~
+            sub(paste0(" - ", ref.group, "$"), "", contrast),
+          startsWith(contrast, paste0(ref.group, " - ")) ~
+            sub(paste0("^", ref.group, " - "), "", contrast),
+          TRUE ~ NA_character_
+        )) %>%
+        dplyr::filter(!is.na(Treatment)) %>%
+        dplyr::mutate(PAdjustMethod = "Tukey") %>%
+        dplyr::select(Treatment, RawPValue, PValue, PAdjustMethod)
+
+      letters %>%
+        dplyr::left_join(p.values, by = "Treatment") %>%
         dplyr::mutate(temp = paste0(Gene, Treatment)) %>%
-        dplyr::left_join(df.stat, by = "temp") -> df
+        dplyr::select(temp, signif, RawPValue, PValue, PAdjustMethod) %>%
+        rbind(df.stat) -> df.stat
     }
+    df.rep %>%
+      dplyr::mutate(temp = paste0(Gene, Treatment)) %>%
+      dplyr::left_join(df.stat, by = "temp") %>%
+      dplyr::select(-temp) -> df.rep
   }
 
-  # plot
-  df %>%
+  # plot（同样以生物学重复为单位）
+  df.rep %>%
     dplyr::group_by(Gene, Treatment) %>%
     dplyr::mutate(
       mean.expre = mean(expre),
@@ -200,9 +282,6 @@ CalExpCurve <- function(cq.table,
       ggplot2::ggplot(ggplot2::aes(Treatment, expre, fill = Treatment)) +
       ggplot2::geom_boxplot(width = 0.6) +
       ggplot2::facet_wrap(. ~ Gene, scales = "free_y", ncol = fig.ncol) +
-      ggplot2::geom_text(ggplot2::aes(Treatment, mean.expre, label = "."),
-        check_overlap = TRUE, size = 15, color = "red"
-      ) +
       ggplot2::geom_text(ggplot2::aes(Treatment, min(expre), label = signif),
         check_overlap = TRUE, size = 3, color = "black"
       ) +
@@ -214,9 +293,11 @@ CalExpCurve <- function(cq.table,
       ) -> p
   } else if (fig.type == "bar") {
     df.plot %>%
+      dplyr::distinct(Treatment, Gene, .keep_all = TRUE) %>%
       dplyr::group_by(Gene) %>%
       dplyr::mutate(max.temp = max(expre)) %>%
-      ggplot2::ggplot(ggplot2::aes(Treatment, mean.expre / n, fill = Treatment)) +
+      # 柱高应为组均值；原实现写成 mean.expre / n（除以重复数没有意义），2026-10-15 改正
+      ggplot2::ggplot(ggplot2::aes(Treatment, mean.expre, fill = Treatment)) +
       ggplot2::geom_bar(stat = "identity", width = 0.6) +
       ggplot2::geom_errorbar(ggplot2::aes(Treatment,
         ymin = mean.expre - sd.expre,

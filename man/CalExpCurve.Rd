@@ -12,6 +12,7 @@ CalExpCurve(
   ref_gene = "OsUBQ",
   stat_method = "t.test",
   ref_group = "CK",
+  dilution = 4,
   fig_type = "box",
   fig_ncol = NULL
 )
@@ -36,6 +37,9 @@ One of "t.test", "wilcox.test", or "anova" (default: "t.test").}
 
 \item{ref_group}{Character. The name of the reference/control group
 (default: "CK").}
+
+\item{dilution}{Numeric. Dilution factor used by the standard curve
+(default: 4).}
 
 \item{fig_type}{Character. Plot type: "box" for boxplot, "bar" for barplot
 (default: "box").}

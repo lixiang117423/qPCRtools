@@ -4,7 +4,8 @@ globalVariables(c(
   "expression", "mean.expression", "sd.expression", "se.expression",
   "n.biorep", "group2", "signif", "temp",
   "Treatment", "expre", "mean.expre", "sd.expre", "se.expre", "n",
-  "max.temp", "is.out", "Target", "Reference", "ddct1", "p"
+  "max.temp", "is.out", "Target", "Reference", "ddct1", "p",
+  "RawPValue", "PValue", "PAdjustMethod", "contrast", "letters"
 ))
 
 #' Calculate Expression Using 2-ddCt Method
@@ -100,11 +101,14 @@ CalExp2ddCt <- function(cq_table,
       dplyr::filter(gene %in% c(genes, ref_gene))
 
     # reference gene in CK
-    df.sub.ck.ref_gene <- df.sub %>%
+    df.sub.ck <- df.sub %>%
+      dplyr::filter(group == ref_group)
+
+    df.sub.ck.ref_gene <- df.sub.ck %>%
       dplyr::filter(gene == ref_gene)
     mean.ck.ref_gene <- mean(df.sub.ck.ref_gene$cq)
 
-    df.sub.ck.target.gene <- df.sub %>%
+    df.sub.ck.target.gene <- df.sub.ck %>%
       dplyr::filter(gene != ref_gene)
     mean.ck.target.gene <- mean(df.sub.ck.target.gene$cq)
 
@@ -168,7 +172,7 @@ CalExp2ddCt <- function(cq_table,
       mean.expression = mean(expression),
       sd.expression = stats::sd(expression),
       n.biorep = dplyr::n(),
-      se.expression = mean.expression / sqrt(n.biorep)
+      se.expression = sd.expression / sqrt(n.biorep)
     ) %>%
     dplyr::ungroup() %>%
     dplyr::mutate(temp = paste0(gene, group)) -> res.all
@@ -215,14 +219,17 @@ cal_stat_test <- function(res.all, stat_method, ref_group) {
       dplyr::select(gene, group2, p) %>%
       dplyr::mutate(signif = dplyr::case_when(
         p < 0.001 ~ "***",
-        p > 0.001 & p < 0.01 ~ "**",
-        p > 0.01 & p < 0.05 ~ "*",
+        p < 0.01 ~ "**",
+        p < 0.05 ~ "*",
         TRUE ~ "NS"
-      )) %>%
-      dplyr::add_row(group2 = ref_group, p = NA, signif = NA) %>%
+      ), RawPValue = p, PValue = p, PAdjustMethod = "none") %>%
+      dplyr::add_row(
+        group2 = ref_group, p = NA, signif = NA,
+        RawPValue = NA, PValue = NA, PAdjustMethod = NA
+      ) %>%
       dplyr::rename(group = group2) %>%
       dplyr::mutate(temp = paste0(gene, group)) %>%
-      dplyr::select(temp, signif) -> df.stat
+      dplyr::select(temp, signif, RawPValue, PValue, PAdjustMethod) -> df.stat
 
     res.all %>%
       dplyr::left_join(df.stat, by = "temp")
@@ -234,14 +241,17 @@ cal_stat_test <- function(res.all, stat_method, ref_group) {
       dplyr::select(gene, group2, p) %>%
       dplyr::mutate(signif = dplyr::case_when(
         p < 0.001 ~ "***",
-        p > 0.001 & p < 0.01 ~ "**",
-        p > 0.01 & p < 0.05 ~ "*",
+        p < 0.01 ~ "**",
+        p < 0.05 ~ "*",
         TRUE ~ "NS"
-      )) %>%
-      dplyr::add_row(group2 = ref_group, p = NA, signif = NA) %>%
+      ), RawPValue = p, PValue = p, PAdjustMethod = "none") %>%
+      dplyr::add_row(
+        group2 = ref_group, p = NA, signif = NA,
+        RawPValue = NA, PValue = NA, PAdjustMethod = NA
+      ) %>%
       dplyr::rename(group = group2) %>%
       dplyr::mutate(temp = paste0(gene, group)) %>%
-      dplyr::select(temp, signif) -> df.stat
+      dplyr::select(temp, signif, RawPValue, PValue, PAdjustMethod) -> df.stat
 
     res.all %>%
       dplyr::left_join(df.stat, by = "temp")
@@ -253,14 +263,62 @@ cal_stat_test <- function(res.all, stat_method, ref_group) {
         dplyr::mutate(group = factor(group))
       fit <- stats::aov(expression ~ group, data = df.sub)
       tuk <- multcomp::glht(fit, linfct = multcomp::mcp(group = "Tukey"))
-      multcomp::cld(tuk, level = 0.95, ddecreasing = TRUE)[["mcletters"]][["Letters"]] %>%
+      letters <- multcomp::cld(
+        tuk, level = 0.05, decreasing = TRUE
+      )[["mcletters"]][["Letters"]] %>%
         as.data.frame() %>%
         dplyr::mutate(gene = i) %>%
         tibble::rownames_to_column(var = "group") %>%
-        magrittr::set_colnames(c("group", "signif", "gene")) %>%
-        dplyr::select(group, gene, signif) %>%
+        magrittr::set_colnames(c("group", "signif", "gene"))
+
+      raw.test <- summary(
+        tuk, test = multcomp::adjusted("none")
+      )[["test"]]
+      raw.p <- if (is.list(raw.test) && !is.null(raw.test[["pvalues"]])) {
+        as.numeric(raw.test[["pvalues"]])
+      } else if (is.null(dim(raw.test))) {
+        as.numeric(raw.test)
+      } else {
+        raw.test[, "pvalue"]
+      }
+      adjusted.test <- summary(tuk)[["test"]]
+      adjusted.p <- if (
+        is.list(adjusted.test) && !is.null(adjusted.test[["pvalues"]])
+      ) {
+        as.numeric(adjusted.test[["pvalues"]])
+      } else if (is.null(dim(adjusted.test))) {
+        as.numeric(adjusted.test)
+      } else {
+        adjusted.test[, "pvalue"]
+      }
+      contrasts <- if (
+        is.list(adjusted.test) && !is.null(adjusted.test[["coefficients"]])
+      ) {
+        names(adjusted.test[["coefficients"]])
+      } else {
+        rownames(adjusted.test)
+      }
+      p.values <- data.frame(
+        contrast = contrasts,
+        RawPValue = raw.p,
+        PValue = adjusted.p,
+        stringsAsFactors = FALSE
+      ) %>%
+        dplyr::mutate(group = dplyr::case_when(
+          endsWith(contrast, paste0(" - ", ref_group)) ~
+            sub(paste0(" - ", ref_group, "$"), "", contrast),
+          startsWith(contrast, paste0(ref_group, " - ")) ~
+            sub(paste0("^", ref_group, " - "), "", contrast),
+          TRUE ~ NA_character_
+        )) %>%
+        dplyr::filter(!is.na(group)) %>%
+        dplyr::mutate(PAdjustMethod = "Tukey") %>%
+        dplyr::select(group, RawPValue, PValue, PAdjustMethod)
+
+      letters %>%
+        dplyr::left_join(p.values, by = "group") %>%
         dplyr::mutate(temp = paste0(group, gene)) %>%
-        dplyr::select(temp, signif) %>%
+        dplyr::select(temp, signif, RawPValue, PValue, PAdjustMethod) %>%
         rbind(df.stat) -> df.stat
     }
     res.all %>%
@@ -278,10 +336,6 @@ build_exp_plot <- function(df.plot, fig_type, fig_ncol) {
       ggplot2::geom_boxplot(width = 0.6) +
       ggplot2::facet_wrap(. ~ gene, scales = "free_y", ncol = fig_ncol) +
       ggplot2::geom_text(
-        ggplot2::aes(Treatment, mean.expre, label = "."),
-        check_overlap = TRUE, size = 15, color = "red"
-      ) +
-      ggplot2::geom_text(
         ggplot2::aes(Treatment, min(expre), label = signif),
         check_overlap = TRUE, size = 3, color = "black"
       ) +
@@ -293,10 +347,11 @@ build_exp_plot <- function(df.plot, fig_type, fig_ncol) {
       )
   } else if (fig_type == "bar") {
     df.plot %>%
+      dplyr::distinct(Treatment, gene, .keep_all = TRUE) %>%
       dplyr::group_by(Treatment, gene) %>%
       dplyr::mutate(max.temp = max(expre)) %>%
       dplyr::ungroup() %>%
-      ggplot2::ggplot(ggplot2::aes(Treatment, mean.expre / n, fill = Treatment)) +
+      ggplot2::ggplot(ggplot2::aes(Treatment, mean.expre, fill = Treatment)) +
       ggplot2::geom_bar(stat = "identity", width = 0.6) +
       ggplot2::geom_errorbar(ggplot2::aes(
         Treatment,
